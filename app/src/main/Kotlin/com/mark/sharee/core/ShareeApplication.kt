@@ -6,6 +6,9 @@ import android.content.Context
 import android.content.res.Configuration
 import android.util.SparseArray
 import androidx.multidex.MultiDexApplication
+import com.mark.sharee.di.retrofitModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import java.util.*
 
 abstract class ShareeApplication : MultiDexApplication() {
@@ -18,6 +21,10 @@ abstract class ShareeApplication : MultiDexApplication() {
         setLocale(baseContext)
         super.onCreate()
 
+        startKoin {
+            androidContext(this@ShareeApplication)
+            modules(listOf(retrofitModule))
+        }
     }
 
 //    abstract val component: PepperApplicationComponent

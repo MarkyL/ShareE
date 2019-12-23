@@ -42,7 +42,7 @@ abstract class ShareeFragment : Fragment() {
         this.nextExitAnimation = animation
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.let {
             if (it.containsKey(ARGUMENTS)) {

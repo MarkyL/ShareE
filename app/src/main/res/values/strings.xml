@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ShareE</string>
+
+    <!-- Error messages -->
+    <string name="internet_failure_error">Internet connectivity error</string>
+
 </resources>
