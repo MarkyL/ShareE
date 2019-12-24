@@ -1,6 +1,7 @@
 package com.mark.sharee.fragments
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,7 +27,8 @@ class MovieViewModel constructor(application: Application, private val shareeSer
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
         when(event){
             is FetchMovies -> {
-                fetchMoviesFromServer()
+                Timber.i("mark - fetchMovies")
+                //fetchMoviesFromServer()
             }
         }
     }

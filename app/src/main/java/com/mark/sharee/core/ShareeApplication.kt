@@ -8,6 +8,7 @@ import android.util.SparseArray
 import androidx.multidex.MultiDexApplication
 import com.mark.sharee.di.navigatorModule
 import com.mark.sharee.di.retrofitModule
+import com.mark.sharee.di.viewModelsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -27,7 +28,7 @@ class ShareeApplication : MultiDexApplication() {
         startKoin {
             androidContext(this@ShareeApplication)
             androidLogger()
-            modules(listOf(retrofitModule, navigatorModule))
+            modules(listOf(retrofitModule, navigatorModule, viewModelsModule))
         }
 
         Timber.plant(Timber.DebugTree())

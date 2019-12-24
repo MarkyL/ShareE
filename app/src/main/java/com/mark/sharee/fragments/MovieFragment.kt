@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.sharee.R
 import com.mark.sharee.core.ShareeFragment
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
 
@@ -17,7 +18,7 @@ class MovieFragment : ShareeFragment() {
         fun newInstance() = MovieFragment()
     }
 
-    private lateinit var viewModel: MovieViewModel
+    val viewModel : MovieViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +29,7 @@ class MovieFragment : ShareeFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
+        Timber.i("mark - viewModel = $viewModel")
         // TODO: Use the ViewModel
     }
 

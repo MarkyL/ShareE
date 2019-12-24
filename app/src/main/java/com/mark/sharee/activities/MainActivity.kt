@@ -19,12 +19,19 @@ class MainActivity : ShareeActivity() {
         setContentView(R.layout.activity_main)
 
         Timber.i("mark - onCreate")
-        navigator.add(MovieScreen())
+
     }
 
     override fun onResume() {
         super.onResume()
         Timber.d("mark - onResume")
+        navigator.takeActivity(this)
+        navigator.add(MovieScreen())
+    }
+
+    override fun onPause() {
+        super.onPause()
+        navigator.dropActivity()
     }
 
 

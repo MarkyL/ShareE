@@ -1,16 +1,13 @@
 package com.mark.sharee.model.mvvmbase
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import rx.Subscription
 import rx.subjects.BehaviorSubject
 import rx.subscriptions.CompositeSubscription
 import timber.log.Timber
 
-abstract class BaseViewModel<T, R>(application: Application) : AndroidViewModel(application),
+abstract class BaseViewModel<T, R>(application: Application) : ViewModel(),
     LifecycleObserver {
 
     protected val subscriptions = CompositeSubscription()
