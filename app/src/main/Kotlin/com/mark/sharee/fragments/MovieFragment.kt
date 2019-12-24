@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.sharee.R
+import com.mark.sharee.core.ShareeFragment
+import timber.log.Timber
 
 
-class MovieFragment : Fragment() {
+class MovieFragment : ShareeFragment() {
 
     companion object {
         fun newInstance() = MovieFragment()
@@ -28,6 +30,11 @@ class MovieFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.i("mark - onCreate")
     }
 
 }

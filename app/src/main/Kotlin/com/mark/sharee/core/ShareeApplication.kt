@@ -6,12 +6,14 @@ import android.content.Context
 import android.content.res.Configuration
 import android.util.SparseArray
 import androidx.multidex.MultiDexApplication
+import com.mark.sharee.di.navigatorModule
 import com.mark.sharee.di.retrofitModule
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import java.util.*
 
-abstract class ShareeApplication : MultiDexApplication() {
+class ShareeApplication : MultiDexApplication() {
     private val cachedComponents = SparseArray<ActivityComponent>()
 
     interface ActivityComponent
@@ -23,11 +25,10 @@ abstract class ShareeApplication : MultiDexApplication() {
 
         startKoin {
             androidContext(this@ShareeApplication)
-            modules(listOf(retrofitModule))
+            androidLogger()
+            modules(listOf(retrofitModule, navigatorModule))
         }
     }
-
-//    abstract val component: PepperApplicationComponent
 
     companion object {
         private var debug: Boolean? = null

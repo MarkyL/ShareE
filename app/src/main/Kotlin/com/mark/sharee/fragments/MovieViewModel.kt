@@ -13,6 +13,8 @@ import com.mark.sharee.network.endpoint.ShareeService
 import com.mark.sharee.network.model.responses.MovieResponse
 import com.mark.sharee.utils.Event
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import timber.log.Timber
 
 class MovieViewModel constructor(application: Application, private val shareeService: ShareeService) : BaseViewModel<MovieDataState, MovieDataEvent>(application = application) {

@@ -26,10 +26,7 @@ constructor(override val containerView: View) : RecyclerView.ViewHolder(containe
             .load(MOVIE_POSTER_BASE_URL.plus(item.posterUrl))
             .fitCenter().centerCrop()
             .into(movie_poster_image_view)
-//        picasso.load(MOVIE_POSTER_BASE_URL.plus(movie.posterUrl))
-//            .fit()
-//            .centerCrop()
-//            .into(movie_poster_image_view)
+
         movie_name_text_view.text = item.name
         movie_release_date_text_view.text = item.releaseDate
         setImageFavorite(item.isFavorite)

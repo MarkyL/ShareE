@@ -3,11 +3,11 @@ package com.mark.sharee.model.mvvmbase
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mark.sharee.fragments.MovieViewModel
 import java.util.prefs.Preferences
 
 //@Singleton
 class BaseViewModelFactory constructor(val application: Application,
-//                                               val repository: PaymentsRepository,
                                                var preferences: Preferences) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -17,6 +17,9 @@ class BaseViewModelFactory constructor(val application: Application,
 //            return BusinessHistoryViewModel(repository, application) as T
 //        }
 
+//        if (modelClass.isAssignableFrom(MovieViewModel::class.java)) {
+//            return MovieViewModel()
+//        }
 
         throw  IllegalArgumentException("Unknown ViewModel class")
     }
