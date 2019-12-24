@@ -11,6 +11,7 @@ import com.mark.sharee.di.retrofitModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import timber.log.Timber
 import java.util.*
 
 class ShareeApplication : MultiDexApplication() {
@@ -28,6 +29,8 @@ class ShareeApplication : MultiDexApplication() {
             androidLogger()
             modules(listOf(retrofitModule, navigatorModule))
         }
+
+        Timber.plant(Timber.DebugTree())
     }
 
     companion object {

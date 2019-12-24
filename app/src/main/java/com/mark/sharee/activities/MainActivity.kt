@@ -2,6 +2,7 @@ package com.mark.sharee.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.sharee.R
 import com.mark.sharee.core.ShareeActivity
 import com.mark.sharee.fragments.MovieViewModel
@@ -20,4 +21,11 @@ class MainActivity : ShareeActivity() {
         Timber.i("mark - onCreate")
         navigator.add(MovieScreen())
     }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.d("mark - onResume")
+    }
+
+
 }
