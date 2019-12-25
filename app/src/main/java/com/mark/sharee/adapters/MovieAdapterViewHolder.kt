@@ -9,6 +9,7 @@ import com.mark.sharee.network.model.responses.MovieResponse
 import com.mark.sharee.utils.GlideApp
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.single_movie_item.*
+import timber.log.Timber
 
 class MovieAdapterViewHolder
 constructor(override val containerView: View) : RecyclerView.ViewHolder(containerView),

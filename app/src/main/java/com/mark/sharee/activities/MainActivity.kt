@@ -3,10 +3,12 @@ package com.mark.sharee.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.example.sharee.R
 import com.mark.sharee.core.ShareeActivity
 import com.mark.sharee.fragments.MovieViewModel
 import com.mark.sharee.screens.MovieScreen
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 

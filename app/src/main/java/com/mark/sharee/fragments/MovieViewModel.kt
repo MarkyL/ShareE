@@ -28,7 +28,7 @@ class MovieViewModel constructor(application: Application, private val shareeSer
         when(event){
             is FetchMovies -> {
                 Timber.i("mark - fetchMovies")
-                //fetchMoviesFromServer()
+                fetchMoviesFromServer()
             }
         }
     }
@@ -36,11 +36,14 @@ class MovieViewModel constructor(application: Application, private val shareeSer
     private fun fetchMoviesFromServer() {
         viewModelScope.launch {
             runCatching {
+                Timber.i("mark - runCatching")
                 emitUiState(showProgress = true)
                 shareeService.popularMovies(apiKey = Constants.API_KEY)
             }.onSuccess {
+                Timber.i("mark - $it")
                 emitUiState(movies = Event(it.movies))
             }.onFailure {
+                Timber.i("mark - onFailure")
                 it.printStackTrace()
                 emitUiState(error = Event(R.string.internet_failure_error))
             }

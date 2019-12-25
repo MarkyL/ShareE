@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.mark.sharee.network.model.responses.MovieResponse
 
-class MovieAdapter() :
+class MovieAdapter :
     ListAdapter<MovieResponse.Movie, MovieAdapterViewHolder>(
         DIFF_CALLBACK
     ) {
