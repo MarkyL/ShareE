@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "119186533583",
+    "firebase_url": "https://sharee-2020.firebaseio.com",
+    "project_id": "sharee-2020",
+    "storage_bucket": "sharee-2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119186533583:android:997b682f91a2e68a2d1bba",
+        "android_client_info": {
+          "package_name": "com.example.sharee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119186533583-q2ffohls50j5pbhgg8hitcthi4tg0o1l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sharee",
+            "certificate_hash": "00d607429da087e05d882941fd2b1c20108cf6cc"
+          }
+        },
+        {
+          "client_id": "119186533583-d5dcvodcrnhte0sahkbci5j0e0rm6kkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2d0i9PL8or9BZui6wNCitkaVpOdjkZtQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119186533583-d5dcvodcrnhte0sahkbci5j0e0rm6kkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

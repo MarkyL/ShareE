@@ -8,6 +8,8 @@ apply plugin: 'kotlinx-serialization'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -84,6 +86,9 @@ dependencies {
     implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
 
     //firebase
+    implementation 'com.google.firebase:firebase-core:17.2.1'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-analytics:17.2.1'
 
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
