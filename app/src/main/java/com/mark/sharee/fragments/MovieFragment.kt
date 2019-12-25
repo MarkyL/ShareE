@@ -36,14 +36,13 @@ class MovieFragment : ShareeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         recyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(GridSpacingItemDecoration(2, 30, true))
             this.adapter = movieAdapter
         }
 
-        viewModel.uiState.observe(this, Observer {
+        viewModel.uiState.observe(viewLifecycleOwner, Observer {
             val dataState = it ?: return@Observer
             progressBar.visibility = if (dataState.showProgress) View.VISIBLE else View.GONE
             if (dataState.movies != null && !dataState.movies.consumed) {
