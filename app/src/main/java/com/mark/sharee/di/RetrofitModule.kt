@@ -4,6 +4,9 @@ import android.content.Context
 import com.example.sharee.BuildConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.mark.sharee.core.Constants
+import com.mark.sharee.data.ShareeRepository
+import com.mark.sharee.data.remote.ShareeRemoteDataSource
+import com.mark.sharee.network.endpoint.ShareeEndpoint
 import com.mark.sharee.network.endpoint.ShareeService
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
@@ -27,13 +30,15 @@ val retrofitModule = module {
         okhttp(cache)
     }
 
-    single {
-        retrofit(get(), Constants.BASE_URL)
-    }
+    single { retrofit(get(), Constants.BASE_URL) }
 
-    single {
-        get<Retrofit>().create(ShareeService::class.java)
-    }
+    single { get<Retrofit>().create(ShareeService::class.java) }
+
+    single { ShareeEndpoint(get()) }
+
+    single { ShareeRemoteDataSource(get()) }
+
+    single { ShareeRepository(get()) }
 }
 
 private val interceptor: Interceptor

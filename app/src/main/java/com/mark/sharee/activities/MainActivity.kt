@@ -3,10 +3,8 @@ package com.mark.sharee.activities
 import android.os.Bundle
 import com.example.sharee.R
 import com.mark.sharee.core.ShareeActivity
-import com.mark.sharee.fragments.movie.MovieViewModel
 import com.mark.sharee.screens.MovieScreen
 import com.mark.sharee.screens.SignInScreen
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class MainActivity : ShareeActivity() {
@@ -23,7 +21,7 @@ class MainActivity : ShareeActivity() {
         super.onResume()
         Timber.d("mark - onResume")
         navigator.takeActivity(this)
-        navigator.add(SignInScreen())
+        navigator.add(MovieScreen())
     }
 
     override fun onPause() {

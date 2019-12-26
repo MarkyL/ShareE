@@ -9,6 +9,8 @@ interface ShareeService {
     @GET(value = "popular")
     suspend fun popularMovies(
         @Query(value = "api_key", encoded = false)
-        apiKey: String, @Query(value = "page") pageNumber: Int = 1
-    ): MovieResponse
+        apiKey: String, @Query(value = "page") pageNumber: Int = 1): MovieResponse
+
+    @GET(value = "create")
+    suspend fun create(name: String)
 }

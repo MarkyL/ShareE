@@ -9,6 +9,7 @@ import androidx.multidex.MultiDexApplication
 import com.google.firebase.auth.FirebaseAuth
 import com.mark.sharee.di.navigatorModule
 import com.mark.sharee.di.retrofitModule
+import com.mark.sharee.di.shareeApp
 import com.mark.sharee.di.viewModelsModule
 import com.mark.sharee.navigation.Arguments
 import com.mark.sharee.navigation.Screen
@@ -35,7 +36,7 @@ class ShareeApplication : MultiDexApplication() {
         startKoin {
             androidContext(this@ShareeApplication)
             androidLogger()
-            modules(listOf(retrofitModule, navigatorModule, viewModelsModule))
+            modules(shareeApp)
         }
 
         Timber.plant(Timber.DebugTree())

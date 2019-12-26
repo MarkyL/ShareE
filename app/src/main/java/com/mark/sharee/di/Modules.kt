@@ -24,4 +24,4 @@ val viewModelsModule = module {
 }
 
 // Gather all app modules
-val shareeApp = listOf(dataModule, navigatorModule, viewModelsModule)
+val shareeApp = listOf(dataModule, navigatorModule, viewModelsModule, retrofitModule)

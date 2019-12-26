@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.sharee.R
 import com.mark.sharee.core.Constants
+import com.mark.sharee.data.ShareeRepository
 import com.mark.sharee.model.mvvmbase.BaseViewModel
 import com.mark.sharee.network.endpoint.ShareeService
 import com.mark.sharee.network.model.responses.MovieResponse
@@ -13,7 +14,7 @@ import com.mark.sharee.utils.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class MovieViewModel constructor(application: Application, private val shareeService: ShareeService) : BaseViewModel<MovieDataState, MovieDataEvent>(application = application) {
+class MovieViewModel constructor(application: Application, private val shareeRepository: ShareeRepository) : BaseViewModel<MovieDataState, MovieDataEvent>(application = application) {
 
     private val _uiState = MutableLiveData<MovieDataState>()
     val uiState: LiveData<MovieDataState> get() = _uiState
@@ -33,7 +34,7 @@ class MovieViewModel constructor(application: Application, private val shareeSer
             runCatching {
                 Timber.i("mark - runCatching")
                 emitUiState(showProgress = true)
-                shareeService.popularMovies(apiKey = Constants.API_KEY)
+                shareeRepository.popularMovies(apiKey = Constants.API_KEY)
             }.onSuccess {
                 Timber.i("mark - $it")
                 emitUiState(movies = Event(it.movies))
