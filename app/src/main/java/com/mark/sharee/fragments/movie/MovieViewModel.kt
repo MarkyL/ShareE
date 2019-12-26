@@ -1,21 +1,16 @@
-package com.mark.sharee.fragments
+package com.mark.sharee.fragments.movie
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sharee.R
 import com.mark.sharee.core.Constants
 import com.mark.sharee.model.mvvmbase.BaseViewModel
-import com.mark.sharee.model.mvvmbase.LiveState
 import com.mark.sharee.network.endpoint.ShareeService
 import com.mark.sharee.network.model.responses.MovieResponse
 import com.mark.sharee.utils.Event
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
 import timber.log.Timber
 
 class MovieViewModel constructor(application: Application, private val shareeService: ShareeService) : BaseViewModel<MovieDataState, MovieDataEvent>(application = application) {

@@ -1,8 +1,6 @@
-package com.mark.sharee.fragments
+package com.mark.sharee.fragments.movie
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +13,6 @@ import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.utils.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.movie_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
 
 class MovieFragment : ShareeFragment() {
@@ -29,8 +26,7 @@ class MovieFragment : ShareeFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.movie_fragment, container, false)
     }
 

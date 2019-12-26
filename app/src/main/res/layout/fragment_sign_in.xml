@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context="com.mark.sharee.fragments.signin.SignInFragment">
+
+    <EditText
+        android:id="@+id/phoneNumberET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone_number"
+        android:text="+972549409575"
+        android:textColor="@color/textColor"
+        android:layout_margin="20dp"/>
+
+    <EditText
+        android:id="@+id/otpET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_otp"
+        android:clickable="false"
+        android:textColor="@color/textColor"
+        android:layout_margin="20dp"/>
+
+    <Button
+        android:id="@+id/generateOtpBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/generate_otp"
+        android:background="@color/colorAccent2"
+        android:textColor="@color/textColor"
+        android:layout_margin="20dp"/>
+    <Button
+        android:id="@+id/signInBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/verify_sign_in"
+        android:background="@color/colorAccent2"
+        android:textColor="@color/textColor"
+        android:layout_margin="20dp"/>
+
+</LinearLayout>
+
+
+

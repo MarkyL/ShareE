@@ -22,7 +22,7 @@ abstract class Screen protected constructor() {
 
     fun createFragment(): ShareeFragment {
         val fragment = create()
-        //abstractArguments?.let { fragment.setArguments(it) }
+        abstractArguments?.let { fragment.setArguments(it) }
         return fragment
     }
 

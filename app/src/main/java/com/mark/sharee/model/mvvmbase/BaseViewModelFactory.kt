@@ -3,7 +3,6 @@ package com.mark.sharee.model.mvvmbase
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mark.sharee.fragments.MovieViewModel
 import java.util.prefs.Preferences
 
 //@Singleton

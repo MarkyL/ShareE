@@ -3,7 +3,7 @@ package com.mark.sharee.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.sharee.R
-import com.mark.sharee.fragments.MovieViewModel
+import com.mark.sharee.fragments.movie.MovieViewModel
 import com.mark.sharee.navigation.ActivityNavigator
 import com.mark.sharee.navigation.FragmentNavigator
 import org.koin.android.ext.koin.androidContext
@@ -20,7 +20,7 @@ val navigatorModule = module {
 }
 
 val viewModelsModule = module {
-    viewModel { MovieViewModel(get(),get()) }
+    viewModel { MovieViewModel(get(), get()) }
 }
 
 // Gather all app modules

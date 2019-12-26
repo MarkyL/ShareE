@@ -6,12 +6,16 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.annotation.AnimRes
 import androidx.fragment.app.Fragment
+import com.mark.sharee.navigation.ActivityNavigator
 import com.mark.sharee.navigation.Arguments
+import org.koin.android.ext.android.get
 
 abstract class ShareeFragment : Fragment() {
     private var abstractArguments: Arguments? = null
     @AnimRes private var nextExitAnimation = -1
     @AnimRes private var nextEnterAnimation = -1
+
+    val navigator: ActivityNavigator = get()
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
 
