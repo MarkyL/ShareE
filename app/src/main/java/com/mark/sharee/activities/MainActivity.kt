@@ -21,7 +21,7 @@ class MainActivity : ShareeActivity() {
         super.onResume()
         Timber.d("mark - onResume")
         navigator.takeActivity(this)
-        navigator.add(MovieScreen())
+        navigator.add(SignInScreen())
     }
 
     override fun onPause() {

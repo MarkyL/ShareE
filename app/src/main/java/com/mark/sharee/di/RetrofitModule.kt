@@ -20,6 +20,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 
 val retrofitModule = module {
@@ -60,11 +61,11 @@ private fun cache(cacheFile: File) = Cache(cacheFile, Constants.CACHE_FILE_SIZE)
 private fun retrofit(callFactory: Call.Factory, baseUrl: String) = Retrofit.Builder()
     .callFactory(callFactory)
     .baseUrl(baseUrl)
-    .addConverterFactory(
-        Json(
-            JsonConfiguration(strictMode = false)
-        ).asConverterFactory("application/json".toMediaType())
-    )
+    .addConverterFactory(GsonConverterFactory.create())
+//        Json(
+//            JsonConfiguration(strictMode = false)
+//        ).asConverterFactory("application/json".toMediaType())
+//    )
     .build()
 
 private fun okhttp(cache: Cache) = OkHttpClient.Builder()
