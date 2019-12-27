@@ -11,6 +11,7 @@ import com.mark.sharee.di.navigatorModule
 import com.mark.sharee.di.retrofitModule
 import com.mark.sharee.di.shareeApp
 import com.mark.sharee.di.viewModelsModule
+import com.mark.sharee.model.User
 import com.mark.sharee.navigation.Arguments
 import com.mark.sharee.navigation.Screen
 import com.mark.sharee.navigation.arguments.TransferInfo
@@ -46,6 +47,7 @@ class ShareeApplication : MultiDexApplication() {
 
         registerFragmentArguments()
         registerScreens()
+        User.register(this)
     }
 
     private fun registerFragmentArguments() {

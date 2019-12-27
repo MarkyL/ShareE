@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.example.sharee.R
 import com.mark.sharee.fragments.main.MainViewModel
 import com.mark.sharee.fragments.movie.MovieViewModel
+import com.mark.sharee.fragments.signin.SignInViewModel
 import com.mark.sharee.navigation.ActivityNavigator
 import com.mark.sharee.navigation.FragmentNavigator
 import org.koin.android.ext.koin.androidContext
@@ -23,6 +24,7 @@ val navigatorModule = module {
 val viewModelsModule = module {
     viewModel { MovieViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get()) }
+    viewModel { SignInViewModel(get(), get()) }
 }
 
 // Gather all app modules
