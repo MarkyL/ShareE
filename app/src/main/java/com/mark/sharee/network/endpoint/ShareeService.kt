@@ -1,7 +1,9 @@
 package com.mark.sharee.network.endpoint
 
 import com.mark.sharee.network.model.requests.GeneralRequest
+import com.mark.sharee.network.model.requests.LoginRequest
 import com.mark.sharee.network.model.responses.GeneralResponse
+import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.MovieResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -17,4 +19,7 @@ interface ShareeService {
 
     @POST(value = "create")
     suspend fun create(@Body generalRequest: GeneralRequest): GeneralResponse
+
+    @POST(value = "login")
+    suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 }
