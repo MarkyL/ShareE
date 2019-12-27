@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.sharee.R
 import com.mark.sharee.data.ShareeRepository
+import com.mark.sharee.model.User
 import com.mark.sharee.mvvm.BaseViewModel
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.utils.Event
@@ -30,6 +31,8 @@ class SignInViewModel constructor(
     }
 
     private fun login(phoneNumber: String, uuid: String) {
+        User.create(phoneNumber, uuid)
+
         viewModelScope.launch {
             runCatching {
                 Timber.i("login - runCatching")
@@ -37,6 +40,7 @@ class SignInViewModel constructor(
                 shareeRepository.login(phoneNumber, uuid)
             }.onSuccess {
                 Timber.i("login - onSuccess, loginResponse = $it")
+                User.me()?.updateToken(it.verificationToken)
                 emitUiState(response = Event(it))
             }.onFailure {
                 Timber.e("login - onFailure $it")

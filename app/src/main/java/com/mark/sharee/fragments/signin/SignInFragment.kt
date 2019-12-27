@@ -43,6 +43,7 @@ class SignInFragment : ShareeFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         registerViewModel()
+
         generateOtpBtn.setOnClickListener {
             progressBar.visibility = View.VISIBLE
             PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -92,7 +93,6 @@ class SignInFragment : ShareeFragment() {
 
                     val transferInfo = TransferInfo()
                     transferInfo.phoneNumber = "123456789"
-//                    transferInfo.phoneNumber = user?.phoneNumber.toString()
                     navigator.add(MainScreen(transferInfo))
                 }
             }
