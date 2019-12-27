@@ -5,6 +5,7 @@ import com.mark.sharee.network.model.requests.LoginRequest
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.MovieResponse
+import com.mark.sharee.network.model.responses.PollResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -22,4 +23,7 @@ interface ShareeService {
 
     @POST(value = "login")
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
+
+    @GET(value = "poll")
+    suspend fun poll(@Query("verificationToken") verificationToken: String): PollResponse
 }

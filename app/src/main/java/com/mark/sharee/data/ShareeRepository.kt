@@ -6,13 +6,13 @@ import com.mark.sharee.data.remote.ShareeRemoteDataSource
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.MovieResponse
+import com.mark.sharee.network.model.responses.PollResponse
 
 
 class ShareeRepository constructor(private val remoteDataSource: ShareeRemoteDataSource) : ShareeDataSource{
-
     private val mockDataSource = ShareeMockDataSource()
-    private var activeDataSource: ShareeDataSource
 
+    private var activeDataSource: ShareeDataSource
     init {
         activeDataSource = mockDataSource
     }
@@ -24,6 +24,11 @@ class ShareeRepository constructor(private val remoteDataSource: ShareeRemoteDat
     override suspend fun login(phoneNumber: String, uuid: String): LoginResponse {
         return activeDataSource.login(phoneNumber, uuid)
     }
+
+    override suspend fun poll(verificationToken: String): PollResponse {
+        return activeDataSource.poll(verificationToken)
+    }
+
     override suspend fun popularMovies(apiKey: String): MovieResponse {
         return activeDataSource.popularMovies(apiKey)
     }
