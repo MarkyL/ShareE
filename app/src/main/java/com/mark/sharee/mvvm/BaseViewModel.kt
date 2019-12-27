@@ -1,4 +1,4 @@
-package com.mark.sharee.model.mvvmbase
+package com.mark.sharee.mvvm
 
 import android.app.Application
 import androidx.lifecycle.*
@@ -18,7 +18,10 @@ abstract class BaseViewModel<T, R>(application: Application) : ViewModel(),
         value = Init
     }
     private val data = MutableLiveData<ViewModelHolder<T>>().apply {
-        value = ViewModelHolder(null, State.INIT) //Initializing the ViewModel
+        value = ViewModelHolder(
+            null,
+            State.INIT
+        ) //Initializing the ViewModel
     }
 
 

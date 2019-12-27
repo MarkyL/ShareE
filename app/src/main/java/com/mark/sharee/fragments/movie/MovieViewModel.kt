@@ -7,8 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.sharee.R
 import com.mark.sharee.core.Constants
 import com.mark.sharee.data.ShareeRepository
-import com.mark.sharee.model.mvvmbase.BaseViewModel
-import com.mark.sharee.network.endpoint.ShareeService
+import com.mark.sharee.mvvm.BaseViewModel
 import com.mark.sharee.network.model.responses.MovieResponse
 import com.mark.sharee.utils.Event
 import kotlinx.coroutines.launch

@@ -1,9 +1,8 @@
-package com.mark.sharee.model.mvvmbase
+package com.mark.sharee.mvvm
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.mark.sharee.core.ShareeFragment
-import org.xml.sax.ErrorHandler
 import timber.log.Timber
 
 abstract class ShareeMvvmFragment<T, R> : ShareeFragment() {

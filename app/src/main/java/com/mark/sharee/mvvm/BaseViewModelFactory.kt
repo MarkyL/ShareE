@@ -1,4 +1,4 @@
-package com.mark.sharee.model.mvvmbase
+package com.mark.sharee.mvvm
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
