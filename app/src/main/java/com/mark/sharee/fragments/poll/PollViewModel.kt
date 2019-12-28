@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.sharee.R
 import com.mark.sharee.data.ShareeRepository
 import com.mark.sharee.model.User
+import com.mark.sharee.model.poll.AnsweredQuestion
+import com.mark.sharee.model.poll.Question
 import com.mark.sharee.mvvm.BaseViewModel
 import com.mark.sharee.network.model.responses.PollResponse
 import com.mark.sharee.utils.Event
@@ -22,22 +24,21 @@ class PollViewModel constructor(application: Application, private val shareeRepo
     override fun handleScreenEvents(event: PollDataEvent) {
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
         when (event) {
-            is GetPoll -> {
-                getPoll()
-            }
+            is GetPoll -> getPoll()
+            is SubmitPoll -> submitPoll(event.answeredQuestions)
+
         }
     }
 
     private fun getPoll() {
         val verificationToken = User.me()?.getToken()
         if (verificationToken == null) {
-            Timber.e("getPoll - user has no verificationToken")
-            emitUiState(error = Event(R.string.no_verification_token))
+            handleNoToken()
             return
         }
         viewModelScope.launch {
             runCatching {
-                Timber.i("login - runCatching")
+                Timber.i("getPoll - runCatching")
                 emitUiState(showProgress = true)
                 shareeRepository.poll(verificationToken)
             }.onSuccess {
@@ -50,6 +51,25 @@ class PollViewModel constructor(application: Application, private val shareeRepo
         }
     }
 
+    private fun submitPoll(answeredQuestions: List<Question>) {
+        val verificationToken = User.me()?.getToken()
+        if (verificationToken == null) {
+            handleNoToken()
+            return
+        }
+        viewModelScope.launch {
+            kotlin.runCatching {
+                Timber.i("submitPoll - runCatching")
+                emitUiState(showProgress = true)
+                shareeRepository.submitPoll(verificationToken, AnsweredQuestion.convertQuestionListToAnsweredQuestionList(answeredQuestions))
+            }.onSuccess {
+                Timber.i("submitPoll - onSuccess")
+            }.onFailure {
+                Timber.e("submitPoll - onFailure $it")
+                emitUiState(error = Event(R.string.error_general))
+            }
+        }
+    }
 
     private fun emitUiState(
         showProgress: Boolean = false,
@@ -59,11 +79,19 @@ class PollViewModel constructor(application: Application, private val shareeRepo
         val dataState = PollDataState(showProgress, response, error)
         _uiState.value = dataState
     }
+
+    private fun handleNoToken() {
+        Timber.e("getPoll - user has no verificationToken")
+        emitUiState(error = Event(R.string.no_verification_token))
+        return
+    }
+
 }
 
 // Events = actions coming from UI
 sealed class PollDataEvent
 object GetPoll : PollDataEvent()
+data class SubmitPoll(val answeredQuestions: List<Question>) : PollDataEvent()
 
 // State = change of states by the view model
 data class PollDataState(

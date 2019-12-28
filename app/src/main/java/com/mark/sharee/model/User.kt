@@ -45,6 +45,12 @@ data class User(val verificationToken: String,
             }
             return me
         }
+
+        fun isVerificationTokenAvailable(): Boolean {
+            me?.getToken().let {
+                return it != null
+            }
+        }
     }
 
     @SuppressLint("ApplySharedPref")

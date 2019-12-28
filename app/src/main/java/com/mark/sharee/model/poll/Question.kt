@@ -15,14 +15,14 @@ abstract class Question(
 }
 
 data class BooleanQuestion(
-    @SerialName(value = "answer") val answer: Boolean?,
+    @SerialName(value = "answer") var answer: Boolean?,
     @SerialName(value = "id") override val id: Long,
     @SerialName(value = "type") override val type: QuestionType,
     @SerialName(value = "question") override val question: String
 ) : Question(id, type, question)
 
 data class NumericalQuestion(
-    @SerialName(value = "answer") val answer: Int?,
+    @SerialName(value = "answer") var answer: Int?,
     @SerialName(value = "id") override val id: Long,
     @SerialName(value = "type") override val type: QuestionType,
     @SerialName(value = "question") override val question: String
@@ -30,7 +30,7 @@ data class NumericalQuestion(
 
 
 data class TextualQuestion(
-    @SerialName(value = "answer") val answer: String?,
+    @SerialName(value = "answer") var answer: String?,
     @SerialName(value = "id") override val id: Long,
     @SerialName(value = "type") override val type: QuestionType,
     @SerialName(value = "question") override val question: String

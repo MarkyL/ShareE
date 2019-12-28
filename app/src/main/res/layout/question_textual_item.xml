@@ -19,7 +19,7 @@
     <EditText
         android:id="@+id/textAnswer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_marginStart="@dimen/global_margin_start"
         android:layout_marginEnd="@dimen/global_margin_end"
         android:layout_marginBottom="@dimen/global_margin_bottom"
@@ -28,7 +28,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/questionLayout"
         app:layout_constraintEnd_toEndOf="@id/questionLayout"
-        android:maxLines="5"
+        android:gravity="center_vertical|start"
+        android:inputType="text"
+        android:maxLength="140"
         android:hint="טקסט חופשי..."
         />
 

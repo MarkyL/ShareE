@@ -39,6 +39,8 @@ class PollFragment : ShareeFragment() {
         registerViewModel()
 
         viewModel.dispatchInputEvent(GetPoll)
+
+        submitBtn.setOnClickListener { onSubmitBtnClick() }
     }
 
     private fun registerViewModel() {
@@ -58,6 +60,11 @@ class PollFragment : ShareeFragment() {
                 }
             }
         })
+    }
+
+    private fun onSubmitBtnClick() {
+        Timber.i("onSubmitBtnClick")
+        viewModel.dispatchInputEvent(SubmitPoll(pollAdapter.items))
     }
 
 

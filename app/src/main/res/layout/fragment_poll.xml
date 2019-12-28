@@ -43,9 +43,9 @@
         android:background="@color/colorAccent"
         android:textColor="@color/textColor"
         android:layout_marginBottom="@dimen/min_margin_bottom"
-        android:layout_marginStart="@dimen/min_margin_end"
+        android:layout_marginEnd="@dimen/global_margin_end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
 

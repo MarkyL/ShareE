@@ -1,5 +1,6 @@
 package com.mark.sharee.data.interfaces
 
+import com.mark.sharee.model.poll.AnsweredQuestion
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.MovieResponse
@@ -12,6 +13,8 @@ interface ShareeDataSource {
     suspend fun login(phoneNumber: String, uuid: String): LoginResponse
 
     suspend fun poll(verificationToken: String): PollResponse
+
+    suspend fun submitPoll(verificationToken: String, answeredQuestions: List<AnsweredQuestion>)
 
     suspend fun popularMovies(apiKey: String): MovieResponse
 }

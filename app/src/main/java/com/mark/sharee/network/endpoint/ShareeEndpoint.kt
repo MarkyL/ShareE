@@ -1,8 +1,11 @@
 package com.mark.sharee.network.endpoint
 
 import com.mark.sharee.model.User
+import com.mark.sharee.model.poll.AnsweredQuestion
+import com.mark.sharee.network.model.requests.BasicRequest
 import com.mark.sharee.network.model.requests.GeneralRequest
 import com.mark.sharee.network.model.requests.LoginRequest
+import com.mark.sharee.network.model.requests.SubmitPollRequest
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.MovieResponse
@@ -23,8 +26,12 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
         return shareeService.popularMovies(apiKey)
     }
 
-    suspend fun poll(verificationToken: String): PollResponse {
-        return shareeService.poll(verificationToken)
+    suspend fun poll(basicRequest: BasicRequest): PollResponse {
+        return shareeService.poll(basicRequest)
+    }
+
+    suspend fun submitPoll(verificationToken: String, answeredQuestions: List<AnsweredQuestion>) {
+        shareeService.submitPoll(SubmitPollRequest(verificationToken, answeredQuestions))
     }
 
 

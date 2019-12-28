@@ -3,6 +3,7 @@ package com.mark.sharee.data
 import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.data.mock.ShareeMockDataSource
 import com.mark.sharee.data.remote.ShareeRemoteDataSource
+import com.mark.sharee.model.poll.AnsweredQuestion
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.MovieResponse
@@ -27,6 +28,10 @@ class ShareeRepository constructor(private val remoteDataSource: ShareeRemoteDat
 
     override suspend fun poll(verificationToken: String): PollResponse {
         return activeDataSource.poll(verificationToken)
+    }
+
+    override suspend fun submitPoll(verificationToken: String, answeredQuestions: List<AnsweredQuestion>) {
+        activeDataSource.submitPoll(verificationToken, answeredQuestions)
     }
 
     override suspend fun popularMovies(apiKey: String): MovieResponse {

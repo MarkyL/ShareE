@@ -1,7 +1,10 @@
 package com.mark.sharee.network.endpoint
 
+import com.mark.sharee.model.poll.AnsweredQuestion
+import com.mark.sharee.network.model.requests.BasicRequest
 import com.mark.sharee.network.model.requests.GeneralRequest
 import com.mark.sharee.network.model.requests.LoginRequest
+import com.mark.sharee.network.model.requests.SubmitPollRequest
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.MovieResponse
@@ -25,5 +28,8 @@ interface ShareeService {
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 
     @GET(value = "poll")
-    suspend fun poll(@Query("verificationToken") verificationToken: String): PollResponse
+    suspend fun poll(@Body basicRequest: BasicRequest): PollResponse
+
+    @POST(value = "submitPoll")
+    suspend fun submitPoll(@Body submitPollRequest: SubmitPollRequest)
 }
