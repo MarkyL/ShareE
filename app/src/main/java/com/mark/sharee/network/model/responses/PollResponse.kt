@@ -7,4 +7,4 @@ import kotlinx.serialization.SerialName
 data class PollResponse(
     @SerialName(value = "id") val id: String,
     @SerialName(value = "name") val name: String,
-    @SerialName(value = "questions") val questions: List<Question>)
+    @SerialName(value = "questions") val questions: MutableList<Question>)

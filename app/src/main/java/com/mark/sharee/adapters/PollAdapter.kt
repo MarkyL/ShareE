@@ -21,7 +21,7 @@ import timber.log.Timber
 
 class PollAdapter : ListAdapter<Question, QuestionViewHolder>(DIFF_CALLBACK) {
 
-    //private var items = listOf<Question>()
+    private var items = listOf<Question>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         QuestionViewHolder.create(parent, viewType)
@@ -36,6 +36,13 @@ class PollAdapter : ListAdapter<Question, QuestionViewHolder>(DIFF_CALLBACK) {
             Question.QuestionType.BOOLEAN -> Question.QuestionType.BOOLEAN.ordinal
             Question.QuestionType.NUMERICAL -> Question.QuestionType.NUMERICAL.ordinal
             Question.QuestionType.TEXTUAL -> Question.QuestionType.TEXTUAL.ordinal
+        }
+    }
+
+    override fun submitList(list: MutableList<Question>?) {
+        list?.let {
+            items = list
+            super.submitList(list)
         }
     }
 
