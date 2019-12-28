@@ -32,6 +32,8 @@
         android:hint="@string/generate_otp"
         android:background="@color/colorAccent2"
         android:textColor="@color/textColor"
+        android:drawableStart="@drawable/ic_call_black"
+        android:padding="8dp"
         android:layout_margin="20dp"/>
     <Button
         android:id="@+id/signInBtn"
@@ -49,6 +51,7 @@
         android:layout_gravity="center"
         android:visibility="gone"
         />
+
 
 </LinearLayout>
 

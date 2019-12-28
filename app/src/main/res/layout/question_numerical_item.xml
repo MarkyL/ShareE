@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/gray_background_light"
+    app:cardElevation="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start">
+
+    <include layout="@layout/question_item"
+        android:id="@+id/questionLayout"/>
+
+    <RadioGroup
+        android:id="@+id/radioGrp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textDirection="rtl"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/global_margin_start"
+        android:layout_marginBottom="@dimen/global_margin_bottom"
+        app:layout_constraintTop_toBottomOf="@id/questionLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/questionLayout"
+        >
+
+        <RadioButton
+            android:id="@+id/oneBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:buttonTint="@android:color/white"
+            android:textSize="12sp"
+            android:text="1"
+            />
+
+        <RadioButton
+            android:id="@+id/twoBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:buttonTint="@android:color/white"
+            android:textSize="14sp"
+            android:text="2"
+            android:layout_marginStart="@dimen/min_margin_start"
+            />
+
+        <RadioButton
+            android:id="@+id/threeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:buttonTint="@android:color/white"
+            android:textSize="14sp"
+            android:text="3"
+            android:layout_marginStart="@dimen/min_margin_start"
+            />
+
+        <RadioButton
+            android:id="@+id/fourBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:buttonTint="@android:color/white"
+            android:textSize="14sp"
+            android:text="4"
+            android:layout_marginStart="@dimen/min_margin_start"
+            />
+
+        <RadioButton
+            android:id="@+id/fiveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:buttonTint="@android:color/white"
+            android:textSize="14sp"
+            android:text="5"
+            android:layout_marginStart="@dimen/min_margin_start"
+            />
+
+    </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

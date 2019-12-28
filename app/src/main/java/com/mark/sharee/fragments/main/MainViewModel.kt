@@ -62,7 +62,7 @@ data class Echo(val name: String) : MainDataEvent()
 // State = change of states by the view model
 data class MainDataState (
     val showProgress: Boolean,
-    val echo: Event<GeneralResponse>?,
+    val response: Event<GeneralResponse>?,
     val error: Event<Int>?
 )
 

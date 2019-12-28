@@ -4,6 +4,7 @@
     <!-- Error messages -->
     <string name="internet_failure_error">Internet connectivity error</string>
     <string name="error_general">Something went wrong…</string>
+    <string name="no_verification_token">No verification token</string>
 
     <!-- OTP sign in -->
     <string name="phone_number">Phone Number</string>

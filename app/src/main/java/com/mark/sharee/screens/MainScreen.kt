@@ -6,8 +6,6 @@ import com.mark.sharee.navigation.arguments.TransferInfo
 
 class MainScreen(transferInfo : TransferInfo) : Screen(transferInfo) {
 
-
-
     override fun create(): MainFragment {
         return MainFragment()
     }

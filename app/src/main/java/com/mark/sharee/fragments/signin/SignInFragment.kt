@@ -41,6 +41,7 @@ class SignInFragment : ShareeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.i("SignInFragment onViewCreated")
 
         registerViewModel()
 
@@ -86,14 +87,13 @@ class SignInFragment : ShareeFragment() {
         viewModel.uiState.observe(viewLifecycleOwner, Observer {
             val dataState = it ?: return@Observer
             progressBar.visibility = if (dataState.showProgress) View.VISIBLE else View.GONE
-            if (dataState.echo != null && !dataState.echo.consumed) {
-                dataState.echo.consume()?.let { response ->
+            if (dataState.response != null && !dataState.response.consumed) {
+                dataState.response.consume()?.let { response ->
                     Toast.makeText(context, response.verificationToken, Toast.LENGTH_LONG).show()
                     Timber.i("login success, verificationToken = ${response.verificationToken}")
 
                     val transferInfo = TransferInfo()
-                    transferInfo.phoneNumber = "123456789"
-                    navigator.add(MainScreen(transferInfo))
+                    navigator.replace(MainScreen(transferInfo))
                 }
             }
             if (dataState.error != null && !dataState.error.consumed) {

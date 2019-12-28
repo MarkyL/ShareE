@@ -14,14 +14,14 @@ class MainActivity : ShareeActivity() {
         setContentView(R.layout.activity_main)
 
         Timber.i("mark - onCreate")
-
+        navigator.replace(SignInScreen())
     }
 
     override fun onResume() {
         super.onResume()
         Timber.d("mark - onResume")
         navigator.takeActivity(this)
-        navigator.add(SignInScreen())
+
     }
 
     override fun onPause() {
