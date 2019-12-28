@@ -12,9 +12,9 @@ interface ShareeDataSource {
 
     suspend fun login(phoneNumber: String, uuid: String): LoginResponse
 
-    suspend fun poll(verificationToken: String): PollResponse
+    suspend fun poll(): PollResponse
 
-    suspend fun submitPoll(verificationToken: String, answeredQuestions: List<AnsweredQuestion>)
+    suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>)
 
     suspend fun popularMovies(apiKey: String): MovieResponse
 }

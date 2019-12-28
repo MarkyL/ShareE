@@ -28,7 +28,7 @@ interface ShareeService {
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 
     @GET(value = "poll")
-    suspend fun poll(@Body basicRequest: BasicRequest): PollResponse
+    suspend fun poll(): PollResponse
 
     @POST(value = "submitPoll")
     suspend fun submitPoll(@Body submitPollRequest: SubmitPollRequest)

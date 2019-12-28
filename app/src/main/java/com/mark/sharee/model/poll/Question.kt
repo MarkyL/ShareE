@@ -1,38 +1,40 @@
 package com.mark.sharee.model.poll
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Transient
 
 @kotlinx.serialization.Serializable
-abstract class Question(
-    @SerialName(value = "id") open val id: Long,
-    @SerialName(value = "type") open val type: QuestionType,
-    @SerialName(value = "question") open val question: String
-) {
+data class Question(
+    @SerialName(value = "id") val id: Long,
+    @SerialName(value = "type") val type: QuestionType,
+    @SerialName(value = "question") val question: String,
+    @Transient var answer: Any? = null) {
 
-    enum class QuestionType(val type: String) {
-        BOOLEAN("B"), NUMERICAL("N"), TEXTUAL("T")
+    enum class QuestionType {
+        BOOLEAN, NUMERICAL, TEXTUAL
     }
+
 }
 
-data class BooleanQuestion(
-    @SerialName(value = "answer") var answer: Boolean?,
-    @SerialName(value = "id") override val id: Long,
-    @SerialName(value = "type") override val type: QuestionType,
-    @SerialName(value = "question") override val question: String
-) : Question(id, type, question)
-
-data class NumericalQuestion(
-    @SerialName(value = "answer") var answer: Int?,
-    @SerialName(value = "id") override val id: Long,
-    @SerialName(value = "type") override val type: QuestionType,
-    @SerialName(value = "question") override val question: String
-) : Question(id, type, question)
-
-
-data class TextualQuestion(
-    @SerialName(value = "answer") var answer: String?,
-    @SerialName(value = "id") override val id: Long,
-    @SerialName(value = "type") override val type: QuestionType,
-    @SerialName(value = "question") override val question: String
-) : Question(id, type, question)
+//data class BooleanQuestion(
+//    @SerialName(value = "answer") var answer: Boolean?,
+//    override val id: Long,
+//    override val type: QuestionType,
+//    override val question: String
+//) : Question()
+//
+//data class NumericalQuestion(
+//    @SerialName(value = "answer") var answer: Int?,
+//    override val id: Long,
+//    override val type: QuestionType,
+//    override val question: String
+//) : Question()
+//
+//
+//data class TextualQuestion(
+//    @SerialName(value = "answer") var answer: String?,
+//    override val id: Long,
+//    override val type: QuestionType,
+//    override val question: String
+//) : Question()
 

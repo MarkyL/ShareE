@@ -18,12 +18,12 @@ class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) :
         return endpoint.login(phoneNumber, uuid)
     }
 
-    override suspend fun poll(verificationToken: String): PollResponse {
-        return endpoint.poll(BasicRequest(verificationToken))
+    override suspend fun poll(): PollResponse {
+        return endpoint.poll()
     }
 
-    override suspend fun submitPoll(verificationToken: String, answeredQuestions: List<AnsweredQuestion>) {
-        return endpoint.submitPoll(verificationToken, answeredQuestions)
+    override suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>) {
+        return endpoint.submitPoll(verificationToken, pollId, answeredQuestions)
     }
 
     override suspend fun popularMovies(apiKey: String): MovieResponse {

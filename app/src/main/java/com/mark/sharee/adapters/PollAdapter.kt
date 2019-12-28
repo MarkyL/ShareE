@@ -9,10 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sharee.R
-import com.mark.sharee.model.poll.BooleanQuestion
-import com.mark.sharee.model.poll.NumericalQuestion
 import com.mark.sharee.model.poll.Question
-import com.mark.sharee.model.poll.TextualQuestion
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.question_boolean_item.*
 import kotlinx.android.synthetic.main.question_boolean_item.questionLayout
@@ -81,33 +78,30 @@ class QuestionViewHolder constructor(override val containerView: View) :
 
     private fun bindBooleanQuestion(view: View, question: Question) {
         radioGrp.setOnCheckedChangeListener { group, checkedId ->
-            val booleanQuestion = question as BooleanQuestion
             when (checkedId) {
-                yesBtn.id -> booleanQuestion.answer = true
-                noBtn.id -> booleanQuestion.answer = false
+                yesBtn.id -> question.answer = true
+                noBtn.id -> question.answer = false
             }
 
-            Timber.d("BooleanQuestion [$question.id]=[${booleanQuestion.answer}")
+            Timber.d("BooleanQuestion [$question.id]=[${question.answer}]")
         }
     }
 
     private fun bindNumericalQuestion(view: View, question: Question) {
         radioGrp.setOnCheckedChangeListener { group, checkedId ->
-            val numericalQuestion = question as NumericalQuestion
             when (checkedId) {
-                oneBtn.id -> numericalQuestion.answer = 1
-                twoBtn.id -> numericalQuestion.answer = 2
-                threeBtn.id -> numericalQuestion.answer = 3
-                fourBtn.id -> numericalQuestion.answer = 4
-                fiveBtn.id -> numericalQuestion.answer = 5
+                oneBtn.id -> question.answer = 1
+                twoBtn.id -> question.answer = 2
+                threeBtn.id -> question.answer = 3
+                fourBtn.id -> question.answer = 4
+                fiveBtn.id -> question.answer = 5
             }
-            Timber.d("NumericalQuestion [$question.id]=[${numericalQuestion.answer}")
+            Timber.d("NumericalQuestion [$question.id]=[${question.answer}")
         }
     }
 
     private fun bindTextualQuestion(view: View, question: Question) {
         textAnswer.addTextChangedListener(object : TextWatcher {
-            val textualQuestion = question as TextualQuestion
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -115,8 +109,8 @@ class QuestionViewHolder constructor(override val containerView: View) :
             }
 
             override fun afterTextChanged(s: Editable?) {
-                textualQuestion.answer = s.toString()
-                Timber.d("TextualQuestion [$question.id]=[${textualQuestion.answer}")
+                question.answer = s.toString()
+                Timber.d("TextualQuestion [$question.id]=[${question.answer}")
             }
 
         })

@@ -3,7 +3,9 @@ package com.mark.sharee.model.poll
 import kotlinx.serialization.SerialName
 
 @kotlinx.serialization.Serializable
-abstract class AnsweredQuestion(@SerialName(value = "id") open val id: Long) {
+abstract class AnsweredQuestion() {
+
+    @SerialName(value = "id") abstract val id: Long
 
     companion object {
 
@@ -16,16 +18,13 @@ abstract class AnsweredQuestion(@SerialName(value = "id") open val id: Long) {
         private fun convertQuestionToAnsweredQuestion(question: Question): AnsweredQuestion {
             return when (question.type) {
                 Question.QuestionType.BOOLEAN -> BooleanAnswer(
-                    (question as BooleanQuestion).answer,
-                    question.id
+                    question.answer as Boolean, question.id
                 )
                 Question.QuestionType.NUMERICAL -> NumericalAnswer(
-                    (question as NumericalQuestion).answer,
-                    question.id
+                    question.answer as Int, question.id
                 )
                 Question.QuestionType.TEXTUAL -> TextualAnswer(
-                    (question as TextualQuestion).answer,
-                    question.id
+                    question.answer as String, question.id
                 )
             }
         }
@@ -34,17 +33,17 @@ abstract class AnsweredQuestion(@SerialName(value = "id") open val id: Long) {
 
 data class BooleanAnswer(
     @SerialName(value = "answer") var answer: Boolean?,
-    @SerialName(value = "id") override val id: Long
-) : AnsweredQuestion(id)
+    override val id: Long
+) : AnsweredQuestion()
 
 data class NumericalAnswer(
     @SerialName(value = "answer") var answer: Int?,
-    @SerialName(value = "id") override val id: Long
-) : AnsweredQuestion(id)
+    override val id: Long
+) : AnsweredQuestion()
 
 
 data class TextualAnswer(
     @SerialName(value = "answer") var answer: String?,
-    @SerialName(value = "id") override val id: Long
-) : AnsweredQuestion(id)
+    override val id: Long
+) : AnsweredQuestion()
 

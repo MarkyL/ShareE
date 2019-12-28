@@ -15,7 +15,7 @@ class ShareeRepository constructor(private val remoteDataSource: ShareeRemoteDat
 
     private var activeDataSource: ShareeDataSource
     init {
-        activeDataSource = mockDataSource
+        activeDataSource = remoteDataSource
     }
 
     override suspend fun create(name: String): GeneralResponse {
@@ -26,12 +26,13 @@ class ShareeRepository constructor(private val remoteDataSource: ShareeRemoteDat
         return activeDataSource.login(phoneNumber, uuid)
     }
 
-    override suspend fun poll(verificationToken: String): PollResponse {
-        return activeDataSource.poll(verificationToken)
+    override suspend fun poll(): PollResponse {
+        return activeDataSource.poll()
     }
 
-    override suspend fun submitPoll(verificationToken: String, answeredQuestions: List<AnsweredQuestion>) {
-        activeDataSource.submitPoll(verificationToken, answeredQuestions)
+    override suspend fun submitPoll(verificationToken: String,
+                                    pollId: String, answeredQuestions: List<AnsweredQuestion>) {
+        activeDataSource.submitPoll(verificationToken, pollId, answeredQuestions)
     }
 
     override suspend fun popularMovies(apiKey: String): MovieResponse {

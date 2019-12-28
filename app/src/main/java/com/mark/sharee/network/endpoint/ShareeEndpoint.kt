@@ -26,12 +26,12 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
         return shareeService.popularMovies(apiKey)
     }
 
-    suspend fun poll(basicRequest: BasicRequest): PollResponse {
-        return shareeService.poll(basicRequest)
+    suspend fun poll(): PollResponse {
+        return shareeService.poll()
     }
 
-    suspend fun submitPoll(verificationToken: String, answeredQuestions: List<AnsweredQuestion>) {
-        shareeService.submitPoll(SubmitPollRequest(verificationToken, answeredQuestions))
+    suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>) {
+        shareeService.submitPoll(SubmitPollRequest(verificationToken, pollId, answeredQuestions))
     }
 
 

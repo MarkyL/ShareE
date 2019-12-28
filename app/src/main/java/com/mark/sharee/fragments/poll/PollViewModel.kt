@@ -21,6 +21,8 @@ class PollViewModel constructor(application: Application, private val shareeRepo
     private val _uiState = MutableLiveData<PollDataState>()
     val uiState: LiveData<PollDataState> get() = _uiState
 
+    private lateinit var pollId: String
+
     override fun handleScreenEvents(event: PollDataEvent) {
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
         when (event) {
@@ -31,21 +33,17 @@ class PollViewModel constructor(application: Application, private val shareeRepo
     }
 
     private fun getPoll() {
-        val verificationToken = User.me()?.getToken()
-        if (verificationToken == null) {
-            handleNoToken()
-            return
-        }
         viewModelScope.launch {
             runCatching {
                 Timber.i("getPoll - runCatching")
                 emitUiState(showProgress = true)
-                shareeRepository.poll(verificationToken)
+                shareeRepository.poll()
             }.onSuccess {
-                Timber.i("login - onSuccess, loginResponse = $it")
+                Timber.i("getPoll - onSuccess, loginResponse = $it")
+                pollId = it.id
                 emitUiState(response = Event(it))
             }.onFailure {
-                Timber.e("login - onFailure $it")
+                Timber.e("getPoll - onFailure $it")
                 emitUiState(error = Event(R.string.error_general))
             }
         }
@@ -61,7 +59,8 @@ class PollViewModel constructor(application: Application, private val shareeRepo
             kotlin.runCatching {
                 Timber.i("submitPoll - runCatching")
                 emitUiState(showProgress = true)
-                shareeRepository.submitPoll(verificationToken, AnsweredQuestion.convertQuestionListToAnsweredQuestionList(answeredQuestions))
+                Timber.i("answered questions : ${AnsweredQuestion.convertQuestionListToAnsweredQuestionList(answeredQuestions)}")
+                shareeRepository.submitPoll(verificationToken, pollId, AnsweredQuestion.convertQuestionListToAnsweredQuestionList(answeredQuestions))
             }.onSuccess {
                 Timber.i("submitPoll - onSuccess")
             }.onFailure {

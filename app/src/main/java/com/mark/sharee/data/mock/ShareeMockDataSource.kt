@@ -17,20 +17,20 @@ class ShareeMockDataSource : ShareeDataSource {
         return LoginResponse(phoneNumber, uuid)
     }
 
-    override suspend fun poll(verificationToken: String): PollResponse {
+    override suspend fun poll(): PollResponse {
         val questionsList = listOf(
-            BooleanQuestion(null, 1, Question.QuestionType.BOOLEAN, "האם אתה מרגיש טוב?"),
-            BooleanQuestion(null, 2, Question.QuestionType.BOOLEAN, "האם קיבלת טיפול בזמן סביר?"),
-            NumericalQuestion(null, 3, Question.QuestionType.NUMERICAL, "מה מידת שביעות הרצון שלך מהטיפול?"),
-            NumericalQuestion(null, 4, Question.QuestionType.NUMERICAL, "מה מידת היחס שקיבלת מהצוות הרפואי והאם תמליץ על שרי?"),
-            TextualQuestion(null, 5, Question.QuestionType.TEXTUAL, "כיצד היית משפר את השירות במחלקה?"),
-            TextualQuestion(null, 6, Question.QuestionType.TEXTUAL, "האם תרצה להוסיף עוד משהו?")
+            Question( 1, Question.QuestionType.BOOLEAN, "האם אתה מרגיש טוב?"),
+            Question(2, Question.QuestionType.BOOLEAN, "האם קיבלת טיפול בזמן סביר?"),
+            Question(3, Question.QuestionType.NUMERICAL, "מה מידת שביעות הרצון שלך מהטיפול?"),
+            Question(4, Question.QuestionType.NUMERICAL, "מה מידת היחס שקיבלת מהצוות הרפואי והאם תמליץ על שרי?"),
+            Question(5, Question.QuestionType.TEXTUAL, "כיצד היית משפר את השירות במחלקה?"),
+            Question(6, Question.QuestionType.TEXTUAL, "האם תרצה להוסיף עוד משהו?")
         )
 
         return PollResponse("12345", "Mark's mock poll", questionsList.toMutableList())
     }
 
-    override suspend fun submitPoll(verificationToken: String, answeredQuestions: List<AnsweredQuestion>) {
+    override suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

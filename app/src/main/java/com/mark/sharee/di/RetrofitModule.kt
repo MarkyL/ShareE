@@ -2,19 +2,18 @@ package com.mark.sharee.di
 
 import android.content.Context
 import com.example.sharee.BuildConfig
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.google.gson.GsonBuilder
 import com.mark.sharee.core.Constants
 import com.mark.sharee.data.ShareeRepository
 import com.mark.sharee.data.remote.ShareeRemoteDataSource
+import com.mark.sharee.model.poll.Question
 import com.mark.sharee.network.endpoint.ShareeEndpoint
 import com.mark.sharee.network.endpoint.ShareeService
+import com.mark.sharee.utils.RuntimeTypeAdapterFactory
 import kotlinx.serialization.UnstableDefault
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import okhttp3.Cache
 import okhttp3.Call
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
