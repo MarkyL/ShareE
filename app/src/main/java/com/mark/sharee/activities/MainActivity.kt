@@ -3,7 +3,6 @@ package com.mark.sharee.activities
 import android.os.Bundle
 import com.example.sharee.R
 import com.mark.sharee.core.ShareeActivity
-import com.mark.sharee.screens.MovieScreen
 import com.mark.sharee.screens.SignInScreen
 import timber.log.Timber
 

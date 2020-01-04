@@ -3,10 +3,8 @@ package com.mark.sharee.data.remote
 import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.model.poll.AnsweredQuestion
 import com.mark.sharee.network.endpoint.ShareeEndpoint
-import com.mark.sharee.network.model.requests.BasicRequest
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
-import com.mark.sharee.network.model.responses.MovieResponse
 import com.mark.sharee.network.model.responses.PollResponse
 
 class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) : ShareeDataSource {
@@ -24,10 +22,6 @@ class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) :
 
     override suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>) {
         return endpoint.submitPoll(verificationToken, pollId, answeredQuestions)
-    }
-
-    override suspend fun popularMovies(apiKey: String): MovieResponse {
-        return endpoint.popularMovies(apiKey)
     }
 
 }

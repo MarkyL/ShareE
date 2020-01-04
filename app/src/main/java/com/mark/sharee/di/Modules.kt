@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.sharee.R
 import com.mark.sharee.fragments.main.MainViewModel
-import com.mark.sharee.fragments.movie.MovieViewModel
 import com.mark.sharee.fragments.poll.PollViewModel
 import com.mark.sharee.fragments.signin.SignInViewModel
 import com.mark.sharee.navigation.ActivityNavigator
@@ -23,7 +22,6 @@ val navigatorModule = module {
 }
 
 val viewModelsModule = module {
-    viewModel { MovieViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get()) }
     viewModel { SignInViewModel(get(), get()) }
     viewModel { PollViewModel(get(), get()) }

@@ -11,15 +11,6 @@ class BaseViewModelFactory constructor(val application: Application,
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
-        // EXAMPLE :
-//        if (modelClass.isAssignableFrom(BusinessHistoryViewModel::class.java)) {
-//            return BusinessHistoryViewModel(repository, application) as T
-//        }
-
-//        if (modelClass.isAssignableFrom(MovieViewModel::class.java)) {
-//            return MovieViewModel()
-//        }
-
         throw  IllegalArgumentException("Unknown ViewModel class")
     }
 }

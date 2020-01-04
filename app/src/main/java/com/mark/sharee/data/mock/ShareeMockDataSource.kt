@@ -4,7 +4,6 @@ import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.model.poll.*
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
-import com.mark.sharee.network.model.responses.MovieResponse
 import com.mark.sharee.network.model.responses.PollResponse
 
 class ShareeMockDataSource : ShareeDataSource {
@@ -32,10 +31,6 @@ class ShareeMockDataSource : ShareeDataSource {
 
     override suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override suspend fun popularMovies(apiKey: String): MovieResponse {
-        return MovieResponse(0, ArrayList())
     }
 
 }

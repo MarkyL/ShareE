@@ -7,16 +7,12 @@ import android.content.res.Configuration
 import android.util.SparseArray
 import androidx.multidex.MultiDexApplication
 import com.google.firebase.auth.FirebaseAuth
-import com.mark.sharee.di.navigatorModule
-import com.mark.sharee.di.retrofitModule
 import com.mark.sharee.di.shareeApp
-import com.mark.sharee.di.viewModelsModule
 import com.mark.sharee.model.User
 import com.mark.sharee.navigation.Arguments
 import com.mark.sharee.navigation.Screen
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.MainScreen
-import com.mark.sharee.screens.MovieScreen
 import com.mark.sharee.screens.SignInScreen
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -57,7 +53,6 @@ class ShareeApplication : MultiDexApplication() {
     private fun registerScreens() {
         Screen.registerSubclass(MainScreen::class.java)
         Screen.registerSubclass(SignInScreen::class.java)
-        Screen.registerSubclass(MovieScreen::class.java)
     }
 
     companion object {
