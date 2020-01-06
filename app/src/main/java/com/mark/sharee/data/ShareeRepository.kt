@@ -14,7 +14,7 @@ class ShareeRepository constructor(private val remoteDataSource: ShareeRemoteDat
 
     private var activeDataSource: ShareeDataSource
     init {
-        activeDataSource = remoteDataSource
+        activeDataSource = mockDataSource
     }
 
     override suspend fun create(name: String): GeneralResponse {

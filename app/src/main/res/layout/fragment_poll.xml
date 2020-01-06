@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@android:color/darker_gray"
+    android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,6 +14,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="start"
+        android:textColor="@android:color/black"
         android:text="שם הסקר"
         android:layout_marginTop="@dimen/global_margin_top"
         android:layout_marginStart="@dimen/global_margin_start"
@@ -43,7 +44,7 @@
         android:background="@color/colorAccent"
         android:textColor="@color/textColor"
         android:layout_marginBottom="@dimen/min_margin_bottom"
-        android:layout_marginEnd="@dimen/global_margin_end"
+        android:layout_marginEnd="@dimen/min_margin_end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />

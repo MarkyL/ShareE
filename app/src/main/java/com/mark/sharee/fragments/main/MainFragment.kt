@@ -30,7 +30,7 @@ class MainFragment : ShareeFragment() {
 
         transferInfo = castArguments(TransferInfo::class.java)
 
-        phoneNumberTv.text = transferInfo.phoneNumber
+        phoneNumberTv.text = "שלום " + transferInfo.phoneNumber
 
         viewModel.uiState.observe(viewLifecycleOwner, Observer {
             val dataState = it ?: return@Observer
@@ -55,9 +55,6 @@ class MainFragment : ShareeFragment() {
     override fun onResume() {
         super.onResume()
 
-        echoBtn.setOnClickListener {
-            viewModel.dispatchInputEvent(Echo(userNameTV.text.toString()))
-        }
     }
 
     private fun onPollBtnClick() {

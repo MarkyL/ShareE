@@ -93,6 +93,7 @@ class SignInFragment : ShareeFragment() {
                     Timber.i("login success, verificationToken = ${response.verificationToken}")
 
                     val transferInfo = TransferInfo()
+                    transferInfo.phoneNumber = phoneNumberET.text.toString()
                     navigator.replace(MainScreen(transferInfo))
                 }
             }
