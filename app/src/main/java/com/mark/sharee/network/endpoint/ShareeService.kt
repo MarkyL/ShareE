@@ -13,15 +13,19 @@ import retrofit2.http.Query
 
 interface ShareeService {
 
-    @POST(value = "create")
+    companion object {
+        const val PATIENT_BASE = "patient/"
+    }
+
+    @POST(value = PATIENT_BASE + "create")
     suspend fun create(@Body generalRequest: GeneralRequest): GeneralResponse
 
-    @POST(value = "login")
+    @POST(value = PATIENT_BASE + "login")
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 
-    @GET(value = "poll")
+    @GET(value = PATIENT_BASE + "poll")
     suspend fun poll(): PollResponse
 
-    @POST(value = "submitPoll")
+    @POST(value = PATIENT_BASE + "submitPoll")
     suspend fun submitPoll(@Body submitPollRequest: SubmitPollRequest)
 }
