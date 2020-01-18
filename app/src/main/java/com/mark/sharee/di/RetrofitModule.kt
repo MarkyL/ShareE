@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder
 import com.mark.sharee.core.Constants
 import com.mark.sharee.data.ShareeRepository
 import com.mark.sharee.data.remote.ShareeRemoteDataSource
+import com.mark.sharee.model.User
 import com.mark.sharee.model.poll.Question
 import com.mark.sharee.network.endpoint.ShareeEndpoint
 import com.mark.sharee.network.endpoint.ShareeService
@@ -41,8 +42,10 @@ val retrofitModule = module {
     single { ShareeRepository(get()) }
 }
 
-private val interceptor: Interceptor
+private val logging: Interceptor
     get() = HttpLoggingInterceptor().apply {
+
+
         level = if (BuildConfig.DEBUG)
             HttpLoggingInterceptor.Level.BODY
         else
@@ -61,13 +64,16 @@ private fun retrofit(callFactory: Call.Factory, baseUrl: String) = Retrofit.Buil
     .callFactory(callFactory)
     .baseUrl(baseUrl)
     .addConverterFactory(GsonConverterFactory.create())
-//        Json(
-//            JsonConfiguration(strictMode = false)
-//        ).asConverterFactory("application/json".toMediaType())
-//    )
     .build()
 
 private fun okhttp(cache: Cache) = OkHttpClient.Builder()
-    .addInterceptor(interceptor)
+    .addInterceptor { chain ->
+        val request = chain.request()
+        User.me()?.let {
+            request.newBuilder().addHeader("verificationToken", it.getToken()).build()
+        }
+        chain.proceed(request)
+    }
+    .addNetworkInterceptor(logging)
     .cache(cache)
     .build()

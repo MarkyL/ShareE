@@ -58,8 +58,8 @@ data class User(val verificationToken: String,
         preferences.edit().putString(VERIFICATION_TOKEN_PREFERENCE, token).commit()
     }
 
-    fun getToken(): String? {
-        return preferences.getString(VERIFICATION_TOKEN_PREFERENCE, null)
+    fun getToken(): String {
+        return preferences.getString(VERIFICATION_TOKEN_PREFERENCE, StringUtils.EMPTY_STRING).toString()
     }
 
 }
