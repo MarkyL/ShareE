@@ -1,5 +1,6 @@
 package com.mark.sharee.network.endpoint
 
+import com.google.gson.Gson
 import com.mark.sharee.model.poll.AnsweredQuestion
 import com.mark.sharee.network.model.requests.GeneralRequest
 import com.mark.sharee.network.model.requests.LoginRequest
@@ -7,6 +8,7 @@ import com.mark.sharee.network.model.requests.SubmitPollRequest
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.PollResponse
+import timber.log.Timber
 
 class ShareeEndpoint constructor(private val shareeService: ShareeService) {
 
@@ -24,7 +26,10 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
     }
 
     suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>) {
-        shareeService.submitPoll(SubmitPollRequest(verificationToken, pollId, answeredQuestions))
+        val submitPollRequest = SubmitPollRequest(verificationToken, pollId, answeredQuestions)
+        var requestJson = Gson().toJson(submitPollRequest)
+        Timber.i("submitPoll: request: $requestJson")
+        shareeService.submitPoll(submitPollRequest)
     }
 
 
