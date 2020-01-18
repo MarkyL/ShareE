@@ -6,6 +6,10 @@
     <string name="error_general">Something went wrong…</string>
     <string name="no_verification_token">No verification token</string>
 
+    <!-- Success messages -->
+    <string name="submit_poll_success">Poll submitted successfully</string>
+
+
     <!-- OTP sign in -->
     <string name="phone_number">Phone Number</string>
     <string name="generate_otp">Generate OTP</string>

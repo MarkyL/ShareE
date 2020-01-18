@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sharee.R
 import com.mark.sharee.adapters.PollAdapter
 import com.mark.sharee.core.ShareeFragment
+import com.mark.sharee.mvvm.State
+import com.mark.sharee.mvvm.ViewModelHolder
+import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_poll.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -23,7 +26,8 @@ class PollFragment : ShareeFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_poll, container, false)
     }
 
@@ -32,7 +36,7 @@ class PollFragment : ShareeFragment() {
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            addItemDecoration(GridSpacingItemDecoration(1,30, true))
+            addItemDecoration(GridSpacingItemDecoration(1, 30, true))
             this.adapter = pollAdapter
         }
 
@@ -44,22 +48,64 @@ class PollFragment : ShareeFragment() {
     }
 
     private fun registerViewModel() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            val dataState = it ?: return@Observer
-            progressBar.visibility = if (dataState.showProgress) View.VISIBLE else View.GONE
-            if (dataState.response != null && !dataState.response.consumed) {
-                dataState.response.consume()?.let { response ->
-                    Timber.i("registerViewModel response = $response")
-                    pollName.text = response.name
-                    pollAdapter.submitList(response.questions)
+        viewModel.dataStream.observe(
+            viewLifecycleOwner,
+            Observer<ViewModelHolder<Event<PollDataState>>> { t ->
+                when (t.state) {
+                    State.INIT -> {
+                    }
+                    State.LOADING -> {
+                        showProgressView()
+                    }
+                    State.NEXT -> {
+                        hideProgressView()
+                        handleNext(t.data)
+                    }
+                    State.ERROR -> {
+                        handleError(t.throwable)
+                    }
+                    State.COMPLETE -> {
+                        hideProgressView()
+                    }
+                }
+            })
+    }
+
+    private fun showProgressView() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressView() {
+        progressBar.visibility = View.GONE
+    }
+
+    private fun handleNext(result: Event<PollDataState>?) {
+        result?.let { responseEvent ->
+            if (!responseEvent.consumed) {
+                responseEvent.consume()?.let { response ->
+                    when (response) {
+                        is GetPollSuccess -> handleGetPollSuccess(response)
+                        is SubmitPollSuccess -> handleSubmitPollSuccess(response)
+                    }
                 }
             }
-            if (dataState.error != null && !dataState.error.consumed) {
-                dataState.error.consume()?.let { errorResource ->
-                    Toast.makeText(context, resources.getString(errorResource), Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
+        }
+    }
+
+    private fun handleGetPollSuccess(response: GetPollSuccess) {
+        Timber.i("handleGetPollSuccess response = $response")
+        pollName.text = response.response.name
+        pollAdapter.submitList(response.response.questions)
+    }
+
+    private fun handleSubmitPollSuccess(response: SubmitPollSuccess) {
+        Timber.i("handleSubmitPollSuccess response = $response")
+        Toast.makeText(context, resources.getString(R.string.submit_poll_success), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleError(throwable: Throwable?) {
+        hideProgressView()
+        Toast.makeText(context, throwable?.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun onSubmitBtnClick() {

@@ -3,9 +3,12 @@ package com.mark.sharee.model.poll
 import kotlinx.serialization.SerialName
 
 @kotlinx.serialization.Serializable
-abstract class AnsweredQuestion() {
+abstract class AnsweredQuestion(
+    @SerialName(value = "questionId") val questionId: Long,
+    @SerialName(value = "type") val type: String) {
 
-    @SerialName(value = "id") abstract val id: Long
+
+
 
     companion object {
 
@@ -33,17 +36,17 @@ abstract class AnsweredQuestion() {
 
 data class BooleanAnswer(
     @SerialName(value = "answer") var answer: Boolean?,
-    override val id: Long
-) : AnsweredQuestion()
+    var id: Long
+) : AnsweredQuestion(questionId = id, type = Question.QuestionType.BOOLEAN.type)
 
 data class NumericalAnswer(
     @SerialName(value = "answer") var answer: Int?,
-    override val id: Long
-) : AnsweredQuestion()
+    var id: Long
+) : AnsweredQuestion(questionId = id, type = Question.QuestionType.NUMERICAL.type)
 
 
 data class TextualAnswer(
     @SerialName(value = "answer") var answer: String?,
-    override val id: Long
-) : AnsweredQuestion()
+    var id: Long
+) : AnsweredQuestion(questionId = id, type = Question.QuestionType.TEXTUAL.type)
 

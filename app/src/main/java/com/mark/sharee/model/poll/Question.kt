@@ -10,31 +10,8 @@ data class Question(
     @SerialName(value = "question") val question: String,
     @Transient var answer: Any? = null) {
 
-    enum class QuestionType {
-        BOOLEAN, NUMERICAL, TEXTUAL
+    enum class QuestionType(val type: String) {
+        BOOLEAN("boolean"), NUMERICAL("numerical"), TEXTUAL("textual")
     }
 
 }
-
-//data class BooleanQuestion(
-//    @SerialName(value = "answer") var answer: Boolean?,
-//    override val id: Long,
-//    override val type: QuestionType,
-//    override val question: String
-//) : Question()
-//
-//data class NumericalQuestion(
-//    @SerialName(value = "answer") var answer: Int?,
-//    override val id: Long,
-//    override val type: QuestionType,
-//    override val question: String
-//) : Question()
-//
-//
-//data class TextualQuestion(
-//    @SerialName(value = "answer") var answer: String?,
-//    override val id: Long,
-//    override val type: QuestionType,
-//    override val question: String
-//) : Question()
-
