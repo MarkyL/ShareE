@@ -2,9 +2,10 @@ package com.mark.sharee.data.mock
 
 import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.model.poll.*
+import com.mark.sharee.network.model.responses.GeneralPollsResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
-import com.mark.sharee.network.model.responses.PollResponse
+import com.mark.sharee.network.model.responses.GeneralPollResponse
 
 class ShareeMockDataSource : ShareeDataSource {
 
@@ -16,7 +17,7 @@ class ShareeMockDataSource : ShareeDataSource {
         return LoginResponse(phoneNumber, uuid)
     }
 
-    override suspend fun poll(): PollResponse {
+    override suspend fun poll(): GeneralPollResponse {
         val questionsList = listOf(
             Question( 1, Question.QuestionType.BOOLEAN, "האם אתה מרגיש טוב?"),
             Question(2, Question.QuestionType.BOOLEAN, "האם קיבלת טיפול בזמן סביר?"),
@@ -26,11 +27,14 @@ class ShareeMockDataSource : ShareeDataSource {
             Question(6, Question.QuestionType.TEXTUAL, "האם תרצה להוסיף עוד משהו?")
         )
 
-        return PollResponse("12345", "Mark's mock poll", questionsList.toMutableList())
+        return GeneralPollResponse("12345", "Mark's mock poll", questionsList.toMutableList())
     }
 
     override suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override suspend fun getGeneralPolls(verificationToken: String): GeneralPollsResponse {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

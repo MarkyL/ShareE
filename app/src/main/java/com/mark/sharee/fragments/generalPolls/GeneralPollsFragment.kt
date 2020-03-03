@@ -1,4 +1,4 @@
-package com.mark.sharee.fragments.poll
+package com.mark.sharee.fragments.generalPolls
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,16 +19,17 @@ import kotlinx.android.synthetic.main.fragment_poll.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
-class PollFragment : ShareeFragment() {
+class GeneralPollsFragment : ShareeFragment() {
+    // This fragment holds all the general polls that are active and available for the
+    // patient to view
 
-    private val viewModel: PollViewModel by sharedViewModel()
+    private val viewModel: GeneralPollsViewModel by sharedViewModel()
     private val pollAdapter: PollsAdapter = PollsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_poll, container, false)
+        savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_general_polls, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,9 +43,7 @@ class PollFragment : ShareeFragment() {
 
         registerViewModel()
 
-        viewModel.dispatchInputEvent(GetPoll)
-
-        submitBtn.setOnClickListener { onSubmitBtnClick() }
+        viewModel.dispatchInputEvent(GetGeneralPolls)
     }
 
     private fun registerViewModel() {
@@ -84,34 +83,23 @@ class PollFragment : ShareeFragment() {
             if (!responseEvent.consumed) {
                 responseEvent.consume()?.let { response ->
                     when (response) {
-                        is GetPollSuccess -> handleGetPollSuccess(response)
-                        is SubmitPollSuccess -> handleSubmitPollSuccess(response)
+                        is GetGeneralPollsSuccess -> handleGetGeneralPollsSuccess(response)
                     }
                 }
             }
         }
     }
 
-    private fun handleGetPollSuccess(response: GetPollSuccess) {
-        Timber.i("handleGetPollSuccess generalPollsResponse = $response")
-        pollName.text = response.response.name
-        pollAdapter.submitList(response.response.questions)
-    }
-
-    private fun handleSubmitPollSuccess(response: SubmitPollSuccess) {
-        Timber.i("handleSubmitPollSuccess generalPollsResponse = $response")
-        Toast.makeText(context, resources.getString(R.string.submit_poll_success), Toast.LENGTH_SHORT).show()
+    private fun handleGetGeneralPollsSuccess(response: GetGeneralPollsSuccess) {
+        Timber.i("handleGetGeneralPollsSuccess generalPollsResponse = $response")
+        val generalPolls = response.generalPollsResponse.generalPolls
+        //TODO: handle empty generalPolls list (show some view for it)...
+        pollAdapter.submitList(generalPolls)
     }
 
     private fun handleError(throwable: Throwable?) {
         hideProgressView()
         Toast.makeText(context, throwable?.message, Toast.LENGTH_SHORT).show()
     }
-
-    private fun onSubmitBtnClick() {
-        Timber.i("onSubmitBtnClick")
-        viewModel.dispatchInputEvent(SubmitPoll(pollAdapter.items))
-    }
-
 
 }

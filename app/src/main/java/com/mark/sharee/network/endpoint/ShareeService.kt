@@ -1,15 +1,13 @@
 package com.mark.sharee.network.endpoint
 
+import com.mark.sharee.network.model.requests.BasicRequest
 import com.mark.sharee.network.model.requests.GeneralRequest
 import com.mark.sharee.network.model.requests.LoginRequest
 import com.mark.sharee.network.model.requests.SubmitPollRequest
-import com.mark.sharee.network.model.responses.GeneralResponse
-import com.mark.sharee.network.model.responses.LoginResponse
-import com.mark.sharee.network.model.responses.PollResponse
+import com.mark.sharee.network.model.responses.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface ShareeService {
 
@@ -24,8 +22,15 @@ interface ShareeService {
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 
     @GET(value = PATIENT_BASE + "poll")
-    suspend fun poll(): PollResponse
+    suspend fun poll(): GeneralPollResponse
 
     @POST(value = PATIENT_BASE + "submitPoll")
     suspend fun submitPoll(@Body submitPollRequest: SubmitPollRequest)
+
+    @POST(value = PATIENT_BASE + "getGeneralPolls")
+    suspend fun getGeneralPolls(@Body basicRequest: BasicRequest) : GeneralPollsResponse
+
+    @POST(value = PATIENT_BASE + "getMedicalPolls")
+    suspend fun getMedicalPolls(@Body basicRequest: BasicRequest) : MedicalPollsResponse
+
 }

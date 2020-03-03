@@ -8,7 +8,7 @@ import com.mark.sharee.model.poll.AnsweredQuestion
 import com.mark.sharee.model.poll.Question
 import com.mark.sharee.mvvm.BaseViewModel
 import com.mark.sharee.mvvm.State
-import com.mark.sharee.network.model.responses.PollResponse
+import com.mark.sharee.network.model.responses.GeneralPollResponse
 import com.mark.sharee.utils.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -81,5 +81,5 @@ data class SubmitPoll(val answeredQuestions: List<Question>) : PollDataEvent()
 
 // State = change of states by the view model
 sealed class PollDataState
-class GetPollSuccess(val response: PollResponse): PollDataState()
+class GetPollSuccess(val response: GeneralPollResponse): PollDataState()
 object SubmitPollSuccess : PollDataState()

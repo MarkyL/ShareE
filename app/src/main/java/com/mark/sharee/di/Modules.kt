@@ -3,6 +3,7 @@ package com.mark.sharee.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.sharee.R
+import com.mark.sharee.fragments.generalPolls.GeneralPollsViewModel
 import com.mark.sharee.fragments.main.MainViewModel
 import com.mark.sharee.fragments.poll.PollViewModel
 import com.mark.sharee.fragments.signin.SignInViewModel
@@ -25,6 +26,7 @@ val viewModelsModule = module {
     viewModel { MainViewModel(get(), get()) }
     viewModel { SignInViewModel(get(), get()) }
     viewModel { PollViewModel(get(), get()) }
+    viewModel { GeneralPollsViewModel(get(), get()) }
 }
 
 // Gather all app modules

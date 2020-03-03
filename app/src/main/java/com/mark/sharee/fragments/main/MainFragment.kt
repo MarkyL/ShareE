@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.example.sharee.R
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.navigation.arguments.TransferInfo
+import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.screens.PollScreen
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -50,14 +51,14 @@ class MainFragment : ShareeFragment() {
         })
 
         pollBtn.setOnClickListener { onPollBtnClick() }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
+        generalPollsBtn.setOnClickListener { onGeneralPollsBtnClick() }
     }
 
     private fun onPollBtnClick() {
         navigator.replace(PollScreen(TransferInfo()))
+    }
+
+    private fun onGeneralPollsBtnClick() {
+        navigator.replace(GeneralPollsScreen(TransferInfo()))
     }
 }
