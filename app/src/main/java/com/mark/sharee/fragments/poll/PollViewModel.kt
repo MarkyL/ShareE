@@ -21,25 +21,7 @@ class PollViewModel constructor(application: Application, private val shareeRepo
     override fun handleScreenEvents(event: PollDataEvent) {
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
         when (event) {
-            is GetPoll -> getPoll()
             is SubmitPoll -> submitPoll(event.answeredQuestions)
-        }
-    }
-
-    private fun getPoll() {
-        viewModelScope.launch {
-            runCatching {
-                Timber.i("getPoll - runCatching")
-                publish(state = State.LOADING)
-                shareeRepository.poll()
-            }.onSuccess {
-                Timber.i("getPoll - onSuccess, loginResponse = $it")
-                pollId = it.id
-                publish(state = State.NEXT, items = Event(GetPollSuccess(it)))
-            }.onFailure {
-                Timber.e("getPoll - onFailure $it")
-                publish(state = State.ERROR, throwable = it)
-            }
         }
     }
 
@@ -76,10 +58,8 @@ class PollViewModel constructor(application: Application, private val shareeRepo
 
 // Events = actions coming from UI
 sealed class PollDataEvent
-object GetPoll : PollDataEvent()
 data class SubmitPoll(val answeredQuestions: List<Question>) : PollDataEvent()
 
 // State = change of states by the view model
 sealed class PollDataState
-class GetPollSuccess(val response: GeneralPollResponse): PollDataState()
 object SubmitPollSuccess : PollDataState()

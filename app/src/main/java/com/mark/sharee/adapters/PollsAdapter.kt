@@ -9,16 +9,18 @@ import com.mark.sharee.network.model.responses.GeneralPollResponse
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.poll_item.*
 
-class PollsAdapter : RecyclerView.Adapter<PollViewHolder>() {
+class PollsAdapter(private var listener: PollsAdapterListener) : RecyclerView.Adapter<PollViewHolder>() {
 
     var items = listOf<GeneralPollResponse>()
         private set
+
+//    lateinit var listener: PollsAdapterListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         PollViewHolder.create(parent)
 
     override fun onBindViewHolder(holderAdapter: PollViewHolder, position: Int) {
-        holderAdapter.bind(holderAdapter.containerView, items[position])
+        holderAdapter.bind(holderAdapter.containerView, items[position], listener)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -44,8 +46,14 @@ class PollsAdapter : RecyclerView.Adapter<PollViewHolder>() {
 class PollViewHolder constructor(override val containerView: View) :
     RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-    fun bind(view: View, poll: GeneralPollResponse) {
+    fun bind(
+        view: View,
+        poll: GeneralPollResponse,
+        listener: PollsAdapterListener
+    ) {
         pollName.text = poll.name
+
+        view.setOnClickListener { listener.onPollClick(poll)}
     }
 
     companion object {
@@ -57,4 +65,8 @@ class PollViewHolder constructor(override val containerView: View) :
             )
         }
     }
+}
+
+interface PollsAdapterListener {
+    fun onPollClick(poll: GeneralPollResponse)
 }

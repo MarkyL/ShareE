@@ -9,10 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sharee.R
+import com.mark.sharee.adapters.PollAdapter
 import com.mark.sharee.adapters.PollsAdapter
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
+import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_poll.*
@@ -22,7 +24,9 @@ import timber.log.Timber
 class PollFragment : ShareeFragment() {
 
     private val viewModel: PollViewModel by sharedViewModel()
-    private val pollAdapter: PollsAdapter = PollsAdapter()
+    private val pollAdapter: PollAdapter = PollAdapter()
+
+    lateinit var transferInfo: TransferInfo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +38,8 @@ class PollFragment : ShareeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        transferInfo = castArguments(TransferInfo::class.java)
+
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(GridSpacingItemDecoration(1, 30, true))
@@ -42,9 +48,15 @@ class PollFragment : ShareeFragment() {
 
         registerViewModel()
 
-        viewModel.dispatchInputEvent(GetPoll)
+        configureScreen()
 
         submitBtn.setOnClickListener { onSubmitBtnClick() }
+    }
+
+    private fun configureScreen() {
+        val poll = transferInfo.poll
+        pollName.text = poll.name
+        pollAdapter.submitList(poll.questions)
     }
 
     private fun registerViewModel() {
@@ -84,18 +96,11 @@ class PollFragment : ShareeFragment() {
             if (!responseEvent.consumed) {
                 responseEvent.consume()?.let { response ->
                     when (response) {
-                        is GetPollSuccess -> handleGetPollSuccess(response)
                         is SubmitPollSuccess -> handleSubmitPollSuccess(response)
                     }
                 }
             }
         }
-    }
-
-    private fun handleGetPollSuccess(response: GetPollSuccess) {
-        Timber.i("handleGetPollSuccess generalPollsResponse = $response")
-        pollName.text = response.response.name
-        pollAdapter.submitList(response.response.questions)
     }
 
     private fun handleSubmitPollSuccess(response: SubmitPollSuccess) {
