@@ -30,6 +30,7 @@ class PollsAdapter(private var listener: PollsAdapterListener) : RecyclerView.Ad
     fun submitList(list: MutableList<GeneralPollResponse>?) {
         list?.let {
             items = it
+            notifyDataSetChanged()
         }
     }
 

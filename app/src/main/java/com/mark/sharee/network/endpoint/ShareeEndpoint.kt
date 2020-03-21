@@ -2,11 +2,9 @@ package com.mark.sharee.network.endpoint
 
 import com.google.gson.Gson
 import com.mark.sharee.model.poll.AnsweredQuestion
-import com.mark.sharee.network.model.requests.BasicRequest
 import com.mark.sharee.network.model.requests.GeneralRequest
 import com.mark.sharee.network.model.requests.LoginRequest
 import com.mark.sharee.network.model.requests.SubmitPollRequest
-import com.mark.sharee.network.model.responses.GeneralPollsResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
@@ -34,11 +32,8 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
         shareeService.submitPoll(submitPollRequest)
     }
 
-    suspend fun getGeneralPolls(verificationToken: String): GeneralPollsResponse {
-        val basicRequest = BasicRequest(verificationToken)
-        var requestJson = Gson().toJson(basicRequest)
-        Timber.i("getGeneralPolls: request: $requestJson")
-        return shareeService.getGeneralPolls(basicRequest)
+    suspend fun getGeneralPolls(): MutableList<GeneralPollResponse> {
+        return shareeService.getGeneralPolls()
     }
 
 

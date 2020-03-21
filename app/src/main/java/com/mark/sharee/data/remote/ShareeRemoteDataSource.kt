@@ -3,7 +3,6 @@ package com.mark.sharee.data.remote
 import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.model.poll.AnsweredQuestion
 import com.mark.sharee.network.endpoint.ShareeEndpoint
-import com.mark.sharee.network.model.responses.GeneralPollsResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
@@ -25,7 +24,7 @@ class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) :
         return endpoint.submitPoll(verificationToken, pollId, answeredQuestions)
     }
 
-    override suspend fun getGeneralPolls(verificationToken: String): GeneralPollsResponse {
-        return endpoint.getGeneralPolls(verificationToken)
+    override suspend fun getGeneralPolls(): MutableList<GeneralPollResponse> {
+        return endpoint.getGeneralPolls()
     }
 }

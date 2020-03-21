@@ -16,6 +16,7 @@ import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.network.model.responses.GeneralPollResponse
+import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.screens.PollScreen
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
@@ -28,7 +29,7 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
     // patient to view
 
     private val viewModel: GeneralPollsViewModel by sharedViewModel()
-    private val pollAdapter: PollsAdapter = PollsAdapter(listener = this)
+    private val pollsAdapter: PollsAdapter = PollsAdapter(listener = this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +43,7 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(GridSpacingItemDecoration(1, 30, true))
-            this.adapter = pollAdapter
+            this.adapter = pollsAdapter
         }
 
         registerViewModel()
@@ -96,9 +97,14 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
 
     private fun handleGetGeneralPollsSuccess(response: GetGeneralPollsSuccess) {
         Timber.i("handleGetGeneralPollsSuccess generalPollsResponse = $response")
-        val generalPolls = response.generalPollsResponse.generalPolls
+        val generalPolls = response.polls
         //TODO: handle empty generalPolls list (show some view for it)...
-        pollAdapter.submitList(generalPolls)
+        if (generalPolls.isNullOrEmpty()) {
+            Toast.makeText(context, "There are no active polls", Toast.LENGTH_LONG).show()
+            navigator.goBackTo(MainScreen::class.java)
+        } else {
+            pollsAdapter.submitList(generalPolls)
+        }
     }
 
     private fun handleError(throwable: Throwable?) {

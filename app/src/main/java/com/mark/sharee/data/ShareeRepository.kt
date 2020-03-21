@@ -4,16 +4,16 @@ import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.data.mock.ShareeMockDataSource
 import com.mark.sharee.data.remote.ShareeRemoteDataSource
 import com.mark.sharee.model.poll.AnsweredQuestion
-import com.mark.sharee.network.model.responses.GeneralPollsResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
 
 
-class ShareeRepository constructor(private val remoteDataSource: ShareeRemoteDataSource) : ShareeDataSource{
+class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : ShareeDataSource{
     private val mockDataSource = ShareeMockDataSource()
 
     private var activeDataSource: ShareeDataSource = remoteDataSource
+//    private var activeDataSource: ShareeDataSource = mockDataSource
 
     override suspend fun create(name: String): GeneralResponse {
         return activeDataSource.create(name)
@@ -32,8 +32,8 @@ class ShareeRepository constructor(private val remoteDataSource: ShareeRemoteDat
         activeDataSource.submitPoll(verificationToken, pollId, answeredQuestions)
     }
 
-    override suspend fun getGeneralPolls(verificationToken: String): GeneralPollsResponse {
-        return activeDataSource.getGeneralPolls(verificationToken)
+    override suspend fun getGeneralPolls(): MutableList<GeneralPollResponse> {
+        return activeDataSource.getGeneralPolls()
     }
 
 }

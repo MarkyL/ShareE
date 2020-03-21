@@ -27,8 +27,8 @@ interface ShareeService {
     @POST(value = PATIENT_BASE + "submitPoll")
     suspend fun submitPoll(@Body submitPollRequest: SubmitPollRequest)
 
-    @POST(value = PATIENT_BASE + "getGeneralPolls")
-    suspend fun getGeneralPolls(@Body basicRequest: BasicRequest) : GeneralPollsResponse
+    @GET(value = PATIENT_BASE + "generalPolls")
+    suspend fun getGeneralPolls() : MutableList<GeneralPollResponse>
 
     @POST(value = PATIENT_BASE + "getMedicalPolls")
     suspend fun getMedicalPolls(@Body basicRequest: BasicRequest) : MedicalPollsResponse

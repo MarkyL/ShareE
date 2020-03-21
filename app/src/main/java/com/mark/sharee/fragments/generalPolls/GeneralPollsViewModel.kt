@@ -3,11 +3,9 @@ package com.mark.sharee.fragments.generalPolls
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.mark.sharee.data.ShareeRepository
-import com.mark.sharee.model.User
 import com.mark.sharee.mvvm.BaseViewModel
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.network.model.responses.GeneralPollResponse
-import com.mark.sharee.network.model.responses.GeneralPollsResponse
 import com.mark.sharee.utils.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -25,17 +23,11 @@ class GeneralPollsViewModel constructor(application: Application, private val sh
     }
 
     private fun getGeneralPolls() {
-        val verificationToken = User.me()?.getToken()
-        if (verificationToken == null) {
-            handleNoToken()
-            return
-        }
-
         viewModelScope.launch {
             runCatching {
                 Timber.i("getGeneralPolls - runCatching")
                 publish(state = State.LOADING)
-                shareeRepository.getGeneralPolls(verificationToken)
+                shareeRepository.getGeneralPolls()
             }.onSuccess {
                 Timber.i("getGeneralPolls - onSuccess, loginResponse = $it")
                 publish(state = State.NEXT, items = Event(GetGeneralPollsSuccess(it)))
@@ -60,4 +52,4 @@ object GetGeneralPolls : GeneralPollsDataEvent()
 
 // State = change of states by the view model
 sealed class PollDataState
-class GetGeneralPollsSuccess(val generalPollsResponse: GeneralPollsResponse): PollDataState()
+class GetGeneralPollsSuccess(val polls: MutableList<GeneralPollResponse>): PollDataState()

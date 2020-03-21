@@ -2,7 +2,6 @@ package com.mark.sharee.data.mock
 
 import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.model.poll.*
-import com.mark.sharee.network.model.responses.GeneralPollsResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
@@ -25,10 +24,10 @@ class ShareeMockDataSource : ShareeDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getGeneralPolls(verificationToken: String): GeneralPollsResponse {
-        val pollsList = mutableListOf(
-            createGeneralPollResponse1(), createGeneralPollResponse2(), createGeneralPollResponse3())
-        return GeneralPollsResponse(pollsList)
+    override suspend fun getGeneralPolls(): MutableList<GeneralPollResponse> {
+        return mutableListOf(
+            createGeneralPollResponse1(), createGeneralPollResponse2(), createGeneralPollResponse3()
+        )
     }
 
     //region polls creation mock
@@ -47,7 +46,7 @@ class ShareeMockDataSource : ShareeDataSource {
             Question(6, Question.QuestionType.TEXTUAL, "האם תרצה להוסיף עוד משהו?")
         )
 
-        return GeneralPollResponse("12345", "סקר מוק 1", questionsList.toMutableList())
+        return GeneralPollResponse("12345", "סקר מוק 1", questionsList.toMutableList(), "general")
     }
 
     private fun createGeneralPollResponse2(): GeneralPollResponse {
@@ -64,7 +63,7 @@ class ShareeMockDataSource : ShareeDataSource {
             Question(6, Question.QuestionType.TEXTUAL, "האם תרצה להוסיף עוד משהו?")
         )
 
-        return GeneralPollResponse("123456", "סקר מוק 2", questionsList.toMutableList())
+        return GeneralPollResponse("123456", "סקר מוק 2", questionsList.toMutableList(), "general")
     }
 
     private fun createGeneralPollResponse3(): GeneralPollResponse {
@@ -81,7 +80,7 @@ class ShareeMockDataSource : ShareeDataSource {
             Question(6, Question.QuestionType.TEXTUAL, "האם תרצה להוסיף עוד משהו?")
         )
 
-        return GeneralPollResponse("1234567", "סקר מוק 3", questionsList.toMutableList())
+        return GeneralPollResponse("1234567", "סקר מוק 3", questionsList.toMutableList(), "general")
     }
 
     //endregion
