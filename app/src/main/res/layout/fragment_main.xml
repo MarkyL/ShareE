@@ -33,19 +33,6 @@
         android:layout_marginBottom="24dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toTopOf="@id/pollBtn"
-        />
-
-    <Button
-        android:id="@+id/pollBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="למילוי סקר"
-        android:background="@color/colorAccent"
-        android:textColor="@color/textColor"
-        android:layout_marginBottom="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 

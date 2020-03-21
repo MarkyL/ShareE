@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/gray_background_light"
     app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,8 +32,8 @@
             android:id="@+id/yesBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:buttonTint="@android:color/white"
+            android:textColor="@color/leading_color"
+            android:buttonTint="@color/leading_color"
             android:textSize="12sp"
             android:text="כן"
             />
@@ -43,8 +42,8 @@
             android:id="@+id/noBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:buttonTint="@android:color/white"
+            android:textColor="@color/leading_color"
+            android:buttonTint="@color/leading_color"
             android:textSize="12sp"
             android:text="לא"
             android:layout_marginStart="@dimen/global_margin_start"

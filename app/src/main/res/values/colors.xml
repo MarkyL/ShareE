@@ -8,4 +8,8 @@
     <color name="gray_background">#7E7B7B</color>
     <color name="gray_background_light">#C4C2C2</color>
 
+
+    <color name="leading_color">#2196F3</color>
+    <color name="secondary_color">#75B2E2</color>
+
 </resources>

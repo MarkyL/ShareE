@@ -50,12 +50,7 @@ class MainFragment : ShareeFragment() {
 
         })
 
-        pollBtn.setOnClickListener { onPollBtnClick() }
         generalPollsBtn.setOnClickListener { onGeneralPollsBtnClick() }
-    }
-
-    private fun onPollBtnClick() {
-        navigator.replace(PollScreen(TransferInfo()))
     }
 
     private fun onGeneralPollsBtnClick() {

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/gray_background_light"
+    app:cardCornerRadius="8dp"
     app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,27 +12,39 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start">
 
-    <include layout="@layout/question_item"
-        android:id="@+id/questionLayout"/>
+        <include
+            android:id="@+id/questionLayout"
+            layout="@layout/question_item" />
 
-    <EditText
-        android:id="@+id/textAnswer"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginStart="@dimen/global_margin_start"
-        android:layout_marginEnd="@dimen/global_margin_end"
-        android:layout_marginBottom="@dimen/global_margin_bottom"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/questionLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/questionLayout"
-        app:layout_constraintEnd_toEndOf="@id/questionLayout"
-        android:gravity="center_vertical|start"
-        android:inputType="text"
-        android:maxLength="140"
-        android:hint="טקסט חופשי..."
-        />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textAnswerInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginStart="@dimen/global_margin_start"
+            android:layout_marginEnd="@dimen/global_margin_end"
+            android:layout_marginBottom="@dimen/global_margin_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/questionLayout"
+            app:layout_constraintStart_toStartOf="@id/questionLayout"
+            app:layout_constraintTop_toBottomOf="@id/questionLayout"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            android:textColorHint="@color/leading_color"
+            >
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="20"
+                android:gravity="center_vertical|start"
+                android:textColor="@color/leading_color"
+                android:inputType="text"
+                android:focusableInTouchMode="true"
+                android:textSize="14sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

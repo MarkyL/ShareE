@@ -68,7 +68,7 @@ class QuestionViewHolder constructor(override val containerView: View) :
     fun bind(view: View, question: Question, position: Int) {
         questionLayout.questionNumber.text =
             (position + 1).toString() + ")"// +1 in order to show human number and not index.
-        questionLayout.questionText.text = question.question
+            questionLayout.questionText.text = question.question
         when (question.type) {
             Question.QuestionType.BOOLEAN -> bindBooleanQuestion(view, question)
             Question.QuestionType.NUMERICAL -> bindNumericalQuestion(view, question)
