@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.mark.sharee.activities.MainActivity">
+        <activity android:name="com.mark.sharee.activities.MainActivity"
+
+            android:windowSoftInputMode="adjustPan">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
