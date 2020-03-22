@@ -1,24 +1,30 @@
 package com.mark.sharee.activities
 
+import android.app.ActionBar
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.example.sharee.R
 import com.mark.sharee.core.ShareeActivity
 import com.mark.sharee.screens.SignInScreen
+import kotlinx.android.synthetic.main.toolbar.*
 import timber.log.Timber
 
 
 class MainActivity : ShareeActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         Timber.i("mark - onCreate")
+
+        initToolbar()
         navigator.replace(SignInScreen())
     }
 
@@ -51,5 +57,14 @@ class MainActivity : ShareeActivity() {
         return super.dispatchTouchEvent(event)
     }
 
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        val activityActionBar = actionBar
+        activityActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setHomeButtonEnabled(true)
+            it.title = "Drawer News"
+        }
+    }
 
 }

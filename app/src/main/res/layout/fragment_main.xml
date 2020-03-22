@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@android:color/white"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="סקרים כלליים"
-        android:background="@color/colorAccent"
+        style="@style/MyButtonViewStyle"
         android:textColor="@color/textColor"
         android:layout_marginBottom="24dp"
         android:layout_marginStart="20dp"
