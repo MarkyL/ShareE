@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ShareeToolbar">
+        <attr name="titleContentDescription" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShareeTextView">
+        <attr name="sharee_font" />
+    </declare-styleable>
+
+</resources>

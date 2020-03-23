@@ -17,7 +17,6 @@ import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_sign_in.*
-import kotlinx.android.synthetic.main.fragment_sign_in.progressBar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -42,6 +41,12 @@ class SignInFragment : ShareeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.i("SignInFragment onViewCreated")
+
+        //TEST DATA for work phone//
+
+        phoneNumberET.setText("+972529426921")
+
+        //TEST DATA for work phone//
 
         registerViewModel()
 
