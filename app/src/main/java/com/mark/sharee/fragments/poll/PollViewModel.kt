@@ -16,16 +16,16 @@ import timber.log.Timber
 class PollViewModel constructor(application: Application, private val shareeRepository: ShareeRepository)
     : BaseViewModel<Event<PollDataState>, PollDataEvent>(application = application) {
     
-    private lateinit var pollId: String
+    lateinit var pollId: String
 
     override fun handleScreenEvents(event: PollDataEvent) {
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
         when (event) {
-            is SubmitPoll -> submitPoll(event.answeredQuestions)
+            is SubmitPoll -> submitPoll(event.pollId, event.answeredQuestions)
         }
     }
 
-    private fun submitPoll(answeredQuestions: List<Question>) {
+    private fun submitPoll(pollId: String, answeredQuestions: List<Question>) {
         val filteredAnswers = answeredQuestions.filter { item -> item.answer != null }
         val verificationToken = User.me()?.getToken()
         if (verificationToken == null) {
@@ -58,7 +58,7 @@ class PollViewModel constructor(application: Application, private val shareeRepo
 
 // Events = actions coming from UI
 sealed class PollDataEvent
-data class SubmitPoll(val answeredQuestions: List<Question>) : PollDataEvent()
+data class SubmitPoll(val pollId: String, val answeredQuestions: List<Question>) : PollDataEvent()
 
 // State = change of states by the view model
 sealed class PollDataState

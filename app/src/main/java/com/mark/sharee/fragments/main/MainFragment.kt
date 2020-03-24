@@ -7,14 +7,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.example.sharee.R
+import com.mark.sharee.activities.MainActivity
+import com.mark.sharee.core.AbstractAction
+import com.mark.sharee.core.Action
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.GeneralPollsScreen
-import com.mark.sharee.screens.PollScreen
+import com.mark.sharee.widgets.ShareeToolbar
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.sharee_toolbar.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
-class MainFragment : ShareeFragment() {
+class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener {
 
     lateinit var transferInfo: TransferInfo
 
@@ -30,6 +35,8 @@ class MainFragment : ShareeFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         transferInfo = castArguments(TransferInfo::class.java)
+
+        configureToolbar()
 
         phoneNumberTv.text = "שלום " + transferInfo.phoneNumber
 
@@ -53,7 +60,24 @@ class MainFragment : ShareeFragment() {
         generalPollsBtn.setOnClickListener { onGeneralPollsBtnClick() }
     }
 
+    private fun configureToolbar() {
+        homeToolbar.titleTextView.text = "Sharee"
+        homeToolbar.addActions(arrayOf(Action.Drawer), this)
+    }
+
     private fun onGeneralPollsBtnClick() {
         navigator.replace(GeneralPollsScreen(TransferInfo()))
     }
+
+    override fun onActionSelected(action: AbstractAction): Boolean {
+        if (action == Action.Drawer) {
+            Timber.i("onActionSelected - Drawer")
+            (activity as MainActivity).openDrawer()
+            return true
+        }
+
+
+        return false
+    }
+
 }

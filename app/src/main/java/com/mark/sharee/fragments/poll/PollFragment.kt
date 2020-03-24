@@ -15,6 +15,7 @@ import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
+import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_poll.*
@@ -106,6 +107,7 @@ class PollFragment : ShareeFragment() {
     private fun handleSubmitPollSuccess(response: SubmitPollSuccess) {
         Timber.i("handleSubmitPollSuccess generalPollsResponse = $response")
         Toast.makeText(context, resources.getString(R.string.submit_poll_success), Toast.LENGTH_SHORT).show()
+        navigator.goBackTo(MainScreen::class.java)
     }
 
     private fun handleError(throwable: Throwable?) {
@@ -115,7 +117,7 @@ class PollFragment : ShareeFragment() {
 
     private fun onSubmitBtnClick() {
         Timber.i("onSubmitBtnClick")
-        viewModel.dispatchInputEvent(SubmitPoll(pollAdapter.items))
+        viewModel.dispatchInputEvent(SubmitPoll(pollId = transferInfo.poll.id, answeredQuestions = pollAdapter.items))
     }
 
 

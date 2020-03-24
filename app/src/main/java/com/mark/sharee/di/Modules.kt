@@ -3,6 +3,7 @@ package com.mark.sharee.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.sharee.R
+import com.mark.sharee.core.DrawerPresenter
 import com.mark.sharee.fragments.generalPolls.GeneralPollsViewModel
 import com.mark.sharee.fragments.main.MainViewModel
 import com.mark.sharee.fragments.poll.PollViewModel
@@ -15,6 +16,7 @@ import org.koin.dsl.module
 
 val dataModule = module(override = true) {
     single<SharedPreferences> { androidContext().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE) }
+    single { DrawerPresenter(get()) }
 }
 
 val navigatorModule = module {

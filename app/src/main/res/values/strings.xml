@@ -20,5 +20,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Actions -->
+    <string name="action_help" translatable="false">עזרה</string>
+    <string name="action_cancel" translatable="false">סגור</string>
+    <string name="action_back" translatable="false">חזרה</string>
+    <string name="action_drawer" translatable="false">תפריט</string>
+    <string name="action_settings" translatable="false">הגדרות</string>
+    <string name="action_search" translatable="false">חיפוש</string>
 
 </resources>

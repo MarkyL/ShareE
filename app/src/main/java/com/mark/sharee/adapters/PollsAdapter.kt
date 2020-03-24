@@ -14,8 +14,6 @@ class PollsAdapter(private var listener: PollsAdapterListener) : RecyclerView.Ad
     var items = listOf<GeneralPollResponse>()
         private set
 
-//    lateinit var listener: PollsAdapterListener
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         PollViewHolder.create(parent)
 
