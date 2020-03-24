@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="sharee_font">
+        <enum name="orionRegular" value="0" />
+        <enum name="orionBold" value="1" />
+        <enum name="orionExtraBold" value="2" />
+        <enum name="orionBlack" value="3" />
+        <enum name="clanOffcUltra" value="4" />
+        <enum name="clanOTUltra" value="5" />
+    </attr>
+
     <declare-styleable name="ShareeToolbar">
         <attr name="titleContentDescription" format="string"/>
     </declare-styleable>
