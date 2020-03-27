@@ -36,20 +36,17 @@ class ShareeMockDataSource : ShareeDataSource {
     private fun createGeneralPollResponse1(): GeneralPollResponse {
         val questionsList = mutableListOf(
             Question(1, Question.QuestionType.BOOLEAN, "האם אתה מרגיש טוב?"),
-            Question(2, Question.QuestionType.BOOLEAN, "האם קיבלת טיפול בזמן סביר?"),
+            Question(2, Question.QuestionType.GENERIC, "האם קיבלת טיפול בזמן סביר?",
+                mutableListOf("תשובה1", "תשובה2", "תשובה3")),
             Question(3, Question.QuestionType.NUMERICAL, "מה מידת שביעות הרצון שלך מהטיפול?"),
-            Question(
-                4,
-                Question.QuestionType.NUMERICAL,
-                "מה מידת היחס שקיבלת מהצוות הרפואי והאם תמליץ על שרי?"
-            ),
+            Question(4, Question.QuestionType.NUMERICAL, "מה מידת היחס שקיבלת מהצוות הרפואי והאם תמליץ על שרי?"),
             Question(5, Question.QuestionType.TEXTUAL, "כיצד היית משפר את השירות במחלקה?"),
             Question(6, Question.QuestionType.TEXTUAL, "האם תרצה להוסיף עוד משהו?")
         )
 
         val pollSections = mutableListOf(
-            PollSection("1", "section #1", questionsList),
-            PollSection("2", "section #2", questionsList))
+            PollSection("1", "חלק ראשון", questionsList),
+            PollSection("2", "חלק שני", questionsList))
 
         return GeneralPollResponse("12345", "סקר מוק 1", pollSections, "general")
     }
@@ -59,18 +56,14 @@ class ShareeMockDataSource : ShareeDataSource {
             Question(1, Question.QuestionType.BOOLEAN, "האם אתה מרגיש טוב?"),
             Question(2, Question.QuestionType.BOOLEAN, "האם קיבלת טיפול בזמן סביר?"),
             Question(3, Question.QuestionType.NUMERICAL, "מה מידת שביעות הרצון שלך מהטיפול?"),
-            Question(
-                4,
-                Question.QuestionType.NUMERICAL,
-                "מה מידת היחס שקיבלת מהצוות הרפואי והאם תמליץ על שרי?"
-            ),
+            Question(4, Question.QuestionType.NUMERICAL, "מה מידת היחס שקיבלת מהצוות הרפואי והאם תמליץ על שרי?"),
             Question(5, Question.QuestionType.TEXTUAL, "כיצד היית משפר את השירות במחלקה?"),
             Question(6, Question.QuestionType.TEXTUAL, "האם תרצה להוסיף עוד משהו?")
         )
 
         val pollSections = mutableListOf(
-            PollSection("1", "section #1", questionsList),
-            PollSection("2", "section #2", questionsList))
+            PollSection("1", "סקשן 1", questionsList),
+            PollSection("2", "סקשן 2", questionsList))
 
         return GeneralPollResponse("123456", "סקר מוק 2", pollSections, "general")
     }
@@ -80,20 +73,16 @@ class ShareeMockDataSource : ShareeDataSource {
             Question(1, Question.QuestionType.BOOLEAN, "האם אתה מרגיש טוב?"),
             Question(2, Question.QuestionType.BOOLEAN, "האם קיבלת טיפול בזמן סביר?"),
             Question(3, Question.QuestionType.NUMERICAL, "מה מידת שביעות הרצון שלך מהטיפול?"),
-            Question(
-                4,
-                Question.QuestionType.NUMERICAL,
-                "מה מידת היחס שקיבלת מהצוות הרפואי והאם תמליץ על שרי?"
-            ),
+            Question(4, Question.QuestionType.NUMERICAL, "מה מידת היחס שקיבלת מהצוות הרפואי והאם תמליץ על שרי?"),
             Question(5, Question.QuestionType.TEXTUAL, "כיצד היית משפר את השירות במחלקה?"),
             Question(6, Question.QuestionType.TEXTUAL, "האם תרצה להוסיף עוד משהו?")
         )
 
         val pollSections = mutableListOf(
-            PollSection("1", "section #1", questionsList),
-            PollSection("2", "section #2", questionsList),
-            PollSection("3", "section #3", questionsList),
-            PollSection("4", "section #4", questionsList))
+            PollSection("1", "שאלות עישון", questionsList),
+            PollSection("2", "שאלון מחלות רקע", questionsList),
+            PollSection("3", "שאלות נוספות", questionsList),
+            PollSection("4", "חלק אחרון", questionsList))
 
         return GeneralPollResponse("1234567", "סקר מוק 3", pollSections, "general")
     }

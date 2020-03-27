@@ -10,16 +10,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        android:background="@drawable/round_rect_shape">
 
-        <TextView
+        <com.mark.sharee.widgets.ShareeTextView
             android:id="@+id/sectionText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:gravity="start"
-            android:textColor="@color/leading_color"
+            android:textColor="@color/white"
             tools:text="האם אתה מרגיש טוב יותר?"
+            app:sharee_font="orionBold"
             android:textDirection="rtl"
             android:layout_marginStart="@dimen/min_margin_start"
             app:layout_constraintStart_toStartOf="parent"

@@ -15,6 +15,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.question_boolean_item.*
 import kotlinx.android.synthetic.main.question_boolean_item.questionLayout
 import kotlinx.android.synthetic.main.question_boolean_item.radioGrp
+import kotlinx.android.synthetic.main.question_generic_item.*
 import kotlinx.android.synthetic.main.question_item.*
 import kotlinx.android.synthetic.main.question_item.view.*
 import kotlinx.android.synthetic.main.question_numerical_item.*
@@ -131,7 +132,7 @@ class PollItemViewHolder constructor(override val containerView: View) :
 
     private fun bindGenericQuestion(view: View, question: Question) {
         questionLayout.questionText.text = question.question
-
+        genericAnswer.text = question.possibleAnswers?.get(0)
     }
 
     companion object {
@@ -153,7 +154,7 @@ class PollItemViewHolder constructor(override val containerView: View) :
                 //TODO: implement a generic view
                 PollAbstractDisplayItem.PollItemType.GENERIC.ordinal ->
                     PollItemViewHolder(
-                        LayoutInflater.from(parent.context).inflate(R.layout.question_textual_item, parent, false))
+                        LayoutInflater.from(parent.context).inflate(R.layout.question_generic_item, parent, false))
 
                 PollAbstractDisplayItem.PollItemType.HEADER.ordinal ->
                     PollItemViewHolder(

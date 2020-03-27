@@ -7,7 +7,7 @@ abstract class AnsweredQuestion(@SerialName(value = "type") open val type: Strin
 
     @SerialName(value = "questionId")
     abstract val questionId: Long
-    
+
     companion object {
 
         fun convertQuestionListToAnsweredQuestionList(questionList: List<Question>): List<AnsweredQuestion> {
@@ -45,6 +45,6 @@ data class TextualAnswer(
     : AnsweredQuestion(type = Question.QuestionType.TEXTUAL.type)
 
 data class GenericAnswer(
-    @SerialName(value = "answer") var answer: String?, override var questionId: Long) :
-    AnsweredQuestion(type = Question.QuestionType.GENERIC.type)
+    @SerialName(value = "answer") var answer: String?, override var questionId: Long)
+    : AnsweredQuestion(type = Question.QuestionType.GENERIC.type)
 
