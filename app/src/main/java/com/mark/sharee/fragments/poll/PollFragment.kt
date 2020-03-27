@@ -9,17 +9,19 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sharee.R
-import com.mark.sharee.adapters.PollAdapter
-import com.mark.sharee.adapters.PollsAdapter
+import com.mark.sharee.adapters.*
 import com.mark.sharee.core.ShareeFragment
+import com.mark.sharee.model.poll.Question
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
+import com.mark.sharee.network.model.responses.GeneralPollResponse
 import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_poll.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.w3c.dom.Text
 import timber.log.Timber
 
 class PollFragment : ShareeFragment() {
@@ -57,7 +59,24 @@ class PollFragment : ShareeFragment() {
     private fun configureScreen() {
         val poll = transferInfo.poll
         pollName.text = poll.name
-        pollAdapter.submitList(poll.questions)
+        generatePollDisplayItems(poll)
+        pollAdapter.submitList(generatePollDisplayItems(poll))
+    }
+
+    private fun generatePollDisplayItems(poll: GeneralPollResponse): MutableList<PollAbstractDisplayItem>  {
+        val pollDisplayItems = mutableListOf<PollAbstractDisplayItem>()
+        poll.pollSections.forEach {
+            pollDisplayItems.add(PollHeaderItem(it.name))
+            it.questions.forEach { question ->
+                when (question.type) {
+                    Question.QuestionType.BOOLEAN -> pollDisplayItems.add(BooleanQuestionItem(question))
+                    Question.QuestionType.NUMERICAL -> pollDisplayItems.add(NumericalQuestionItem(question))
+                    Question.QuestionType.TEXTUAL -> pollDisplayItems.add(TextualQuestionItem(question))
+                    Question.QuestionType.GENERIC -> pollDisplayItems.add(GenericQuestionItem(question))
+                }
+            }
+        }
+        return pollDisplayItems
     }
 
     private fun registerViewModel() {
@@ -117,7 +136,22 @@ class PollFragment : ShareeFragment() {
 
     private fun onSubmitBtnClick() {
         Timber.i("onSubmitBtnClick")
-        viewModel.dispatchInputEvent(SubmitPoll(pollId = transferInfo.poll.id, answeredQuestions = pollAdapter.items))
+        viewModel.dispatchInputEvent(SubmitPoll(pollId = transferInfo.poll.id, answeredQuestions = generateAnsweredQuestions(pollAdapter.items)))
+    }
+
+    private fun generateAnsweredQuestions(items: List<PollAbstractDisplayItem>): List<Question> {
+        val answeredQuestions = mutableListOf<Question>()
+        items.forEach {
+            when (it.type) {
+                PollAbstractDisplayItem.PollItemType.BOOLEAN -> answeredQuestions.add((it as BooleanQuestionItem).question)
+                PollAbstractDisplayItem.PollItemType.NUMERICAL -> answeredQuestions.add((it as NumericalQuestionItem).question)
+                PollAbstractDisplayItem.PollItemType.TEXTUAL -> answeredQuestions.add((it as TextualQuestionItem).question)
+                PollAbstractDisplayItem.PollItemType.GENERIC -> answeredQuestions.add((it as GenericQuestionItem).question)
+                else -> {}
+            }
+        }
+
+        return answeredQuestions
     }
 
 

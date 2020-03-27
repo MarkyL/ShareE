@@ -11,7 +11,7 @@ data class Question(
     @Transient var answer: Any? = null) {
 
     enum class QuestionType(val type: String) {
-        BOOLEAN("boolean"), NUMERICAL("numerical"), TEXTUAL("textual")
+        BOOLEAN("boolean"), NUMERICAL("numerical"), TEXTUAL("textual"), GENERIC("generic")
     }
 
 }

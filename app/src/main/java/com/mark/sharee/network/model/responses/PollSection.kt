@@ -4,9 +4,8 @@ import com.mark.sharee.model.poll.Question
 import kotlinx.serialization.SerialName
 
 @kotlinx.serialization.Serializable
-data class GeneralPollResponse (
+data class PollSection (
     @SerialName(value = "id") val id: String,
     @SerialName(value = "name") val name: String,
-    @SerialName(value = "pollSections") val pollSections: MutableList<PollSection>,
-    @SerialName(value = "type") val type: String)
+    @SerialName(value = "questions") val questions: MutableList<Question>)
 
