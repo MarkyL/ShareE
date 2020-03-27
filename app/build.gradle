@@ -118,8 +118,14 @@ dependencies {
 
     // Constraint layout dependency
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+
+    // ihsanbal Logging interceptor pretty printing
+    implementation('com.github.ihsanbal:LoggingInterceptor:3.1.0-rc5') {
+        exclude group: 'org.json', module: 'json'
+    }
 }
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }

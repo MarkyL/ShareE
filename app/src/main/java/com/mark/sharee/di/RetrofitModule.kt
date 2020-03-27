@@ -1,9 +1,15 @@
 package com.mark.sharee.di
 
 import android.content.Context
+import android.util.Log
 import com.example.sharee.BuildConfig
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
+import com.google.gson.JsonSyntaxException
+import com.ihsanbal.logging.Level
+import com.ihsanbal.logging.LoggingInterceptor
 import com.mark.sharee.core.Constants
+import com.mark.sharee.core.ShareeApplication
 import com.mark.sharee.data.ShareeRepository
 import com.mark.sharee.data.remote.ShareeRemoteDataSource
 import com.mark.sharee.model.User
@@ -63,7 +69,11 @@ private fun cache(cacheFile: File) = Cache(cacheFile, Constants.CACHE_FILE_SIZE)
 private fun retrofit(callFactory: Call.Factory, baseUrl: String) = Retrofit.Builder()
     .callFactory(callFactory)
     .baseUrl(baseUrl)
-    .addConverterFactory(GsonConverterFactory.create())
+    .addConverterFactory(
+        GsonConverterFactory.create(
+            GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").setPrettyPrinting().create()
+        )
+    )
     .build()
 
 private fun okhttp(cache: Cache) = OkHttpClient.Builder()
@@ -75,5 +85,31 @@ private fun okhttp(cache: Cache) = OkHttpClient.Builder()
         chain.proceed(request)
     }
     .addNetworkInterceptor(logging)
+    .addInterceptor(
+        LoggingInterceptor.Builder()
+            .setLevel(Level.BASIC)
+            .log(Log.INFO)
+            .request("Request")
+            .response("Response")
+            .build()
+    )
     .cache(cache)
     .build()
+
+class ApiLogger : HttpLoggingInterceptor.Logger {
+    override fun log(message: String) {
+        val logName = "ApiLogger"
+        if (message.startsWith("{") || message.startsWith("[")) {
+            try {
+                val prettyPrintJson = GsonBuilder().setPrettyPrinting()
+                    .create().toJson(JsonParser().parse(message))
+                Log.d(logName, prettyPrintJson)
+            } catch (m: JsonSyntaxException) {
+                Log.d(logName, message)
+            }
+        } else {
+            Log.d(logName, message)
+            return
+        }
+    }
+}
