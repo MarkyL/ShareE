@@ -19,6 +19,7 @@ class GeneralPollsViewModel constructor(application: Application, private val sh
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
         when (event) {
             is GetGeneralPolls -> getGeneralPolls()
+            is GetMedicalPolls -> getMedicalPolls()
         }
     }
 
@@ -38,10 +39,20 @@ class GeneralPollsViewModel constructor(application: Application, private val sh
         }
     }
 
-    private fun handleNoToken() {
-        Timber.e("getGeneralPolls - user has no verificationToken")
-        publish(state = State.ERROR, throwable = Throwable("No verification token"))
-        return
+    private fun getMedicalPolls() {
+        viewModelScope.launch {
+            runCatching {
+                Timber.i("getMedicalPolls - runCatching")
+                publish(state = State.LOADING)
+                shareeRepository.getMedicalPolls()
+            }.onSuccess {
+                Timber.i("getMedicalPolls - onSuccess, loginResponse = $it")
+                publish(state = State.NEXT, items = Event(GetGeneralPollsSuccess(it)))
+            }.onFailure {
+                Timber.e("getMedicalPolls - onFailure $it")
+                publish(state = State.ERROR, throwable = it)
+            }
+        }
     }
 
 }
@@ -49,6 +60,7 @@ class GeneralPollsViewModel constructor(application: Application, private val sh
 // Events = actions coming from UI
 sealed class GeneralPollsDataEvent
 object GetGeneralPolls : GeneralPollsDataEvent()
+object GetMedicalPolls : GeneralPollsDataEvent()
 
 // State = change of states by the view model
 sealed class PollDataState

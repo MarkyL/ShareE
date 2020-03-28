@@ -11,7 +11,7 @@ import com.mark.sharee.navigation.Arguments
 import org.koin.android.ext.android.get
 
 abstract class ShareeFragment : Fragment() {
-    private var abstractArguments: Arguments? = null
+    var shareeArguments: Arguments? = null
     @AnimRes private var nextExitAnimation = -1
     @AnimRes private var nextEnterAnimation = -1
 
@@ -50,7 +50,7 @@ abstract class ShareeFragment : Fragment() {
         super.onAttach(context)
         arguments?.let {
             if (it.containsKey(ARGUMENTS)) {
-                abstractArguments = it.getString(ARGUMENTS)?.let { it1 -> Arguments.deserialize(it1) }
+                shareeArguments = it.getString(ARGUMENTS)?.let { it1 -> Arguments.deserialize(it1) }
             }
         }
     }
@@ -69,8 +69,8 @@ abstract class ShareeFragment : Fragment() {
     }
 
     protected fun <T : Arguments> castArguments(clazz: Class<T>): T {
-        if (clazz.isInstance(abstractArguments)) {
-            return clazz.cast(abstractArguments)!!
+        if (clazz.isInstance(shareeArguments)) {
+            return clazz.cast(shareeArguments)!!
         }
 
         throw RuntimeException("This fragment does not support arguments")

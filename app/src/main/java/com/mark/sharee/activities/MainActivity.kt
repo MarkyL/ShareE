@@ -18,6 +18,7 @@ import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.screens.SignInScreen
 import com.mark.sharee.utils.FontManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 
 
@@ -100,10 +101,10 @@ class MainActivity : ShareeActivity() {
 
             when (item.itemId) {
                 R.id.navGeneralPolls -> {
-                    navigator.replace(GeneralPollsScreen(TransferInfo()))
+                    navigator.replace(GeneralPollsScreen(TransferInfo(flow = TransferInfo.Flow.GeneralPolls)))
                 }
                 R.id.navMedicalPolls -> {
-
+                    navigator.replace(GeneralPollsScreen(TransferInfo(flow = TransferInfo.Flow.MedicalPolls)))
                 }
 
             }

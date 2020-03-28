@@ -25,7 +25,7 @@ abstract class AnsweredQuestion(@SerialName(value = "type") open val type: Strin
                 Question.QuestionType.TEXTUAL ->
                     TextualAnswer(question.answer as String, question.id)
                 Question.QuestionType.GENERIC ->
-                    GenericAnswer(question.answer as String, question.id)
+                    GenericAnswer(question.answer as Int, question.id)
             }
         }
     }
@@ -45,6 +45,6 @@ data class TextualAnswer(
     : AnsweredQuestion(type = Question.QuestionType.TEXTUAL.type)
 
 data class GenericAnswer(
-    @SerialName(value = "answer") var answer: String?, override var questionId: Long)
+    @SerialName(value = "answer") var answer: Int?, override var questionId: Long)
     : AnsweredQuestion(type = Question.QuestionType.GENERIC.type)
 

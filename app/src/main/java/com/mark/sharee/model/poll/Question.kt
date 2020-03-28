@@ -8,7 +8,7 @@ data class Question(
     @SerialName(value = "id") val id: Long,
     @SerialName(value = "type") val type: QuestionType,
     @SerialName(value = "question") val question: String,
-    @SerialName(value = "answers") val answers: MutableList<String>? = null,
+    @SerialName(value = "answers") var answers: MutableList<String> = mutableListOf(),
 
     @Transient var answer: Any? = null) {
 

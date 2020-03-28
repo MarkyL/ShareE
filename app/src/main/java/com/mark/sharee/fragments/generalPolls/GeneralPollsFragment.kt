@@ -28,6 +28,8 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
     // This fragment holds all the general polls that are active and available for the
     // patient to view
 
+    lateinit var transferInfo: TransferInfo
+
     private val viewModel: GeneralPollsViewModel by sharedViewModel()
     private val pollsAdapter: PollsAdapter = PollsAdapter(listener = this)
 
@@ -40,6 +42,8 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        transferInfo = castArguments(TransferInfo::class.java)
+
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(GridSpacingItemDecoration(1, 30, true))
@@ -48,7 +52,14 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
 
         registerViewModel()
 
-        viewModel.dispatchInputEvent(GetGeneralPolls)
+        configureScreen()
+    }
+
+    private fun configureScreen() {
+        when (transferInfo.flow) {
+            TransferInfo.Flow.GeneralPolls -> viewModel.dispatchInputEvent(GetGeneralPolls)
+            TransferInfo.Flow.MedicalPolls -> viewModel.dispatchInputEvent(GetMedicalPolls)
+        }
     }
 
     private fun registerViewModel() {
@@ -113,9 +124,7 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
     }
 
     override fun onPollClick(poll: GeneralPollResponse) {
-        val transferInfo = TransferInfo()
         transferInfo.poll = poll
-
         navigator.replace(PollScreen(transferInfo))
     }
 

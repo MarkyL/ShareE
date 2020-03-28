@@ -156,7 +156,8 @@ class PollItemViewHolder constructor(override val containerView: View) :
     private fun bindGenericQuestion(view: View, question: Question) {
         questionLayout.questionText.text = question.question
 
-        var arrayAdapter = ArrayAdapter<String>(view.context, R.layout.spinner_item, question.answers!!)
+        manipulateQuestionAnswers(question)
+        var arrayAdapter = ArrayAdapter<String>(view.context, R.layout.spinner_item, question.answers)
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -177,10 +178,18 @@ class PollItemViewHolder constructor(override val containerView: View) :
                         }
 
                     }
+
+                    question.answer = position - 1
                 }
 
             }
         }
+    }
+
+    private fun manipulateQuestionAnswers(question: Question) {
+        val manipulatedList = mutableListOf("")
+        manipulatedList.addAll(question.answers)
+        question.answers = manipulatedList
     }
 
     companion object {
