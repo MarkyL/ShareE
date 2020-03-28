@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Rect
 import android.graphics.Typeface
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -13,35 +12,31 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.sharee.R
-import com.google.android.material.navigation.NavigationView
-import com.mark.sharee.core.DrawerPresenter
 import com.mark.sharee.core.ShareeActivity
+import com.mark.sharee.navigation.arguments.TransferInfo
+import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.screens.SignInScreen
 import com.mark.sharee.utils.FontManager
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 
 class MainActivity : ShareeActivity() {
 
-    private val drawerPresenter: DrawerPresenter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initializeFonts()
-
-        drawerPresenter.initialize()
-        addDrawerListener()
-
+        initializeDrawer()
         navigator.replace(SignInScreen())
     }
 
     override fun onResume() {
         super.onResume()
         navigator.takeActivity(this)
+
     }
 
     override fun onPause() {
@@ -78,6 +73,10 @@ class MainActivity : ShareeActivity() {
     }
 
     //region drawer
+    private fun initializeDrawer() {
+        addDrawerListener()
+    }
+
     private fun addDrawerListener() {
         drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
@@ -97,18 +96,23 @@ class MainActivity : ShareeActivity() {
 
         navigationView.setNavigationItemSelectedListener { item ->
             Timber.i("onNavigationItemSelected - ${item.title}")
-            Toast.makeText(
-                applicationContext,
-                "בחרת " + item.title.toString(),
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(applicationContext, "בחרת " + item.title.toString(), Toast.LENGTH_SHORT).show()
+
+            when (item.itemId) {
+                R.id.navGeneralPolls -> {
+                    navigator.replace(GeneralPollsScreen(TransferInfo()))
+                }
+                R.id.navMedicalPolls -> {
+
+                }
+
+            }
             drawerLayout.closeDrawers()
 
             true
         }
 
 
-        drawerPresenter.onHomeClick()
     }
 
     fun openDrawer() {
@@ -121,8 +125,4 @@ class MainActivity : ShareeActivity() {
 
     //endregion
 
-    override fun onDestroy() {
-        super.onDestroy()
-        drawerPresenter.unInitialize()
-    }
 }
