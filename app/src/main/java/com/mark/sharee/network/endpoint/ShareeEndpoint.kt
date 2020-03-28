@@ -36,5 +36,10 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
         return shareeService.getGeneralPolls()
     }
 
+    suspend fun getMedicalPolls(): MutableList<GeneralPollResponse> {
+        return shareeService.getMedicalPolls()
+    }
+
+
 
 }

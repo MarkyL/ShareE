@@ -27,4 +27,8 @@ class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) :
     override suspend fun getGeneralPolls(): MutableList<GeneralPollResponse> {
         return endpoint.getGeneralPolls()
     }
+
+    override suspend fun getMedicalPolls(): MutableList<GeneralPollResponse> {
+        return endpoint.getMedicalPolls()
+    }
 }

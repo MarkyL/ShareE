@@ -36,4 +36,8 @@ class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : S
         return activeDataSource.getGeneralPolls()
     }
 
+    override suspend fun getMedicalPolls(): MutableList<GeneralPollResponse> {
+        return activeDataSource.getMedicalPolls()
+    }
+
 }

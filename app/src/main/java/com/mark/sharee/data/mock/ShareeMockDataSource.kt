@@ -88,4 +88,10 @@ class ShareeMockDataSource : ShareeDataSource {
     }
 
     //endregion
+
+    override suspend fun getMedicalPolls(): MutableList<GeneralPollResponse> {
+        return mutableListOf(
+            createGeneralPollResponse1(), createGeneralPollResponse2(), createGeneralPollResponse3()
+        )
+    }
 }

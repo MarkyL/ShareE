@@ -16,4 +16,6 @@ interface ShareeDataSource {
     suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>)
 
     suspend fun getGeneralPolls(): MutableList<GeneralPollResponse>
+
+    suspend fun getMedicalPolls(): MutableList<GeneralPollResponse>
 }

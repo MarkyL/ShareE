@@ -1,9 +1,7 @@
 package com.mark.sharee.adapters
 
-import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +16,10 @@ import kotlinx.android.synthetic.main.question_boolean_item.*
 import kotlinx.android.synthetic.main.question_boolean_item.questionLayout
 import kotlinx.android.synthetic.main.question_boolean_item.radioGrp
 import kotlinx.android.synthetic.main.question_generic_item.*
-import kotlinx.android.synthetic.main.question_generic_item.view.*
 import kotlinx.android.synthetic.main.question_item.*
 import kotlinx.android.synthetic.main.question_item.view.*
 import kotlinx.android.synthetic.main.question_numerical_item.*
 import kotlinx.android.synthetic.main.question_textual_item.*
-import kotlinx.android.synthetic.main.question_textual_item.view.*
 import kotlinx.android.synthetic.main.section_header_item.*
 import timber.log.Timber
 import android.widget.TextView
@@ -160,7 +156,7 @@ class PollItemViewHolder constructor(override val containerView: View) :
     private fun bindGenericQuestion(view: View, question: Question) {
         questionLayout.questionText.text = question.question
 
-        var arrayAdapter = ArrayAdapter<String>(view.context, R.layout.spinner_item, question.possibleAnswers!!)
+        var arrayAdapter = ArrayAdapter<String>(view.context, R.layout.spinner_item, question.answers!!)
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
