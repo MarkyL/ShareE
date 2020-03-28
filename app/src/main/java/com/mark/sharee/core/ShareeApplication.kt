@@ -58,7 +58,6 @@ class ShareeApplication : MultiDexApplication() {
     companion object {
         private var debug: Boolean? = null
         @SuppressLint("StaticFieldLeak")
-        lateinit var context: Context
 
         @JvmStatic
         fun registerActivityComponent(activity: Activity, component: ActivityComponent) {
