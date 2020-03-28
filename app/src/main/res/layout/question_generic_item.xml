@@ -16,20 +16,17 @@
             android:id="@+id/questionLayout"
             layout="@layout/question_item" />
 
-        <com.mark.sharee.widgets.ShareeTextView
-            android:id="@+id/genericAnswer"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/genericAnswerSpinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/global_margin_start"
             android:layout_marginTop="@dimen/min_margin_top"
+            android:layout_marginEnd="@dimen/global_margin_end"
             android:layout_marginBottom="@dimen/global_margin_bottom"
-            android:background="@drawable/item_background_border"
-            android:drawableEnd="@drawable/ic_arrow_down"
             android:gravity="center|start"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:textColor="@color/leading_color"
-            android:textSize="16sp"
+            android:spinnerMode="dropdown"
+            android:stateListAnimator="@drawable/spinner_sla"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/questionLayout"

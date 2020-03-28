@@ -16,6 +16,7 @@ import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.network.model.responses.GeneralPollResponse
+import com.mark.sharee.network.model.responses.PollSection
 import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
@@ -65,18 +66,33 @@ class PollFragment : ShareeFragment() {
 
     private fun generatePollDisplayItems(poll: GeneralPollResponse): MutableList<PollAbstractDisplayItem>  {
         val pollDisplayItems = mutableListOf<PollAbstractDisplayItem>()
-        poll.pollSections.forEach {
-            pollDisplayItems.add(PollHeaderItem(it.name))
-            it.questions.forEach { question ->
-                when (question.type) {
-                    Question.QuestionType.BOOLEAN -> pollDisplayItems.add(BooleanQuestionItem(question))
-                    Question.QuestionType.NUMERICAL -> pollDisplayItems.add(NumericalQuestionItem(question))
-                    Question.QuestionType.TEXTUAL -> pollDisplayItems.add(TextualQuestionItem(question))
-                    Question.QuestionType.GENERIC -> pollDisplayItems.add(GenericQuestionItem(question))
-                }
+        if (poll.pollSections.size == 1) {
+            addQuestionsOfSection(poll.pollSections[0], pollDisplayItems)
+        } else {
+            poll.pollSections.forEach {
+                pollDisplayItems.add(PollHeaderItem(it.name))
+                addQuestionsOfSection(it, pollDisplayItems)
             }
         }
         return pollDisplayItems
+    }
+
+    private fun addQuestionsOfSection(
+        it: PollSection,
+        pollDisplayItems: MutableList<PollAbstractDisplayItem>
+    ) {
+        it.questions.forEach { question ->
+            when (question.type) {
+                Question.QuestionType.BOOLEAN -> pollDisplayItems.add(BooleanQuestionItem(question))
+                Question.QuestionType.NUMERICAL -> pollDisplayItems.add(
+                    NumericalQuestionItem(
+                        question
+                    )
+                )
+                Question.QuestionType.TEXTUAL -> pollDisplayItems.add(TextualQuestionItem(question))
+                Question.QuestionType.GENERIC -> pollDisplayItems.add(GenericQuestionItem(question))
+            }
+        }
     }
 
     private fun registerViewModel() {

@@ -1,11 +1,13 @@
 package com.mark.sharee.adapters
 
+import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.HeaderViewListAdapter
+import android.widget.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,12 +18,16 @@ import kotlinx.android.synthetic.main.question_boolean_item.*
 import kotlinx.android.synthetic.main.question_boolean_item.questionLayout
 import kotlinx.android.synthetic.main.question_boolean_item.radioGrp
 import kotlinx.android.synthetic.main.question_generic_item.*
+import kotlinx.android.synthetic.main.question_generic_item.view.*
 import kotlinx.android.synthetic.main.question_item.*
 import kotlinx.android.synthetic.main.question_item.view.*
 import kotlinx.android.synthetic.main.question_numerical_item.*
 import kotlinx.android.synthetic.main.question_textual_item.*
+import kotlinx.android.synthetic.main.question_textual_item.view.*
 import kotlinx.android.synthetic.main.section_header_item.*
 import timber.log.Timber
+import android.widget.TextView
+
 
 class PollAdapter : ListAdapter<PollAbstractDisplayItem, PollItemViewHolder>(DIFF_CALLBACK) {
 
@@ -49,11 +55,17 @@ class PollAdapter : ListAdapter<PollAbstractDisplayItem, PollItemViewHolder>(DIF
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PollAbstractDisplayItem>() {
 
-            override fun areItemsTheSame(oldItem: PollAbstractDisplayItem, newItem: PollAbstractDisplayItem): Boolean {
+            override fun areItemsTheSame(
+                oldItem: PollAbstractDisplayItem,
+                newItem: PollAbstractDisplayItem
+            ): Boolean {
                 return oldItem.type == newItem.type
             }
 
-            override fun areContentsTheSame(oldItem: PollAbstractDisplayItem, newItem: PollAbstractDisplayItem) =
+            override fun areContentsTheSame(
+                oldItem: PollAbstractDisplayItem,
+                newItem: PollAbstractDisplayItem
+            ) =
                 when (oldItem.type) {
                     PollAbstractDisplayItem.PollItemType.HEADER -> (oldItem as PollHeaderItem).title == (newItem as PollHeaderItem).title
                     PollAbstractDisplayItem.PollItemType.BOOLEAN -> (oldItem as BooleanQuestionItem).question.id == (newItem as BooleanQuestionItem).question.id
@@ -74,11 +86,26 @@ class PollItemViewHolder constructor(override val containerView: View) :
         //questionLayout.questionNumber.text = (position + 1).toString() + ")"// +1 in order to show human number and not index.
         questionText
         when (pollItem.type) {
-            PollAbstractDisplayItem.PollItemType.HEADER -> bindHeaderItem(view, (pollItem as PollHeaderItem).title)
-            PollAbstractDisplayItem.PollItemType.BOOLEAN -> bindBooleanQuestion(view, (pollItem as BooleanQuestionItem).question)
-            PollAbstractDisplayItem.PollItemType.NUMERICAL -> bindNumericalQuestion(view, (pollItem as NumericalQuestionItem).question)
-            PollAbstractDisplayItem.PollItemType.TEXTUAL -> bindTextualQuestion(view, (pollItem as TextualQuestionItem).question)
-            PollAbstractDisplayItem.PollItemType.GENERIC -> bindGenericQuestion(view, (pollItem as GenericQuestionItem).question)
+            PollAbstractDisplayItem.PollItemType.HEADER -> bindHeaderItem(
+                view,
+                (pollItem as PollHeaderItem).title
+            )
+            PollAbstractDisplayItem.PollItemType.BOOLEAN -> bindBooleanQuestion(
+                view,
+                (pollItem as BooleanQuestionItem).question
+            )
+            PollAbstractDisplayItem.PollItemType.NUMERICAL -> bindNumericalQuestion(
+                view,
+                (pollItem as NumericalQuestionItem).question
+            )
+            PollAbstractDisplayItem.PollItemType.TEXTUAL -> bindTextualQuestion(
+                view,
+                (pollItem as TextualQuestionItem).question
+            )
+            PollAbstractDisplayItem.PollItemType.GENERIC -> bindGenericQuestion(
+                view,
+                (pollItem as GenericQuestionItem).question
+            )
         }
     }
 
@@ -132,7 +159,32 @@ class PollItemViewHolder constructor(override val containerView: View) :
 
     private fun bindGenericQuestion(view: View, question: Question) {
         questionLayout.questionText.text = question.question
-        genericAnswer.text = question.possibleAnswers?.get(0)
+
+        var arrayAdapter = ArrayAdapter<String>(view.context, R.layout.spinner_item, question.possibleAnswers!!)
+
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        with(genericAnswerSpinner) {
+            adapter = arrayAdapter
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Timber.i("onNothingSelected")
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    Timber.i("onItemSelected")
+                    question.answer = position
+
+                    if (position == 0) {
+                        view?.resources?.let {
+                            (parent?.getChildAt(0) as TextView).setTextColor(it.getColor(R.color.grey_60))
+                        }
+
+                    }
+                }
+
+            }
+        }
     }
 
     companion object {
@@ -141,28 +193,58 @@ class PollItemViewHolder constructor(override val containerView: View) :
             return when (viewType) {
                 PollAbstractDisplayItem.PollItemType.BOOLEAN.ordinal ->
                     PollItemViewHolder(
-                        LayoutInflater.from(parent.context).inflate(R.layout.question_boolean_item, parent, false))
+                        LayoutInflater.from(parent.context).inflate(
+                            R.layout.question_boolean_item,
+                            parent,
+                            false
+                        )
+                    )
 
                 PollAbstractDisplayItem.PollItemType.NUMERICAL.ordinal ->
                     PollItemViewHolder(
-                        LayoutInflater.from(parent.context).inflate(R.layout.question_numerical_item, parent, false))
+                        LayoutInflater.from(parent.context).inflate(
+                            R.layout.question_numerical_item,
+                            parent,
+                            false
+                        )
+                    )
 
                 PollAbstractDisplayItem.PollItemType.TEXTUAL.ordinal ->
                     PollItemViewHolder(
-                        LayoutInflater.from(parent.context).inflate(R.layout.question_textual_item, parent, false))
+                        LayoutInflater.from(parent.context).inflate(
+                            R.layout.question_textual_item,
+                            parent,
+                            false
+                        )
+                    )
 
                 //TODO: implement a generic view
                 PollAbstractDisplayItem.PollItemType.GENERIC.ordinal ->
                     PollItemViewHolder(
-                        LayoutInflater.from(parent.context).inflate(R.layout.question_generic_item, parent, false))
+                        LayoutInflater.from(parent.context).inflate(
+                            R.layout.question_generic_item,
+                            parent,
+                            false
+                        )
+                    )
 
                 PollAbstractDisplayItem.PollItemType.HEADER.ordinal ->
                     PollItemViewHolder(
-                        LayoutInflater.from(parent.context).inflate(R.layout.section_header_item, parent, false))
+                        LayoutInflater.from(parent.context).inflate(
+                            R.layout.section_header_item,
+                            parent,
+                            false
+                        )
+                    )
 
                 else ->
                     PollItemViewHolder(
-                        LayoutInflater.from(parent.context).inflate(R.layout.question_textual_item, parent, false))
+                        LayoutInflater.from(parent.context).inflate(
+                            R.layout.question_textual_item,
+                            parent,
+                            false
+                        )
+                    )
             }
         }
     }
