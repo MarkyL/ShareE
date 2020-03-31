@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sharee.R
 import com.mark.sharee.adapters.PollsAdapter
 import com.mark.sharee.adapters.PollsAdapterListener
+import com.mark.sharee.core.AbstractAction
+import com.mark.sharee.core.Action
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
@@ -20,7 +22,8 @@ import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.screens.PollScreen
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
-import kotlinx.android.synthetic.main.fragment_poll.*
+import com.mark.sharee.widgets.ShareeToolbar
+import kotlinx.android.synthetic.main.fragment_general_polls.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
@@ -57,9 +60,28 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
 
     private fun configureScreen() {
         when (transferInfo.flow) {
-            TransferInfo.Flow.GeneralPolls -> viewModel.dispatchInputEvent(GetGeneralPolls)
-            TransferInfo.Flow.MedicalPolls -> viewModel.dispatchInputEvent(GetMedicalPolls)
+            TransferInfo.Flow.GeneralPolls -> configureGeneralPollsFlow()
+            TransferInfo.Flow.MedicalPolls -> configureMedicalPollsFlow()
         }
+        configureToolbar()
+    }
+
+    private fun configureToolbar() {
+        toolbar.addActions(arrayOf(Action.BackBlack), this)
+
+        when (transferInfo.flow) {
+            TransferInfo.Flow.GeneralPolls -> toolbar.setTitle(resources.getString(R.string.poll_screen_default_title))
+            TransferInfo.Flow.MedicalPolls -> toolbar.setTitle(resources.getString(R.string.poll_screen_secondary_title))
+            TransferInfo.Flow.Default -> TODO()
+        }
+    }
+
+    private fun configureGeneralPollsFlow() {
+        viewModel.dispatchInputEvent(GetGeneralPolls)
+    }
+
+    private fun configureMedicalPollsFlow() {
+        viewModel.dispatchInputEvent(GetMedicalPolls)
     }
 
     private fun registerViewModel() {

@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        custom:sharee_font="orionRegular"
+        custom:sharee_font="orionExtraBold"
         tools:text="This is a Title"
         android:importantForAccessibility="yes"/>
 </merge>

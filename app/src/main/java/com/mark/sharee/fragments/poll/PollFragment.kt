@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sharee.R
 import com.mark.sharee.adapters.*
+import com.mark.sharee.core.Action
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.model.poll.Question
 import com.mark.sharee.mvvm.State
@@ -59,7 +60,8 @@ class PollFragment : ShareeFragment() {
 
     private fun configureScreen() {
         val poll = transferInfo.poll
-        pollName.text = poll.name
+        toolbar.setTitle(poll.name)
+        toolbar.addActions(arrayOf(Action.BackBlack), this)
         generatePollDisplayItems(poll)
         pollAdapter.submitList(generatePollDisplayItems(poll))
     }

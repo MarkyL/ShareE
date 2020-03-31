@@ -28,4 +28,8 @@
     <string name="action_settings" translatable="false">הגדרות</string>
     <string name="action_search" translatable="false">חיפוש</string>
 
+    <!-- Polls screen -->
+    <string name="poll_screen_default_title" translatable="false">סקרים כלליים</string>
+    <string name="poll_screen_secondary_title" translatable="false">סקרים רפואיים</string>
+
 </resources>

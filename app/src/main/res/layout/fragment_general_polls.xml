@@ -7,22 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/pollName"
+    <com.mark.sharee.widgets.ShareeToolbar
+        android:id="@+id/toolbar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="start"
-        android:textColor="@android:color/black"
-        android:text="סקרים כלליים"
-        android:layout_marginTop="@dimen/global_margin_top"
-        android:layout_marginStart="@dimen/global_margin_start"
-        android:layout_marginEnd="@dimen/global_margin_end"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/secondary_color"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -30,7 +22,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/global_margin_top"
         android:layout_marginBottom="@dimen/global_margin_top"
-        app:layout_constraintTop_toBottomOf="@id/pollName"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
