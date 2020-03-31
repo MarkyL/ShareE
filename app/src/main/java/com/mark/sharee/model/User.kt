@@ -27,7 +27,7 @@ data class User(val verificationToken: String,
             val editor = preferences.edit()
             editor.putString(PHONE_PREFERENCE, phoneNumber)
             editor.putString(FIRE_BASE_AUTH_TOKEN, fireBaseAuthToken)
-            editor.commit()
+            editor.apply()
 
             me = User()
             return User()
@@ -46,20 +46,27 @@ data class User(val verificationToken: String,
             return me
         }
 
-        fun isVerificationTokenAvailable(): Boolean {
-            me?.getToken().let {
-                return it != null
-            }
-        }
+//        fun isVerificationTokenAvailable(): Boolean {
+//            me.getToken().let {
+//                return it != null
+//            }
+//        }
     }
 
-    @SuppressLint("ApplySharedPref")
     fun updateToken(token: String) {
-        preferences.edit().putString(VERIFICATION_TOKEN_PREFERENCE, token).commit()
+        preferences.edit().putString(VERIFICATION_TOKEN_PREFERENCE, token).apply()
     }
 
     fun getToken(): String {
         return preferences.getString(VERIFICATION_TOKEN_PREFERENCE, StringUtils.EMPTY_STRING).toString()
+    }
+
+    fun setPhonePreference(phoneNumber: String) {
+        preferences.edit().putString(PHONE_PREFERENCE, phoneNumber).apply()
+    }
+
+    fun getPhone(): String {
+        return preferences.getString(PHONE_PREFERENCE, StringUtils.EMPTY_STRING).toString()
     }
 
 }

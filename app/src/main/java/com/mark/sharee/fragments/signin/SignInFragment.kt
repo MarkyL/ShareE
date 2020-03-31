@@ -13,6 +13,7 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.mark.sharee.core.ShareeFragment
+import com.mark.sharee.model.User
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.utils.StringUtils
@@ -44,39 +45,54 @@ class SignInFragment : ShareeFragment() {
 
         //TEST DATA for work phone//
 
-        phoneNumberET.setText("+972529426921")
+        phoneNumberET.setText("+972529426921") // test phone
+//        phoneNumberET.setText("+972549409575") // mark's phone
 
         //TEST DATA for work phone//
 
         registerViewModel()
 
-        generateOtpBtn.setOnClickListener {
-            progressBar.visibility = View.VISIBLE
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumberET.text.toString(), // Phone number to verify
-                60, // Timeout duration
-                TimeUnit.SECONDS, // Unit of timeout
-                requireActivity(), // Activity (for callback binding)
-                verificationStateCallback
-            ) // OnVerificationStateChangedCallbacks
-        }
+        generateOtpBtn.setOnClickListener { onGenerateOtpBtnClick() }
 
         toggleBtn(false)
-        signInBtn.setOnClickListener {
-            Timber.i("mark - signInBtn click")
-            credential?.let { signInWithPhoneAuthCredential(it) } ?: run {
-                if (storedVerificationId != StringUtils.EMPTY_STRING && otpET.text != null) {
-                    signInWithPhoneAuthCredential(
-                        PhoneAuthProvider.getCredential(
-                            storedVerificationId,
-                            otpET.text.toString()
-                        )
-                    )
-                }
+        signInBtn.setOnClickListener { onSignInBtnClick() }
+
+        attemptAutoLogin()
+    }
+
+    private fun attemptAutoLogin() {
+//        val phone = User.me()?.phoneNumber
+        User.me()?.getPhone()?.let {
+            if (it.isNotEmpty()) {
+                onGenerateOtpBtnClick()
             }
         }
 
+    }
 
+    private fun onSignInBtnClick() {
+        Timber.i("mark - signInBtn click")
+        credential?.let { signInWithPhoneAuthCredential(it) } ?: run {
+            if (storedVerificationId != StringUtils.EMPTY_STRING && otpET.text != null) {
+                signInWithPhoneAuthCredential(
+                    PhoneAuthProvider.getCredential(
+                        storedVerificationId,
+                        otpET.text.toString()
+                    )
+                )
+            }
+        }
+    }
+
+    private fun onGenerateOtpBtnClick() {
+        progressBar.visibility = View.VISIBLE
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+            phoneNumberET.text.toString(), // Phone number to verify
+            60, // Timeout duration
+            TimeUnit.SECONDS, // Unit of timeout
+            requireActivity(), // Activity (for callback binding)
+            verificationStateCallback
+        ) // OnVerificationStateChangedCallbacks
     }
 
     fun toggleBtn(isEnabled: Boolean) {
@@ -146,6 +162,7 @@ class SignInFragment : ShareeFragment() {
                 }
 
                 Toast.makeText(context, "onVerificationFailed", Toast.LENGTH_LONG).show()
+                splashView.visibility = View.GONE
                 // Show a message and update the UI
                 // ...
             }

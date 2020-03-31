@@ -1,88 +1,97 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    tools:context="com.mark.sharee.fragments.signin.SignInFragment">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/phoneNumberLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/global_margin"
-        android:gravity="center"
-        android:hint="@string/phone_number"
-        android:textColorHint="@color/leading_color">
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        tools:context="com.mark.sharee.fragments.signin.SignInFragment">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/phoneNumberET"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneNumberLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/global_margin"
+            android:gravity="center"
             android:hint="@string/phone_number"
-            android:inputType="phone"
-            android:maxLength="13"
-            android:text="+972549409575"
-            android:textAlignment="textStart"
-            android:textColor="@color/leading_color"
-            android:textSize="14sp" />
+            android:textColorHint="@color/leading_color">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phoneNumberET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:maxLength="13"
+                android:text="+972549409575"
+                android:textAlignment="textStart"
+                android:textColor="@color/leading_color"
+                android:textSize="14sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/otpETLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/global_margin"
-        android:layout_marginEnd="@dimen/global_margin"
-        android:gravity="center"
-        android:hint="@string/enter_otp"
-        android:textColorHint="@color/leading_color">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/otpET"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/otpETLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:maxLength="13"
-            android:textAlignment="textStart"
-            android:textColor="@color/leading_color"
-            android:textSize="14sp" />
+            android:layout_marginStart="@dimen/global_margin"
+            android:layout_marginEnd="@dimen/global_margin"
+            android:gravity="center"
+            android:hint="@string/enter_otp"
+            android:textColorHint="@color/leading_color">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/otpET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:maxLength="13"
+                android:textAlignment="textStart"
+                android:textColor="@color/leading_color"
+                android:textSize="14sp" />
 
-    <Button
-        android:id="@+id/generateOtpBtn"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/generateOtpBtn"
+            style="@style/MyButtonViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:drawableStart="@drawable/ic_call_black"
+            android:hint="@string/generate_otp"
+            android:padding="8dp"
+            android:textColor="@color/textColor" />
+
+        <Button
+            android:id="@+id/signInBtn"
+            style="@style/MyButtonViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:hint="@string/verify_sign_in"
+            android:textColor="@color/textColor" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/splashView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        style="@style/MyButtonViewStyle"
-        android:drawableStart="@drawable/ic_call_black"
-        android:hint="@string/generate_otp"
-        android:padding="8dp"
-        android:textColor="@color/textColor" />
+        android:layout_height="match_parent"
+        android:src="@drawable/launch_screen"/>
 
-    <Button
-        android:id="@+id/signInBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        style="@style/MyButtonViewStyle"
-        android:hint="@string/verify_sign_in"
-        android:textColor="@color/textColor" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
-
-
-</LinearLayout>
-
-
-
+</androidx.constraintlayout.widget.ConstraintLayout>
