@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.sharee.R
 import com.mark.sharee.core.ShareeActivity
+import com.mark.sharee.core.SupportsOnBackPressed
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.screens.SignInScreen
@@ -125,5 +126,16 @@ class MainActivity : ShareeActivity() {
     }
 
     //endregion
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+        if (fragment != null && fragment is SupportsOnBackPressed) {
+            if ((fragment as SupportsOnBackPressed).onBackPressed()) {
+                return
+            }
+        }
+        super.onBackPressed()
+    }
 
 }

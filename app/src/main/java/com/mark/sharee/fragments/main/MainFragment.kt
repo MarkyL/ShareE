@@ -11,6 +11,7 @@ import com.mark.sharee.activities.MainActivity
 import com.mark.sharee.core.AbstractAction
 import com.mark.sharee.core.Action
 import com.mark.sharee.core.ShareeFragment
+import com.mark.sharee.core.SupportsOnBackPressed
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.widgets.ShareeToolbar
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.sharee_toolbar.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
-class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener {
+class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnBackPressed {
 
     lateinit var transferInfo: TransferInfo
 
@@ -78,6 +79,11 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener {
 
 
         return false
+    }
+
+    override fun onBackPressed(): Boolean {
+        requireActivity().finishAffinity()
+        return true
     }
 
 }
