@@ -60,7 +60,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
     }
 
     private fun configureToolbar() {
-        homeToolbar.titleTextView.text = "Sharee"
+        homeToolbar.titleTextView.text = resources.getString(R.string.app_name)
         homeToolbar.addActions(arrayOf(Action.Drawer), this)
     }
 
@@ -76,7 +76,6 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
     }
 
     override fun onBackPressed(): Boolean {
-        requireActivity().finishAffinity()
         return true
     }
 

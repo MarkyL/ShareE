@@ -115,7 +115,7 @@ class SignInFragment : ShareeFragment() {
 
                     val transferInfo = TransferInfo()
                     transferInfo.phoneNumber = phoneNumberET.text.toString()
-                    navigator.replace(MainScreen(transferInfo))
+                    navigator.replace(MainScreen(transferInfo), false)
                 }
             }
             if (dataState.error != null && !dataState.error.consumed) {
