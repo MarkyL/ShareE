@@ -13,7 +13,7 @@ import com.mark.sharee.widgets.ShareeToolbar
 import org.koin.android.ext.android.get
 import timber.log.Timber
 
-abstract class ShareeFragment : Fragment(), ShareeToolbar.ActionListener {
+abstract class ShareeFragment : Fragment(), ShareeToolbar.ActionListener, SupportsOnBackPressed {
 
     var shareeArguments: Arguments? = null
     @AnimRes private var nextExitAnimation = -1
@@ -92,6 +92,10 @@ abstract class ShareeFragment : Fragment(), ShareeToolbar.ActionListener {
             return true
         }
         return false
+    }
+
+    override fun onBackPressed(): Boolean {
+        return true
     }
 
     companion object {
