@@ -6,8 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textViewStyle">@style/MyTextViewStyle</item>
+        <item name="android:textViewStyle">@style/ShareeTextViewStyle</item>
         <item name="android:editTextStyle">@style/MyEditTextViewStyle</item>
+        <item name="android:radioButtonStyle">@style/ShareeRadioStyle</item>
     </style>
 
     <!-- The launcher theme. It sets the main window background to the launch_screen drawable -->
@@ -15,10 +16,13 @@
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 
-    <style name="MyTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textColorHint">@android:color/white</item>
-        <item name="android:textSize">14sp</item>
+    <style name="ShareeTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/holo_red_dark</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">start</item>
+        <item name="android:layout_marginStart">@dimen/min_margin_start</item>
+        <item name="android:textDirection">rtl</item>
     </style>
 
     <style name="MyEditTextViewStyle" parent="android:Widget.TextView">
@@ -32,6 +36,12 @@
         <item name="android:textColorHint">@android:color/white</item>
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/round_rect_shape</item>
+    </style>
+
+    <style name="ShareeRadioStyle" parent="android:Widget.CompoundButton.RadioButton">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:buttonTint">@color/black</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

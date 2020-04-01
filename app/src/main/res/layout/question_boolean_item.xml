@@ -32,9 +32,7 @@
             android:id="@+id/yesBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/leading_color"
-            android:buttonTint="@color/leading_color"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:text="כן"
             />
 
@@ -42,9 +40,6 @@
             android:id="@+id/noBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/leading_color"
-            android:buttonTint="@color/leading_color"
-            android:textSize="12sp"
             android:text="לא"
             android:layout_marginStart="@dimen/global_margin_start"
             />
