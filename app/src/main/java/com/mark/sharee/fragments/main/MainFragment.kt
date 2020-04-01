@@ -57,17 +57,11 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
             }
 
         })
-
-        generalPollsBtn.setOnClickListener { onGeneralPollsBtnClick() }
     }
 
     private fun configureToolbar() {
         homeToolbar.titleTextView.text = "Sharee"
         homeToolbar.addActions(arrayOf(Action.Drawer), this)
-    }
-
-    private fun onGeneralPollsBtnClick() {
-        navigator.replace(GeneralPollsScreen(TransferInfo()))
     }
 
     override fun onActionSelected(action: AbstractAction): Boolean {
