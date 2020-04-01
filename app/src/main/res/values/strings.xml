@@ -27,6 +27,7 @@
     <string name="action_drawer" translatable="false">תפריט</string>
     <string name="action_settings" translatable="false">הגדרות</string>
     <string name="action_search" translatable="false">חיפוש</string>
+    <string name="action_logo" translatable="false">לוגו</string>
 
     <!-- Polls screen -->
     <string name="polls_screen_default_title" translatable="false">סקרים כלליים</string>

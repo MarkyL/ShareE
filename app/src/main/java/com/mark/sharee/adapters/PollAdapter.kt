@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.question_textual_item.*
 import kotlinx.android.synthetic.main.section_header_item.*
 import timber.log.Timber
 import android.widget.TextView
+import com.mark.sharee.utils.Tools
+import com.mark.sharee.utils.ViewAnimation
 
 
 class PollAdapter : ListAdapter<PollAbstractDisplayItem, PollItemViewHolder>(DIFF_CALLBACK) {
@@ -272,5 +274,15 @@ class PollItemViewHolder constructor(override val containerView: View) :
                     )
             }
         }
+    }
+
+    private fun toggleLayoutExpand(show: Boolean, view: View, lyt_expand: View): Boolean {
+        Tools.toggleArrow(show, view)
+        if (show) {
+            ViewAnimation.expand(lyt_expand)
+        } else {
+            ViewAnimation.collapse(lyt_expand)
+        }
+        return show
     }
 }

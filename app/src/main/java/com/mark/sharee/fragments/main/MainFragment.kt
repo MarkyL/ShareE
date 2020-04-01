@@ -61,7 +61,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     private fun configureToolbar() {
         homeToolbar.titleTextView.text = resources.getString(R.string.app_name)
-        homeToolbar.addActions(arrayOf(Action.Drawer), this)
+        homeToolbar.addActions(arrayOf(Action.Drawer, Action.Logo), this)
     }
 
     override fun onActionSelected(action: AbstractAction): Boolean {

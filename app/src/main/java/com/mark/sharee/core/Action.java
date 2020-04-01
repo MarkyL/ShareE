@@ -103,6 +103,22 @@ public enum Action implements AbstractAction {
         public boolean isNavigation() {
             return false;
         }
+    },
+
+    Logo {
+        public int getIconResId() {
+            return R.drawable.ic_logo_round;
+        }
+
+        @Override
+        public int getTitleResId() {
+            return R.string.action_search;
+        }
+
+        @Override
+        public boolean isNavigation() {
+            return false;
+        }
     }
 
 }
