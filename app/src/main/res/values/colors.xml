@@ -32,6 +32,7 @@
     <color name="overlay_dark_70">#B3000000</color>
     <color name="overlay_dark_80">#CC000000</color>
     <color name="overlay_dark_90">#E6000000</color>
+    <color name="black">#000000</color>
 
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>

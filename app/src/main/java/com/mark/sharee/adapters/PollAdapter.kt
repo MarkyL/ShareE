@@ -156,13 +156,33 @@ class PollItemViewHolder constructor(override val containerView: View) :
     private fun bindGenericQuestion(view: View, question: Question) {
         questionLayout.questionText.text = question.question
 
-        manipulateQuestionAnswers(question)
-        var arrayAdapter = ArrayAdapter<String>(view.context, R.layout.spinner_item, question.answers)
+        manipulateQuestionAnswers(
+            question,
+            view.resources.getString(com.example.sharee.R.string.poll_screen_generic_answer_hint)
+        )
+
+        var arrayAdapter =
+            object : ArrayAdapter<String>(view.context, R.layout.spinner_item, question.answers) {
+                override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getDropDownView(position, convertView, parent)
+                    val tv = view as TextView
+
+                    if (position == 0) {
+                        // Set the hint text color gray
+                        tv.setTextColor(parent.resources.getColor(R.color.grey_20))
+                    } else {
+                        tv.setTextColor(parent.resources.getColor(R.color.black))
+                    }
+
+                    return view
+                }
+            }
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         with(genericAnswerSpinner) {
             adapter = arrayAdapter
+
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     Timber.i("onNothingSelected")
@@ -174,7 +194,7 @@ class PollItemViewHolder constructor(override val containerView: View) :
 
                     if (position == 0) {
                         view?.resources?.let {
-                            (parent?.getChildAt(0) as TextView).setTextColor(it.getColor(R.color.grey_60))
+                            (parent?.getChildAt(0) as TextView).setTextColor(it.getColor(R.color.grey_20))
                         }
 
                     }
@@ -182,12 +202,13 @@ class PollItemViewHolder constructor(override val containerView: View) :
                     question.answer = position - 1
                 }
 
+
             }
         }
     }
 
-    private fun manipulateQuestionAnswers(question: Question) {
-        val manipulatedList = mutableListOf("")
+    private fun manipulateQuestionAnswers(question: Question, hintText: String) {
+        val manipulatedList = mutableListOf(hintText)
         manipulatedList.addAll(question.answers)
         question.answers = manipulatedList
     }
@@ -223,7 +244,6 @@ class PollItemViewHolder constructor(override val containerView: View) :
                         )
                     )
 
-                //TODO: implement a generic view
                 PollAbstractDisplayItem.PollItemType.GENERIC.ordinal ->
                     PollItemViewHolder(
                         LayoutInflater.from(parent.context).inflate(

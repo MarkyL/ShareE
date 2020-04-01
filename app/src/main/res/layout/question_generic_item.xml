@@ -16,21 +16,42 @@
             android:id="@+id/questionLayout"
             layout="@layout/question_item" />
 
-        <Spinner
-            android:id="@+id/genericAnswerSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
             android:layout_marginStart="@dimen/global_margin_start"
             android:layout_marginTop="@dimen/min_margin_top"
             android:layout_marginEnd="@dimen/global_margin_end"
-            android:layout_marginBottom="@dimen/global_margin_bottom"
-            android:gravity="center|start"
-            android:spinnerMode="dropdown"
-            android:stateListAnimator="@drawable/spinner_sla"
+            android:layout_marginBottom="@dimen/min_margin_bottom"
+            android:background="@drawable/background_gray"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/questionLayout"
-            tools:text="testing picker text" />
+            app:layout_constraintTop_toBottomOf="@id/questionLayout">
+
+            <Spinner
+                android:id="@+id/genericAnswerSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:spinnerMode="dropdown"
+                android:stateListAnimator="@drawable/spinner_sla"
+                tools:text="testing picker text" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_smlarge"
+                android:src="@drawable/ic_arrow_down" />
+
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
