@@ -158,7 +158,7 @@ class PollItemViewHolder constructor(override val containerView: View) :
 
         manipulateQuestionAnswers(
             question,
-            view.resources.getString(com.example.sharee.R.string.poll_screen_generic_answer_hint)
+            view.resources.getString(R.string.poll_screen_generic_answer_hint)
         )
 
         var arrayAdapter =

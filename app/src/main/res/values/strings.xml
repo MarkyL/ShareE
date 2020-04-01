@@ -29,8 +29,12 @@
     <string name="action_search" translatable="false">חיפוש</string>
 
     <!-- Polls screen -->
-    <string name="poll_screen_default_title" translatable="false">סקרים כלליים</string>
-    <string name="poll_screen_secondary_title" translatable="false">סקרים רפואיים</string>
+    <string name="polls_screen_default_title" translatable="false">סקרים כלליים</string>
+    <string name="polls_screen_secondary_title" translatable="false">סקרים רפואיים</string>
+
+    <!-- Specific poll screen -->
     <string name="poll_screen_generic_answer_hint" translatable="false">לחץ לבחירת תשובה מתאימה</string>
+    <string name="poll_screen_textual_answer_hint" translatable="false">הזן תשובתך כאן</string>
+
 
 </resources>
