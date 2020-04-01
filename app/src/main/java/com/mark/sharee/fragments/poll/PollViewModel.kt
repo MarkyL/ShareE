@@ -43,7 +43,7 @@ class PollViewModel constructor(application: Application, private val shareeRepo
                 publish(state = State.NEXT, items = Event(SubmitPollSuccess))
             }.onFailure {
                 Timber.e("submitPoll - onFailure $it")
-                publish(state = State.ERROR, throwable = it)
+                publish(state = State.ERROR, items = Event(SubmitPollFailure), throwable = it)
             }
         }
     }
@@ -63,3 +63,4 @@ data class SubmitPoll(val pollId: String, val answeredQuestions: List<Question>)
 // State = change of states by the view model
 sealed class PollDataState
 object SubmitPollSuccess : PollDataState()
+object SubmitPollFailure : PollDataState()

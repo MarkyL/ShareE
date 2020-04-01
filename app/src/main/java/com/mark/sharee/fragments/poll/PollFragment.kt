@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,12 +19,11 @@ import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.network.model.responses.GeneralPollResponse
 import com.mark.sharee.network.model.responses.PollSection
-import com.mark.sharee.screens.MainScreen
+import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_poll.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.w3c.dom.Text
 import timber.log.Timber
 
 class PollFragment : ShareeFragment() {
@@ -112,7 +112,7 @@ class PollFragment : ShareeFragment() {
                         handleNext(t.data)
                     }
                     State.ERROR -> {
-                        handleError(t.throwable)
+                        handleError(t.data, t.throwable)
                     }
                     State.COMPLETE -> {
                         hideProgressView()
@@ -144,12 +144,30 @@ class PollFragment : ShareeFragment() {
     private fun handleSubmitPollSuccess(response: SubmitPollSuccess) {
         Timber.i("handleSubmitPollSuccess generalPollsResponse = $response")
         Toast.makeText(context, resources.getString(R.string.submit_poll_success), Toast.LENGTH_SHORT).show()
-        navigator.goBackTo(MainScreen::class.java)
+        showSuccessDialog()
     }
 
-    private fun handleError(throwable: Throwable?) {
+    private fun showSuccessDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("המשוב נשלח בהצלחה")
+        builder.setMessage("תודה על שיתוף הפעולה")
+        builder.setPositiveButton("אוקיי") { _, _ ->
+            navigator.goBackTo(GeneralPollsScreen::class.java)
+        }
+        builder.show()
+    }
+
+    private fun handleError(result: Event<PollDataState>?, throwable: Throwable?) {
         hideProgressView()
-        Toast.makeText(context, throwable?.message, Toast.LENGTH_SHORT).show()
+        result?.let { responseEvent ->
+            if (!responseEvent.consumed) {
+                responseEvent.consume()?.let { response ->
+                    when (response) {
+                        is SubmitPollFailure -> Toast.makeText(context, throwable?.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
 
     private fun onSubmitBtnClick() {
