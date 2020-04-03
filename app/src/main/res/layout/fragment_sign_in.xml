@@ -87,8 +87,7 @@
             android:visibility="gone" />
 
     </LinearLayout>
-
-
+    
     <ImageView
         android:id="@+id/splashView"
         android:layout_width="0dp"

@@ -128,6 +128,7 @@ class SignInFragment : ShareeFragment() {
                     Toast.makeText(context, resources.getString(errorResource), Toast.LENGTH_SHORT)
                         .show()
                     // handle error state
+                    splashView.visibility = View.GONE
                 }
             }
 
