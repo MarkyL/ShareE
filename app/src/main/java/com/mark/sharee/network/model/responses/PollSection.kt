@@ -7,5 +7,6 @@ import kotlinx.serialization.SerialName
 data class PollSection (
     @SerialName(value = "id") val id: String,
     @SerialName(value = "name") val name: String,
-    @SerialName(value = "questions") val questions: MutableList<Question>)
+    @SerialName(value = "questions") val questions: MutableList<Question>,
+    @Transient var expanded: Boolean = false)
 

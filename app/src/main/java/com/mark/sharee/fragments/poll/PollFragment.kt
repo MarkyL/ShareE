@@ -17,7 +17,6 @@ import com.mark.sharee.model.poll.Question
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
-import com.mark.sharee.network.model.responses.GeneralPollResponse
 import com.mark.sharee.network.model.responses.PollSection
 import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.utils.Event
@@ -29,14 +28,11 @@ import timber.log.Timber
 class PollFragment : ShareeFragment() {
 
     private val viewModel: PollViewModel by sharedViewModel()
-    private val pollAdapter: PollAdapter = PollAdapter()
+    private val pollSectionsAdapter: PollSectionsAdapter = PollSectionsAdapter()
 
-    lateinit var transferInfo: TransferInfo
+    private lateinit var transferInfo: TransferInfo
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_poll, container, false)
     }
 
@@ -48,7 +44,7 @@ class PollFragment : ShareeFragment() {
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(GridSpacingItemDecoration(1, 30, true))
-            this.adapter = pollAdapter
+            this.adapter = pollSectionsAdapter
         }
 
         registerViewModel()
@@ -62,39 +58,7 @@ class PollFragment : ShareeFragment() {
         val poll = transferInfo.poll
         toolbar.setTitle(poll.name)
         toolbar.addActions(arrayOf(Action.BackBlack), this)
-        generatePollDisplayItems(poll)
-        pollAdapter.submitList(generatePollDisplayItems(poll))
-    }
-
-    private fun generatePollDisplayItems(poll: GeneralPollResponse): MutableList<PollAbstractDisplayItem>  {
-        val pollDisplayItems = mutableListOf<PollAbstractDisplayItem>()
-        if (poll.pollSections.size == 1) {
-            addQuestionsOfSection(poll.pollSections[0], pollDisplayItems)
-        } else {
-            poll.pollSections.forEach {
-                pollDisplayItems.add(PollHeaderItem(it.name))
-                addQuestionsOfSection(it, pollDisplayItems)
-            }
-        }
-        return pollDisplayItems
-    }
-
-    private fun addQuestionsOfSection(
-        it: PollSection,
-        pollDisplayItems: MutableList<PollAbstractDisplayItem>
-    ) {
-        it.questions.forEach { question ->
-            when (question.type) {
-                Question.QuestionType.BOOLEAN -> pollDisplayItems.add(BooleanQuestionItem(question))
-                Question.QuestionType.NUMERICAL -> pollDisplayItems.add(
-                    NumericalQuestionItem(
-                        question
-                    )
-                )
-                Question.QuestionType.TEXTUAL -> pollDisplayItems.add(TextualQuestionItem(question))
-                Question.QuestionType.GENERIC -> pollDisplayItems.add(GenericQuestionItem(question))
-            }
-        }
+        pollSectionsAdapter.updateItems(poll.pollSections)
     }
 
     private fun registerViewModel() {
@@ -172,23 +136,41 @@ class PollFragment : ShareeFragment() {
 
     private fun onSubmitBtnClick() {
         Timber.i("onSubmitBtnClick")
-        viewModel.dispatchInputEvent(SubmitPoll(pollId = transferInfo.poll.id, answeredQuestions = generateAnsweredQuestions(pollAdapter.items)))
+        viewModel.dispatchInputEvent(SubmitPoll(pollId = transferInfo.poll.id, answeredQuestions = generateAnsweredQuestions()))
     }
 
-    private fun generateAnsweredQuestions(items: List<PollAbstractDisplayItem>): List<Question> {
+    private fun generateAnsweredQuestions(): List<Question> {
         val answeredQuestions = mutableListOf<Question>()
-        items.forEach {
-            when (it.type) {
-                PollAbstractDisplayItem.PollItemType.BOOLEAN -> answeredQuestions.add((it as BooleanQuestionItem).question)
-                PollAbstractDisplayItem.PollItemType.NUMERICAL -> answeredQuestions.add((it as NumericalQuestionItem).question)
-                PollAbstractDisplayItem.PollItemType.TEXTUAL -> answeredQuestions.add((it as TextualQuestionItem).question)
-                PollAbstractDisplayItem.PollItemType.GENERIC -> answeredQuestions.add((it as GenericQuestionItem).question)
-                else -> {}
-            }
+        pollSectionsAdapter.items.forEach { section ->
+            answeredQuestions.addAll(section.questions)
         }
+//        items.forEach {
+//            when (it.type) {
+//                PollAbstractDisplayItem.PollItemType.BOOLEAN -> answeredQuestions.add((it as BooleanQuestionItem).question)
+//                PollAbstractDisplayItem.PollItemType.NUMERICAL -> answeredQuestions.add((it as NumericalQuestionItem).question)
+//                PollAbstractDisplayItem.PollItemType.TEXTUAL -> answeredQuestions.add((it as TextualQuestionItem).question)
+//                PollAbstractDisplayItem.PollItemType.GENERIC -> answeredQuestions.add((it as GenericQuestionItem).question)
+//                else -> {}
+//            }
+//        }
 
         return answeredQuestions
     }
+
+//    private fun generateAnsweredQuestions(items: List<PollAbstractDisplayItem>): List<Question> {
+//        val answeredQuestions = mutableListOf<Question>()
+//        items.forEach {
+//            when (it.type) {
+//                PollAbstractDisplayItem.PollItemType.BOOLEAN -> answeredQuestions.add((it as BooleanQuestionItem).question)
+//                PollAbstractDisplayItem.PollItemType.NUMERICAL -> answeredQuestions.add((it as NumericalQuestionItem).question)
+//                PollAbstractDisplayItem.PollItemType.TEXTUAL -> answeredQuestions.add((it as TextualQuestionItem).question)
+//                PollAbstractDisplayItem.PollItemType.GENERIC -> answeredQuestions.add((it as GenericQuestionItem).question)
+//                else -> {}
+//            }
+//        }
+//
+//        return answeredQuestions
+//    }
 
 
 }

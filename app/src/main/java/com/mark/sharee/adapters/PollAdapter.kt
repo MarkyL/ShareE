@@ -5,7 +5,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -22,9 +24,6 @@ import kotlinx.android.synthetic.main.question_numerical_item.*
 import kotlinx.android.synthetic.main.question_textual_item.*
 import kotlinx.android.synthetic.main.section_header_item.*
 import timber.log.Timber
-import android.widget.TextView
-import com.mark.sharee.utils.Tools
-import com.mark.sharee.utils.ViewAnimation
 
 
 class PollAdapter : ListAdapter<PollAbstractDisplayItem, PollItemViewHolder>(DIFF_CALLBACK) {
@@ -81,7 +80,6 @@ class PollItemViewHolder constructor(override val containerView: View) :
 
     fun bind(view: View, pollItem: PollAbstractDisplayItem, position: Int) {
 
-        //questionLayout.questionNumber.text = (position + 1).toString() + ")"// +1 in order to show human number and not index.
         questionText
         when (pollItem.type) {
             PollAbstractDisplayItem.PollItemType.HEADER -> bindHeaderItem(
@@ -274,15 +272,5 @@ class PollItemViewHolder constructor(override val containerView: View) :
                     )
             }
         }
-    }
-
-    private fun toggleLayoutExpand(show: Boolean, view: View, lyt_expand: View): Boolean {
-        Tools.toggleArrow(show, view)
-        if (show) {
-            ViewAnimation.expand(lyt_expand)
-        } else {
-            ViewAnimation.collapse(lyt_expand)
-        }
-        return show
     }
 }
