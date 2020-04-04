@@ -32,7 +32,6 @@
         android:id="@+id/submitBtn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        style="@style/MyButtonViewStyle"
         android:text="שלח"
         android:layout_marginBottom="@dimen/min_margin_bottom"
         android:layout_marginEnd="@dimen/min_margin_end"

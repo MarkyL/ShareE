@@ -2,23 +2,20 @@
     <string name="app_name">Sharee</string>
 
     <!-- Error messages -->
-    <string name="internet_failure_error">Internet connectivity error</string>
-    <string name="error_general">Something went wrong…</string>
-    <string name="no_verification_token">No verification token</string>
+    <string name="internet_failure_error">בעיית חיבור לרשת</string>
+    <string name="error_general">אופס! יש לנו תקלה…</string>
+    <string name="no_verification_token">חסרה ססמאת אימות</string>
 
     <!-- Success messages -->
-    <string name="submit_poll_success">Poll submitted successfully</string>
+    <string name="submit_poll_success">הסקר נשלח בהצלחה</string>
 
 
     <!-- OTP sign in -->
-    <string name="phone_number">Phone Number</string>
-    <string name="generate_otp">Generate OTP</string>
-    <string name="enter_otp">Enter OTP</string>
-    <string name="verify_sign_in">Verify and Sign In</string>
-    <string name="sign_out">sign out</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="phone_number">מספר נייד</string>
+    <string name="generate_otp">שלח סמס</string>
+    <string name="enter_otp">קוד אימות</string>
+    <string name="verify_sign_in">המשך</string>
+    <string name="enter_phone_number_check_prefix_error" translatable="false">בדוק שוב את הקידומת</string>
 
     <!-- Actions -->
     <string name="action_help" translatable="false">עזרה</string>

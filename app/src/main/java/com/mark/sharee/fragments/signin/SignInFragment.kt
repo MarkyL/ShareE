@@ -3,10 +3,15 @@ package com.mark.sharee.fragments.signin
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import com.example.sharee.R
 import com.google.firebase.FirebaseException
@@ -16,6 +21,9 @@ import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.model.User
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.MainScreen
+import com.mark.sharee.utils.BaseTextWatcher
+import com.mark.sharee.utils.OnKeyboardActionListener
+import com.mark.sharee.utils.PhoneNumber
 import com.mark.sharee.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -43,18 +51,23 @@ class SignInFragment : ShareeFragment() {
         super.onViewCreated(view, savedInstanceState)
         Timber.i("SignInFragment onViewCreated")
 
-        //TEST DATA for work phone//
+        phoneNumberET.setOnEditorActionListener(onKeyboardDoneListener)
+        phoneNumberET.addTextChangedListener(object : BaseTextWatcher() {
+            override fun afterTextChanged(s: Editable) {
+                isPhoneNumberValid(phoneNumberET.text.toString())
+            }
+        })
 
-        phoneNumberET.setText("+972529426921") // test phone
-//        phoneNumberET.setText("+972549409575") // mark's phone
+        //TEST DATA for work phone//
+        phoneNumberET.setText("0529426921") // test phone
+//        phoneNumberET.setText("0549409575") // mark's phone
 
         //TEST DATA for work phone//
 
         registerViewModel()
 
-        generateOtpBtn.setOnClickListener { onGenerateOtpBtnClick() }
+        generateOtpBtn.setOnClickListener { onRequestVerifyPhoneNumber(phoneNumberET.text.toString()) }
 
-        toggleBtn(false)
         signInBtn.setOnClickListener { onSignInBtnClick() }
 
         attemptAutoLogin()
@@ -66,7 +79,7 @@ class SignInFragment : ShareeFragment() {
         User.me()?.getPhone()?.let {
             if (it.isNotEmpty()) {
                 isSplashNeeded = true
-                onGenerateOtpBtnClick()
+                onRequestVerifyPhoneNumber(it)
             }
         }
         if (!isSplashNeeded) {
@@ -89,10 +102,17 @@ class SignInFragment : ShareeFragment() {
         }
     }
 
-    private fun onGenerateOtpBtnClick() {
+    private fun onRequestVerifyPhoneNumber(number: String) {
         progressBar.visibility = View.VISIBLE
+        val e164PhoneNumber = PhoneNumber.create(number)?.e164()
+        if (e164PhoneNumber.isNullOrEmpty()) {
+            Timber.e("onRequestVerifyPhoneNumber() - invalid phone number - $number")
+            //TODO("onRequestVerifyPhoneNumber invalid phone number flow handling.")
+            return
+        }
+
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            phoneNumberET.text.toString(), // Phone number to verify
+            e164PhoneNumber, // Phone number to verify
             60, // Timeout duration
             TimeUnit.SECONDS, // Unit of timeout
             requireActivity(), // Activity (for callback binding)
@@ -102,11 +122,6 @@ class SignInFragment : ShareeFragment() {
 
     fun toggleBtn(isEnabled: Boolean) {
         signInBtn.isEnabled = isEnabled
-        if (isEnabled)
-            signInBtn.background.colorFilter = null
-        else
-            signInBtn.background.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
-
     }
 
     private fun registerViewModel() {
@@ -215,11 +230,39 @@ class SignInFragment : ShareeFragment() {
     private fun login(user: FirebaseUser?) {
         user?.let {
             it.phoneNumber?.let { number ->
-                viewModel.dispatchInputEvent(Login(number, it.uid))
+                val formattedNumber = PhoneNumber.create(number).toString()
+                viewModel.dispatchInputEvent(Login(formattedNumber, it.uid))
             }
         }
-
     }
 
+    private val onKeyboardDoneListener = object : OnKeyboardActionListener(KeyboardAction.Done) {
+        override fun onEditorAction(): Boolean {
+            Timber.i("onEditorAction - ")
+            val phoneNumber = phoneNumberET.text.toString()
+            if (isPhoneNumberValid(phoneNumber)) {
+                onRequestVerifyPhoneNumber(phoneNumber)
+            }
+            return false
+        }
+    }
 
+    private fun isPhoneNumberValid(phoneNumber: String): Boolean {
+        val isEmpty = phoneNumber.isEmpty()
+        val isValidPrefix = isValidPrefix(phoneNumber)
+        val isValid = isValidPrefix && phoneNumber.length == PHONE_NUMBER_LENGTH
+        val showPrefixError = !isEmpty && !isValidPrefix
+        generateOtpBtn.isEnabled = isValid
+        phoneNumberLayout.error = if (showPrefixError) getString(R.string.enter_phone_number_check_prefix_error) else ""
+        phoneNumberLayout.isErrorEnabled = showPrefixError
+        return isValid
+    }
+
+    private fun isValidPrefix(phoneNumber: String): Boolean {
+        return phoneNumber == "0" || phoneNumber.startsWith("05")
+    }
+
+    companion object {
+        private val PHONE_NUMBER_LENGTH = 10
+    }
 }
