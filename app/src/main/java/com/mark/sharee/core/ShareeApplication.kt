@@ -30,6 +30,8 @@ class ShareeApplication : MultiDexApplication() {
         setLocale(baseContext)
         super.onCreate()
 
+        context = this
+
         startKoin {
             androidContext(this@ShareeApplication)
             androidLogger()
@@ -57,7 +59,9 @@ class ShareeApplication : MultiDexApplication() {
 
     companion object {
         private var debug: Boolean? = null
+
         @SuppressLint("StaticFieldLeak")
+        lateinit var context: Context
 
         @JvmStatic
         fun registerActivityComponent(activity: Activity, component: ActivityComponent) {

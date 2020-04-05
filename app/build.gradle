@@ -126,6 +126,10 @@ dependencies {
 
     // Library for telephony management
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.3.3'
+
+    // Chuck okHttp interceptor for development
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 }
 
 repositories {
