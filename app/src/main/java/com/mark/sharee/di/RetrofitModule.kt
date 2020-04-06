@@ -13,10 +13,10 @@ import com.mark.sharee.core.ShareeApplication
 import com.mark.sharee.data.ShareeRepository
 import com.mark.sharee.data.remote.ShareeRemoteDataSource
 import com.mark.sharee.model.User
-import com.mark.sharee.model.poll.Question
+import com.mark.sharee.network.adapter.ServerException
 import com.mark.sharee.network.endpoint.ShareeEndpoint
 import com.mark.sharee.network.endpoint.ShareeService
-import com.mark.sharee.utils.RuntimeTypeAdapterFactory
+import com.readystatesoftware.chuck.ChuckInterceptor
 import kotlinx.serialization.UnstableDefault
 import okhttp3.Cache
 import okhttp3.Call
@@ -27,15 +27,13 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import java.io.File
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 val retrofitModule = module {
 
-    single<Call.Factory> {
-        val cacheFile = cacheFile(androidContext())
-        val cache = cache(cacheFile)
-        okhttp(cache)
-    }
 
     single { retrofit(get(), Constants.BASE_URL) }
 
@@ -46,6 +44,13 @@ val retrofitModule = module {
     single { ShareeRemoteDataSource(get()) }
 
     single { ShareeRepository(get()) }
+
+    single<Call.Factory> {
+        val cacheFile = cacheFile(androidContext())
+        val cache = cache(cacheFile)
+//        val retrofit: Retrofit by inject()
+        provideOkhttp(cache, null)
+    }
 }
 
 private val logging: Interceptor
@@ -65,8 +70,7 @@ private fun cacheFile(context: Context) = File(context.filesDir, "my_own_created
 
 private fun cache(cacheFile: File) = Cache(cacheFile, Constants.CACHE_FILE_SIZE)
 
-@UseExperimental(UnstableDefault::class)
-private fun retrofit(callFactory: Call.Factory, baseUrl: String) = Retrofit.Builder()
+fun retrofit(callFactory: Call.Factory, baseUrl: String): Retrofit = Retrofit.Builder()
     .callFactory(callFactory)
     .baseUrl(baseUrl)
     .addConverterFactory(
@@ -76,13 +80,36 @@ private fun retrofit(callFactory: Call.Factory, baseUrl: String) = Retrofit.Buil
     )
     .build()
 
-private fun okhttp(cache: Cache) = OkHttpClient.Builder()
+fun provideOkhttp(cache: Cache, retrofit: Retrofit?) = OkHttpClient.Builder()
+    .addInterceptor(ChuckInterceptor(ShareeApplication.context))
+    .connectTimeout(Constants.TIMEOUT_LENGTH.toLong(), TimeUnit.SECONDS)
+    .readTimeout(Constants.TIMEOUT_LENGTH.toLong(), TimeUnit.SECONDS)
+    .writeTimeout(Constants.TIMEOUT_LENGTH.toLong(), TimeUnit.SECONDS)
     .addInterceptor { chain ->
         val request = chain.request()
         User.me()?.let {
             request.newBuilder().addHeader("verificationToken", it.getToken()).build()
         }
-        chain.proceed(request)
+        val response = chain.proceed(request)
+
+        Timber.i("Response")
+
+//        val converter = retrofit.responseBodyConverter<ServerException>(ServerException::class.java, arrayOfNulls(0))
+//
+//        try {
+//            val err = converter.convert(response.body!!)
+//            err?.let {
+//                throw ServerException(err.errorCode, err.errorReason, err.messageToClient)
+//            } ?: run {
+//                throw ServerException(1, "Failed to parse Server Error: ${response.body}", "אופס! יש לנו תקלה")
+//            }
+//        } catch (e: IOException) {
+//            throw ServerException(1, "Failed to parse Server Error: ${response.body}", "אופס! יש לנו תקלה")
+//        }
+
+        response
+
+
     }
     .addNetworkInterceptor(logging)
     .addInterceptor(
@@ -91,8 +118,7 @@ private fun okhttp(cache: Cache) = OkHttpClient.Builder()
             .log(Log.INFO)
             .request("Request")
             .response("Response")
-            .build()
-    )
+            .build())
     .cache(cache)
     .build()
 
