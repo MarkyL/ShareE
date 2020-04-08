@@ -17,16 +17,17 @@ import com.example.sharee.R
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
+import com.google.gson.Gson
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.model.User
 import com.mark.sharee.navigation.arguments.TransferInfo
+import com.mark.sharee.network.adapter.ServerException
 import com.mark.sharee.screens.MainScreen
-import com.mark.sharee.utils.BaseTextWatcher
-import com.mark.sharee.utils.OnKeyboardActionListener
-import com.mark.sharee.utils.PhoneNumber
-import com.mark.sharee.utils.StringUtils
+import com.mark.sharee.utils.*
 import kotlinx.android.synthetic.main.fragment_sign_in.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import retrofit2.HttpException
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
@@ -34,6 +35,7 @@ import java.util.concurrent.TimeUnit
 class SignInFragment : ShareeFragment() {
 
     private val viewModel: SignInViewModel by sharedViewModel()
+    private val errorHandler: ErrorHandler by inject()
 
     private val auth = FirebaseAuth.getInstance()
     var credential: PhoneAuthCredential? = null
@@ -139,11 +141,14 @@ class SignInFragment : ShareeFragment() {
                 }
             }
             if (dataState.error != null && !dataState.error.consumed) {
-                dataState.error.consume()?.let { errorResource ->
-                    Toast.makeText(context, resources.getString(errorResource), Toast.LENGTH_SHORT)
-                        .show()
+                dataState.error.consume()?.let { error ->
                     // handle error state
                     splashView.visibility = View.GONE
+                    //Timber.i("markerrror1 - ${(error as HttpException).response()?.errorBody()?.string()}")
+//                    val serverException = Gson().fromJson((error as HttpException).response()?.errorBody()?.string(), ServerException::class.java)
+//                    Timber.i("markerrror5 - $serverException")
+                    errorHandler.handleError(error)
+//                    errorHandler.marktest(error, "mark test")
                 }
             }
 

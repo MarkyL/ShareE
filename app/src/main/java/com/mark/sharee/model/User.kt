@@ -18,7 +18,7 @@ data class User(val verificationToken: String,
 
         private var me: User? = null
         private lateinit var preferences: SharedPreferences
-        private const val CURRENT_USER_FILE_NAME = "current_user"
+        const val CURRENT_USER_FILE_NAME = "current_user"
         private const val VERIFICATION_TOKEN_PREFERENCE = "verification_token"
         private const val PHONE_PREFERENCE = "phone"
         private const val FIRE_BASE_AUTH_TOKEN = "fb_token"

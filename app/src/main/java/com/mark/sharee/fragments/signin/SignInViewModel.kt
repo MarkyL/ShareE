@@ -42,7 +42,7 @@ class SignInViewModel constructor(application: Application, private val shareeRe
                 emitUiState(response = Event(it))
             }.onFailure {
                 Timber.e("login - onFailure $it")
-                emitUiState(error = Event(R.string.error_general))
+                emitUiState(error = Event(it))
             }
         }
     }
@@ -51,7 +51,7 @@ class SignInViewModel constructor(application: Application, private val shareeRe
     private fun emitUiState(
         showProgress: Boolean = false,
         response: Event<LoginResponse>? = null,
-        error: Event<Int>? = null
+        error: Event<Throwable>? = null
     ) {
         val dataState = SignInDataState(showProgress, response, error)
         _uiState.value = dataState
@@ -66,7 +66,7 @@ data class Login(val phoneNumber: String, val uuid: String) : SignInDataEvent()
 data class SignInDataState(
     val showProgress: Boolean,
     val response: Event<LoginResponse>?,
-    val error: Event<Int>?
+    val error: Event<Throwable>?
 )
 
 

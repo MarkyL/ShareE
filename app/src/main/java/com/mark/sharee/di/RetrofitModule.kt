@@ -48,7 +48,6 @@ val retrofitModule = module {
     single<Call.Factory> {
         val cacheFile = cacheFile(androidContext())
         val cache = cache(cacheFile)
-//        val retrofit: Retrofit by inject()
         provideOkhttp(cache, null)
     }
 }
@@ -90,26 +89,7 @@ fun provideOkhttp(cache: Cache, retrofit: Retrofit?) = OkHttpClient.Builder()
         User.me()?.let {
             request.newBuilder().addHeader("verificationToken", it.getToken()).build()
         }
-        val response = chain.proceed(request)
-
-        Timber.i("Response")
-
-//        val converter = retrofit.responseBodyConverter<ServerException>(ServerException::class.java, arrayOfNulls(0))
-//
-//        try {
-//            val err = converter.convert(response.body!!)
-//            err?.let {
-//                throw ServerException(err.errorCode, err.errorReason, err.messageToClient)
-//            } ?: run {
-//                throw ServerException(1, "Failed to parse Server Error: ${response.body}", "אופס! יש לנו תקלה")
-//            }
-//        } catch (e: IOException) {
-//            throw ServerException(1, "Failed to parse Server Error: ${response.body}", "אופס! יש לנו תקלה")
-//        }
-
-        response
-
-
+        chain.proceed(request)
     }
     .addNetworkInterceptor(logging)
     .addInterceptor(

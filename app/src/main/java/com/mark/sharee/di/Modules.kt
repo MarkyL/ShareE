@@ -7,14 +7,16 @@ import com.mark.sharee.fragments.generalPolls.GeneralPollsViewModel
 import com.mark.sharee.fragments.main.MainViewModel
 import com.mark.sharee.fragments.poll.PollViewModel
 import com.mark.sharee.fragments.signin.SignInViewModel
+import com.mark.sharee.model.User
 import com.mark.sharee.navigation.ActivityNavigator
 import com.mark.sharee.navigation.FragmentNavigator
+import com.mark.sharee.utils.ErrorHandler
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val dataModule = module(override = true) {
-    single<SharedPreferences> { androidContext().getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE) }
+    single<SharedPreferences> { androidContext().getSharedPreferences(User.CURRENT_USER_FILE_NAME, Context.MODE_PRIVATE) }
 }
 
 val navigatorModule = module {
@@ -29,5 +31,9 @@ val viewModelsModule = module {
     viewModel { GeneralPollsViewModel(get(), get()) }
 }
 
+val errorModule = module {
+    single { ErrorHandler(get()) }
+}
+
 // Gather all app modules
-val shareeApp = listOf(dataModule, navigatorModule, viewModelsModule, retrofitModule)
+val shareeApp = listOf(dataModule, navigatorModule, viewModelsModule, retrofitModule, errorModule)
