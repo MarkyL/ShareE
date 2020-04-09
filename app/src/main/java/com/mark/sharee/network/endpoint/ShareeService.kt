@@ -1,13 +1,11 @@
 package com.mark.sharee.network.endpoint
 
-import com.mark.sharee.network.model.requests.BasicRequest
-import com.mark.sharee.network.model.requests.GeneralRequest
-import com.mark.sharee.network.model.requests.LoginRequest
-import com.mark.sharee.network.model.requests.SubmitPollRequest
+import com.mark.sharee.network.model.requests.*
 import com.mark.sharee.network.model.responses.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import rx.Observable
 
 interface ShareeService {
 
@@ -33,4 +31,6 @@ interface ShareeService {
     @GET(value = PATIENT_BASE + "medicalPolls")
     suspend fun getMedicalPolls() : MutableList<GeneralPollResponse>
 
+    @POST(value = PATIENT_BASE + "updateNotificationMethod")
+    fun updateNotificationMethod(@Body fcmRequest: FcmRequest): Observable<Void>
 }

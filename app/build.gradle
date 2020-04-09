@@ -130,6 +130,9 @@ dependencies {
     // Chuck okHttp interceptor for development
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+
+    // Firebase cloud messaging service
+    implementation 'com.google.firebase:firebase-messaging:20.1.5'
 }
 
 repositories {

@@ -7,16 +7,21 @@ import android.content.res.Configuration
 import android.util.SparseArray
 import androidx.multidex.MultiDexApplication
 import com.google.firebase.auth.FirebaseAuth
+import com.mark.sharee.data.ShareeRepository
 import com.mark.sharee.di.shareeApp
+import com.mark.sharee.fcm.TokenManager
 import com.mark.sharee.model.User
 import com.mark.sharee.navigation.Arguments
 import com.mark.sharee.navigation.Screen
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.screens.SignInScreen
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import rx.schedulers.Schedulers
+import rx.subscriptions.CompositeSubscription
 import timber.log.Timber
 import java.util.*
 
@@ -24,6 +29,11 @@ class ShareeApplication : MultiDexApplication() {
     private val cachedComponents = SparseArray<ActivityComponent>()
 
     interface ActivityComponent
+
+    private val tokenManager: TokenManager by inject()
+    private val shareeRepository: ShareeRepository by inject()
+
+    private val subscriptions = CompositeSubscription()
 
     override fun onCreate() {
         // Set locale has to be before super.onCreate
@@ -41,11 +51,12 @@ class ShareeApplication : MultiDexApplication() {
         Timber.plant(Timber.DebugTree())
 
         FirebaseAuth.getInstance().setLanguageCode("He")
-//        FirebaseAuth.getInstance().useAppLanguage()
 
         registerFragmentArguments()
         registerScreens()
         User.register(this)
+
+        initializeFCM()
     }
 
     private fun registerFragmentArguments() {
@@ -55,6 +66,34 @@ class ShareeApplication : MultiDexApplication() {
     private fun registerScreens() {
         Screen.registerSubclass(MainScreen::class.java)
         Screen.registerSubclass(SignInScreen::class.java)
+    }
+
+    private fun initializeFCM() {
+        subscriptions.add(
+            tokenManager.observable
+                .observeOn(Schedulers.io())
+                .subscribe({ token ->
+                    Timber.i("initializeFCM - token = $token")
+                    User.me()?.let {
+                        if (token.isNullOrEmpty()) {
+                            Timber.i("Empty fcm token")
+                        } else {
+                            updateNotificationMethod(token, it.verificationToken)
+                        }
+                    } ?: Timber.i("User is null.")
+                }, Timber::e))
+    }
+
+    private fun updateNotificationMethod(token: String, verificationToken: String) {
+        subscriptions.add(
+            shareeRepository.updateNotificationMethod(verificationToken, token)
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    Timber.i("updateNotificationMethod success")
+                }, {
+                    Timber.e("updateNotificationMethod failure - ${it.cause}")
+                })
+        )
     }
 
     companion object {

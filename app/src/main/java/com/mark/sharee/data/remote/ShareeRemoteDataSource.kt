@@ -6,6 +6,7 @@ import com.mark.sharee.network.endpoint.ShareeEndpoint
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
+import rx.Observable
 
 class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) : ShareeDataSource {
     override suspend fun create(name: String): GeneralResponse {
@@ -30,5 +31,9 @@ class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) :
 
     override suspend fun getMedicalPolls(): MutableList<GeneralPollResponse> {
         return endpoint.getMedicalPolls()
+    }
+
+    override fun updateNotificationMethod(verificationToken: String, fcmToken: String): Observable<Void> {
+        return endpoint.updateNotificationMethod(verificationToken, fcmToken)
     }
 }

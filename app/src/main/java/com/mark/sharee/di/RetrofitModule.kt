@@ -48,7 +48,7 @@ val retrofitModule = module {
     single<Call.Factory> {
         val cacheFile = cacheFile(androidContext())
         val cache = cache(cacheFile)
-        provideOkhttp(cache, null)
+        provideOkhttp(cache)
     }
 }
 
@@ -79,7 +79,7 @@ fun retrofit(callFactory: Call.Factory, baseUrl: String): Retrofit = Retrofit.Bu
     )
     .build()
 
-fun provideOkhttp(cache: Cache, retrofit: Retrofit?) = OkHttpClient.Builder()
+fun provideOkhttp(cache: Cache) = OkHttpClient.Builder()
     .addInterceptor(ChuckInterceptor(ShareeApplication.context))
     .connectTimeout(Constants.TIMEOUT_LENGTH.toLong(), TimeUnit.SECONDS)
     .readTimeout(Constants.TIMEOUT_LENGTH.toLong(), TimeUnit.SECONDS)

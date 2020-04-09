@@ -4,6 +4,7 @@ import com.mark.sharee.model.poll.AnsweredQuestion
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
+import rx.Observable
 
 // Implement here all methods to be overridden & implemented by the repository
 interface ShareeDataSource {
@@ -18,4 +19,6 @@ interface ShareeDataSource {
     suspend fun getGeneralPolls(): MutableList<GeneralPollResponse>
 
     suspend fun getMedicalPolls(): MutableList<GeneralPollResponse>
+
+    fun updateNotificationMethod(verificationToken: String, fcmToken: String): Observable<Void>
 }

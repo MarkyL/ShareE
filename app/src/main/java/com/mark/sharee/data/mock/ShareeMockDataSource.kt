@@ -6,6 +6,7 @@ import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
 import com.mark.sharee.network.model.responses.PollSection
+import rx.Observable
 
 class ShareeMockDataSource : ShareeDataSource {
 
@@ -93,5 +94,9 @@ class ShareeMockDataSource : ShareeDataSource {
         return mutableListOf(
             createGeneralPollResponse1(), createGeneralPollResponse2(), createGeneralPollResponse3()
         )
+    }
+
+    override fun updateNotificationMethod(verificationToken: String, fcmToken: String): Observable<Void> {
+        return Observable.just(null)
     }
 }

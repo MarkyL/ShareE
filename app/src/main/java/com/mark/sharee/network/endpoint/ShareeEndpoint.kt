@@ -2,12 +2,14 @@ package com.mark.sharee.network.endpoint
 
 import com.google.gson.Gson
 import com.mark.sharee.model.poll.AnsweredQuestion
+import com.mark.sharee.network.model.requests.FcmRequest
 import com.mark.sharee.network.model.requests.GeneralRequest
 import com.mark.sharee.network.model.requests.LoginRequest
 import com.mark.sharee.network.model.requests.SubmitPollRequest
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
+import rx.Observable
 import timber.log.Timber
 
 class ShareeEndpoint constructor(private val shareeService: ShareeService) {
@@ -40,6 +42,10 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
         return shareeService.getMedicalPolls()
     }
 
+    fun updateNotificationMethod(verificationToken: String, fcmToken: String): Observable<Void> {
+        val fcmRequest = FcmRequest(verificationToken, fcmToken)
+        return shareeService.updateNotificationMethod(fcmRequest)
+    }
 
 
 }
