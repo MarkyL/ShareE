@@ -147,7 +147,7 @@ class SignInFragment : ShareeFragment() {
                     //Timber.i("markerrror1 - ${(error as HttpException).response()?.errorBody()?.string()}")
 //                    val serverException = Gson().fromJson((error as HttpException).response()?.errorBody()?.string(), ServerException::class.java)
 //                    Timber.i("markerrror5 - $serverException")
-                    errorHandler.handleError(error)
+                    errorHandler.handleError(this, error)
 //                    errorHandler.marktest(error, "mark test")
                 }
             }
@@ -235,7 +235,7 @@ class SignInFragment : ShareeFragment() {
     private fun login(user: FirebaseUser?) {
         user?.let {
             it.phoneNumber?.let { number ->
-                val formattedNumber = PhoneNumber.create(number).toString()
+                val formattedNumber = PhoneNumber.create(number).toString().replace("-", "")
                 viewModel.dispatchInputEvent(Login(formattedNumber, it.uid))
             }
         }

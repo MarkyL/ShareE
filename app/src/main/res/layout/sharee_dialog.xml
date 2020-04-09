@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/dialogLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/dialogIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="22dp"
+            tools:src="@drawable/ic_warning_black"
+            tools:visibility="visible"/>
+
+        <com.mark.sharee.widgets.ShareeTextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="33dp"
+            android:layout_marginRight="33dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            custom:sharee_font="orionBold"
+            tools:text="כותרת שגיאה ראשית"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"/>
+
+        <com.mark.sharee.widgets.ShareeTextView
+            android:id="@+id/dialogSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="20dp"
+            android:textSize="14sp"
+            android:textDirection="anyRtl"
+            custom:sharee_font="orionRegular"
+            tools:text="תת כותרת עם הצגת השגיאה"
+            android:lineSpacingExtra="2sp"/>
+
+        <com.mark.sharee.widgets.ShareeTextView
+            android:id="@+id/dialogSubAction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="14sp"
+            custom:sharee_font="orionBold"
+            tools:visibility="gone"
+            tools:text="לכל תנאי הפרטיות"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/dialogLayout"
+        android:background="@color/leading_color"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialogPositive"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="14sp"
+            tools:text="positive"
+            />
+
+        <View
+            android:id="@+id/devider"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/secondary_color"/>
+
+        <Button
+            android:id="@+id/dialogNegative"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="14sp"
+            tools:text="negative"/>
+    </LinearLayout>
+</RelativeLayout>

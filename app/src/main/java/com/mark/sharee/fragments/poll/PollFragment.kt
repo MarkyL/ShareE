@@ -13,6 +13,8 @@ import com.example.sharee.R
 import com.mark.sharee.adapters.*
 import com.mark.sharee.core.Action
 import com.mark.sharee.core.ShareeFragment
+import com.mark.sharee.dialogs.AbstractDialog
+import com.mark.sharee.dialogs.ShareeDialog
 import com.mark.sharee.model.poll.Question
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
@@ -29,6 +31,10 @@ class PollFragment : ShareeFragment() {
 
     private val viewModel: PollViewModel by sharedViewModel()
     private val pollSectionsAdapter: PollSectionsAdapter = PollSectionsAdapter()
+
+    companion object {
+        private const val TAG = "PollFragment"
+    }
 
     private lateinit var transferInfo: TransferInfo
 
@@ -112,13 +118,20 @@ class PollFragment : ShareeFragment() {
     }
 
     private fun showSuccessDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("המשוב נשלח בהצלחה")
-        builder.setMessage("תודה על שיתוף הפעולה")
-        builder.setPositiveButton("אוקיי") { _, _ ->
-            navigator.goBackTo(GeneralPollsScreen::class.java)
-        }
-        builder.show()
+        val successDialog = ShareeDialog(
+            title = resources.getString(R.string.submit_poll_success),
+            subtitle = resources.getString(R.string.thanks_for_cooperation),
+            iconDrawable = R.drawable.ic_warning_black,
+            positiveButtonText = R.string.dialog_positive_ok,
+            callback = object : AbstractDialog.Callback {
+                override fun onDialogPositiveAction(requestCode: Int) {
+                    navigator.goBackTo(GeneralPollsScreen::class.java)
+                }
+
+                override fun onDialogNegativeAction(requestCode: Int) { /* No negative here */ }
+            })
+
+        successDialog.show(parentFragmentManager, TAG)
     }
 
     private fun handleError(result: Event<PollDataState>?, throwable: Throwable?) {
@@ -144,33 +157,7 @@ class PollFragment : ShareeFragment() {
         pollSectionsAdapter.items.forEach { section ->
             answeredQuestions.addAll(section.questions)
         }
-//        items.forEach {
-//            when (it.type) {
-//                PollAbstractDisplayItem.PollItemType.BOOLEAN -> answeredQuestions.add((it as BooleanQuestionItem).question)
-//                PollAbstractDisplayItem.PollItemType.NUMERICAL -> answeredQuestions.add((it as NumericalQuestionItem).question)
-//                PollAbstractDisplayItem.PollItemType.TEXTUAL -> answeredQuestions.add((it as TextualQuestionItem).question)
-//                PollAbstractDisplayItem.PollItemType.GENERIC -> answeredQuestions.add((it as GenericQuestionItem).question)
-//                else -> {}
-//            }
-//        }
-
         return answeredQuestions
     }
-
-//    private fun generateAnsweredQuestions(items: List<PollAbstractDisplayItem>): List<Question> {
-//        val answeredQuestions = mutableListOf<Question>()
-//        items.forEach {
-//            when (it.type) {
-//                PollAbstractDisplayItem.PollItemType.BOOLEAN -> answeredQuestions.add((it as BooleanQuestionItem).question)
-//                PollAbstractDisplayItem.PollItemType.NUMERICAL -> answeredQuestions.add((it as NumericalQuestionItem).question)
-//                PollAbstractDisplayItem.PollItemType.TEXTUAL -> answeredQuestions.add((it as TextualQuestionItem).question)
-//                PollAbstractDisplayItem.PollItemType.GENERIC -> answeredQuestions.add((it as GenericQuestionItem).question)
-//                else -> {}
-//            }
-//        }
-//
-//        return answeredQuestions
-//    }
-
 
 }

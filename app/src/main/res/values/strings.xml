@@ -8,6 +8,7 @@
 
     <!-- Success messages -->
     <string name="submit_poll_success">הסקר נשלח בהצלחה</string>
+    <string name="thanks_for_cooperation">תודה על שיתוף הפעולה</string>
 
 
     <!-- OTP sign in -->
@@ -33,6 +34,12 @@
     <!-- Specific poll screen -->
     <string name="poll_screen_generic_answer_hint" translatable="false">לחץ לבחירת תשובה מתאימה</string>
     <string name="poll_screen_textual_answer_hint" translatable="false">הזן תשובתך כאן</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_error_default_title" translatable="false">אופס! יש לנו תקלה</string>
+    <string name="dialog_success_default_title" translatable="false">הצלחה!</string>
+    <string name="dialog_positive_ok" translatable="false">אוקיי</string>
+    <string name="dialog_negative_cancel" translatable="false">ביטול</string>
 
 
 </resources>
