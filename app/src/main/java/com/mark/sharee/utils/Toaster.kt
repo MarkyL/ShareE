@@ -8,7 +8,7 @@ import com.example.sharee.BuildConfig
 
 object Toaster {
     @JvmStatic
-    fun show(context: Context, text: String, debugOnly: Boolean = false) {
+    fun show(context: Context, text: String, debugOnly: Boolean = true) {
         if (debugOnly && !BuildConfig.DEBUG) return
 
         val toast = Toast.makeText(context, text, Toast.LENGTH_LONG)
@@ -17,19 +17,19 @@ object Toaster {
     }
 
     @JvmStatic
-    fun show(context: Context, resId: Int, debugOnly: Boolean = false) {
+    fun show(context: Context, resId: Int, debugOnly: Boolean = true) {
         show(context, context.getString(resId), debugOnly)
     }
 
     @JvmStatic
-    fun show(fragment: Fragment?, text: String, debugOnly: Boolean = false) {
+    fun show(fragment: Fragment?, text: String, debugOnly: Boolean = true) {
         fragment?.context?.let {
             show(it, text, debugOnly)
         }
     }
 
     @JvmStatic
-    fun show(fragment: Fragment?, resId: Int, debugOnly: Boolean = false) {
+    fun show(fragment: Fragment?, resId: Int, debugOnly: Boolean = true) {
         fragment?.context?.let {
             show(it, it.getString(resId), debugOnly)
         }

@@ -12,19 +12,26 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.sharee.R
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.mark.sharee.core.ShareeActivity
 import com.mark.sharee.core.SupportsOnBackPressed
+import com.mark.sharee.data.ShareeRepository
+import com.mark.sharee.model.User
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.screens.SignInScreen
 import com.mark.sharee.utils.FontManager
+import com.mark.sharee.utils.Toaster
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.flow.flow
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 
 class MainActivity : ShareeActivity() {
 
+    private val shareeRepository: ShareeRepository by inject()
+    private val viewModel: ActivityViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -34,6 +41,8 @@ class MainActivity : ShareeActivity() {
         initializeFonts()
         initializeDrawer()
         navigator.replace(SignInScreen())
+
+        initializeFCM()
     }
 
     override fun onResume() {
@@ -85,7 +94,7 @@ class MainActivity : ShareeActivity() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
 
             override fun onDrawerOpened(drawerView: View) {
-                Timber.i("onDrawerOpened")
+                Timber.i("$TAG -  onDrawerOpened")
             }
 
             override fun onDrawerClosed(drawerView: View) {
@@ -98,8 +107,9 @@ class MainActivity : ShareeActivity() {
         })
 
         navigationView.setNavigationItemSelectedListener { item ->
-            Timber.i("onNavigationItemSelected - ${item.title}")
-            Toast.makeText(applicationContext, "בחרת " + item.title.toString(), Toast.LENGTH_SHORT).show()
+            Timber.i("$TAG -  onNavigationItemSelected - ${item.title}")
+            Toast.makeText(applicationContext, "בחרת " + item.title.toString(), Toast.LENGTH_SHORT)
+                .show()
 
             when (item.itemId) {
                 R.id.navGeneralPolls -> {
@@ -137,6 +147,40 @@ class MainActivity : ShareeActivity() {
             }
         }
         super.onBackPressed()
+    }
+
+    private fun initializeFCM() {
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Timber.i("$TAG - getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+
+                // Get new Instance ID token
+                val token = task.result?.token
+
+                // Log and toast
+                val msg = getString(R.string.fcm_token)
+                Timber.i("$TAG -  FCM token retrieved: [$token]")
+                Toaster.show(baseContext, msg)
+
+                User.me()?.let {
+                    if (token.isNullOrEmpty()) {
+                        Timber.i("$TAG - Empty fcm token")
+                    } else {
+                        updateNotificationMethod(token, it.verificationToken)
+                    }
+                } ?: Timber.i("$TAG - User is null.")
+            })
+    }
+
+    private fun updateNotificationMethod(fcmToken: String, verificationToken: String) {
+        viewModel.dispatchInputEvent(UpdateFcmToken(fcmToken, verificationToken))
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
     }
 
 }

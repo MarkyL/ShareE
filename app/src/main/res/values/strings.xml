@@ -41,5 +41,10 @@
     <string name="dialog_positive_ok" translatable="false">אוקיי</string>
     <string name="dialog_negative_cancel" translatable="false">ביטול</string>
 
+    <!-- Notifications -->
+    <string name="default_notification_channel_id" translatable="false">defaultChannel</string>
+    <string name="fcm_token" translatable="false">FCM token retrieved</string>
+
+
 
 </resources>

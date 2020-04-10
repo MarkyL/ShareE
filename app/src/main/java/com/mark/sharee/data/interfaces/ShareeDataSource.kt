@@ -20,5 +20,5 @@ interface ShareeDataSource {
 
     suspend fun getMedicalPolls(): MutableList<GeneralPollResponse>
 
-    fun updateNotificationMethod(verificationToken: String, fcmToken: String): Observable<Void>
+    suspend fun updateNotificationMethod(verificationToken: String, fcmToken: String)
 }

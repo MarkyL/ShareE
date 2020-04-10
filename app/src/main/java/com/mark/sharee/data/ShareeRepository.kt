@@ -41,11 +41,7 @@ class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : S
         return activeDataSource.getMedicalPolls()
     }
 
-//    override suspend fun updateNotificationMethod(verificationToken: String, fcmToken: String) {
-//        return activeDataSource.updateNotificationMethod(verificationToken, fcmToken)
-//    }
-
-    override fun updateNotificationMethod(verificationToken: String, fcmToken: String): Observable<Void> {
+    override suspend fun updateNotificationMethod(verificationToken: String, fcmToken: String) {
         return activeDataSource.updateNotificationMethod(verificationToken, fcmToken)
     }
 

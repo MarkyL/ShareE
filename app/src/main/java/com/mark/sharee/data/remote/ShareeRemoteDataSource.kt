@@ -33,7 +33,7 @@ class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) :
         return endpoint.getMedicalPolls()
     }
 
-    override fun updateNotificationMethod(verificationToken: String, fcmToken: String): Observable<Void> {
+    override suspend fun updateNotificationMethod(verificationToken: String, fcmToken: String) {
         return endpoint.updateNotificationMethod(verificationToken, fcmToken)
     }
 }

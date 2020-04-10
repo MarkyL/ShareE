@@ -96,7 +96,7 @@ class ShareeMockDataSource : ShareeDataSource {
         )
     }
 
-    override fun updateNotificationMethod(verificationToken: String, fcmToken: String): Observable<Void> {
-        return Observable.just(null)
+    override suspend fun updateNotificationMethod(verificationToken: String, fcmToken: String) {
+        // STUB!
     }
 }

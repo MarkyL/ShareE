@@ -42,9 +42,9 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
         return shareeService.getMedicalPolls()
     }
 
-    fun updateNotificationMethod(verificationToken: String, fcmToken: String): Observable<Void> {
+    suspend fun updateNotificationMethod(verificationToken: String, fcmToken: String) {
         val fcmRequest = FcmRequest(verificationToken, fcmToken)
-        return shareeService.updateNotificationMethod(fcmRequest)
+        shareeService.updateNotificationMethod(fcmRequest)
     }
 
 

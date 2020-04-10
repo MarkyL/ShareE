@@ -32,5 +32,5 @@ interface ShareeService {
     suspend fun getMedicalPolls() : MutableList<GeneralPollResponse>
 
     @POST(value = PATIENT_BASE + "updateNotificationMethod")
-    fun updateNotificationMethod(@Body fcmRequest: FcmRequest): Observable<Void>
+    suspend fun updateNotificationMethod(@Body fcmRequest: FcmRequest)
 }
