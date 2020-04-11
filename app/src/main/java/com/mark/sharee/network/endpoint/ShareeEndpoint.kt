@@ -9,7 +9,6 @@ import com.mark.sharee.network.model.requests.SubmitPollRequest
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
-import rx.Observable
 import timber.log.Timber
 
 class ShareeEndpoint constructor(private val shareeService: ShareeService) {
@@ -42,9 +41,9 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
         return shareeService.getMedicalPolls()
     }
 
-    suspend fun updateNotificationMethod(verificationToken: String, fcmToken: String) {
+    suspend fun updateFcmToken(verificationToken: String, fcmToken: String) {
         val fcmRequest = FcmRequest(verificationToken, fcmToken)
-        shareeService.updateNotificationMethod(fcmRequest)
+        shareeService.updateFcmToken(fcmRequest)
     }
 
 

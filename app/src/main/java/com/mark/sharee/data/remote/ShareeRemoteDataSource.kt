@@ -3,10 +3,9 @@ package com.mark.sharee.data.remote
 import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.model.poll.AnsweredQuestion
 import com.mark.sharee.network.endpoint.ShareeEndpoint
+import com.mark.sharee.network.model.responses.GeneralPollResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
-import com.mark.sharee.network.model.responses.GeneralPollResponse
-import rx.Observable
 
 class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) : ShareeDataSource {
     override suspend fun create(name: String): GeneralResponse {
@@ -33,7 +32,7 @@ class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) :
         return endpoint.getMedicalPolls()
     }
 
-    override suspend fun updateNotificationMethod(verificationToken: String, fcmToken: String) {
-        return endpoint.updateNotificationMethod(verificationToken, fcmToken)
+    override suspend fun updateFcmToken(verificationToken: String, fcmToken: String) {
+        return endpoint.updateFcmToken(verificationToken, fcmToken)
     }
 }

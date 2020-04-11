@@ -29,8 +29,6 @@ class SignInViewModel constructor(application: Application, private val shareeRe
     }
 
     private fun login(phoneNumber: String, uuid: String) {
-        User.create(phoneNumber, uuid)
-
         viewModelScope.launch {
             runCatching {
                 Timber.i("login - runCatching")
@@ -38,7 +36,7 @@ class SignInViewModel constructor(application: Application, private val shareeRe
                 shareeRepository.login(phoneNumber, uuid)
             }.onSuccess {
                 Timber.i("login - onSuccess, loginResponse = $it")
-                User.me()?.updateToken(it.verificationToken)
+                User.create(it.verificationToken, phoneNumber, uuid)
                 emitUiState(response = Event(it))
             }.onFailure {
                 Timber.e("login - onFailure $it")

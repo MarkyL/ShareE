@@ -1,18 +1,13 @@
 package com.mark.sharee.model
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import com.mark.sharee.utils.StringUtils
 import timber.log.Timber
 
-data class User(val verificationToken: String,
-                val phoneNumber: String,
-                val patientName: String) {
+data class User(var verificationToken: String, val phoneNumber: String) {
 
-    constructor() : this(StringUtils.EMPTY_STRING, StringUtils.EMPTY_STRING, StringUtils.EMPTY_STRING)
-
-
+    constructor() : this(StringUtils.EMPTY_STRING, StringUtils.EMPTY_STRING)
 
     companion object {
 
@@ -23,13 +18,17 @@ data class User(val verificationToken: String,
         private const val PHONE_PREFERENCE = "phone"
         private const val FIRE_BASE_AUTH_TOKEN = "fb_token"
 
-        fun create(phoneNumber: String, fireBaseAuthToken: String): User {
-            val editor = preferences.edit()
-            editor.putString(PHONE_PREFERENCE, phoneNumber)
-            editor.putString(FIRE_BASE_AUTH_TOKEN, fireBaseAuthToken)
-            editor.apply()
+        fun create(verificationToken: String, phoneNumber: String, fireBaseAuthToken: String): User {
+            me = User(verificationToken, phoneNumber)
 
-            me = User()
+            me?.let {
+                with (it) {
+                    setPhonePreference(phoneNumber)
+                    updateToken(verificationToken)
+                    setFireBaseAuthToken(fireBaseAuthToken)
+                }
+            }
+
             return User()
         }
 
@@ -46,11 +45,6 @@ data class User(val verificationToken: String,
             return me
         }
 
-//        fun isVerificationTokenAvailable(): Boolean {
-//            me.getToken().let {
-//                return it != null
-//            }
-//        }
     }
 
     fun updateToken(token: String) {
@@ -68,5 +62,14 @@ data class User(val verificationToken: String,
     fun getPhone(): String {
         return preferences.getString(PHONE_PREFERENCE, StringUtils.EMPTY_STRING).toString()
     }
+
+    fun setFireBaseAuthToken(fireBaseAuthToken: String) {
+        preferences.edit().putString(FIRE_BASE_AUTH_TOKEN, fireBaseAuthToken).apply()
+    }
+
+    fun getFireBaseAuthToken(): String {
+        return preferences.getString(FIRE_BASE_AUTH_TOKEN, StringUtils.EMPTY_STRING).toString()
+    }
+
 
 }

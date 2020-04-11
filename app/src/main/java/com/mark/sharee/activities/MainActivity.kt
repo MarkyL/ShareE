@@ -173,21 +173,21 @@ class MainActivity : ShareeActivity() {
                     if (token.isNullOrEmpty()) {
                         Timber.i("$TAG - Empty fcm token")
                     } else {
-                        updateNotificationMethod(token, it.verificationToken)
+                        updateFcmToken(token, it.getToken())
                     }
                 } ?: Timber.i("$TAG - User is null.")
             })
     }
 
-    private fun updateNotificationMethod(fcmToken: String, verificationToken: String) {
+    private fun updateFcmToken(fcmToken: String, verificationToken: String) {
         CoroutineScope(Dispatchers.IO).launch {
             runCatching {
-                Timber.i("$TAG - updateNotificationMethod - runCatching")
-                shareeRepository.updateNotificationMethod(verificationToken, fcmToken)
+                Timber.i("$TAG - updateFcmToken - runCatching, token - $verificationToken")
+                shareeRepository.updateFcmToken(verificationToken, fcmToken)
             }.onSuccess {
-                Timber.i("$TAG - updateNotificationMethod - onSuccess, response = $it")
+                Timber.i("$TAG - updateFcmToken - onSuccess, response = $it")
             }.onFailure {
-                Timber.e("$TAG - updatupdateNotificationMethodeFcmToken - onFailure $it")
+                Timber.e("$TAG - updateFcmToken - onFailure $it")
             }
         }
     }
