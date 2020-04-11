@@ -18,12 +18,17 @@ import com.mark.sharee.core.ShareeActivity
 import com.mark.sharee.core.SupportsOnBackPressed
 import com.mark.sharee.data.ShareeRepository
 import com.mark.sharee.model.User
+import com.mark.sharee.mvvm.State
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.screens.SignInScreen
+import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.FontManager
 import com.mark.sharee.utils.Toaster
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -31,7 +36,6 @@ import timber.log.Timber
 class MainActivity : ShareeActivity() {
 
     private val shareeRepository: ShareeRepository by inject()
-    private val viewModel: ActivityViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -176,7 +180,16 @@ class MainActivity : ShareeActivity() {
     }
 
     private fun updateNotificationMethod(fcmToken: String, verificationToken: String) {
-        viewModel.dispatchInputEvent(UpdateFcmToken(fcmToken, verificationToken))
+        CoroutineScope(Dispatchers.IO).launch {
+            runCatching {
+                Timber.i("$TAG - updateNotificationMethod - runCatching")
+                shareeRepository.updateNotificationMethod(verificationToken, fcmToken)
+            }.onSuccess {
+                Timber.i("$TAG - updateNotificationMethod - onSuccess, response = $it")
+            }.onFailure {
+                Timber.e("$TAG - updatupdateNotificationMethodeFcmToken - onFailure $it")
+            }
+        }
     }
 
     companion object {

@@ -144,11 +144,7 @@ class SignInFragment : ShareeFragment() {
                 dataState.error.consume()?.let { error ->
                     // handle error state
                     splashView.visibility = View.GONE
-                    //Timber.i("markerrror1 - ${(error as HttpException).response()?.errorBody()?.string()}")
-//                    val serverException = Gson().fromJson((error as HttpException).response()?.errorBody()?.string(), ServerException::class.java)
-//                    Timber.i("markerrror5 - $serverException")
                     errorHandler.handleError(this, error)
-//                    errorHandler.marktest(error, "mark test")
                 }
             }
 
