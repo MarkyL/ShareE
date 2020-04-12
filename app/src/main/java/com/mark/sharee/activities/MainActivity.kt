@@ -170,6 +170,12 @@ class MainActivity : ShareeActivity() {
                 Toaster.show(baseContext, msg)
 
                 User.me()?.let {
+                    // if server already has the current token, we shall not bother updating it.
+                    if (it.getFcmToken() == token) {
+                        Timber.i("$TAG - server already has up to date fcm token")
+                        return@let
+                    }
+
                     if (token.isNullOrEmpty()) {
                         Timber.i("$TAG - Empty fcm token")
                     } else {
@@ -182,10 +188,12 @@ class MainActivity : ShareeActivity() {
     private fun updateFcmToken(fcmToken: String, verificationToken: String) {
         CoroutineScope(Dispatchers.IO).launch {
             runCatching {
-                Timber.i("$TAG - updateFcmToken - runCatching, token - $verificationToken")
+                Timber.i("$TAG - updateFcmToken - runCatching, token - $fcmToken")
                 shareeRepository.updateFcmToken(verificationToken, fcmToken)
             }.onSuccess {
                 Timber.i("$TAG - updateFcmToken - onSuccess, response = $it")
+                User.me()?.setFcmToken(fcmToken)
+
             }.onFailure {
                 Timber.e("$TAG - updateFcmToken - onFailure $it")
             }
