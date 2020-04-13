@@ -49,7 +49,6 @@ class ShareeApplication : MultiDexApplication() {
         registerFragmentArguments()
         registerScreens()
         User.register(this)
-
     }
 
     private fun registerFragmentArguments() {

@@ -64,6 +64,10 @@ class PollFragment : ShareeFragment() {
         val poll = transferInfo.poll
         toolbar.setTitle(poll.name)
         toolbar.addActions(arrayOf(Action.BackBlack), this)
+
+        poll.pollSections.forEach {
+            it.expanded = true
+        }
         pollSectionsAdapter.updateItems(poll.pollSections)
     }
 

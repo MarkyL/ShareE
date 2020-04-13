@@ -60,10 +60,7 @@ class PollSectionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         questionsAdapter.submitList(generatePollDisplayItems(pollSection))
     }
 
-    private fun toggleSection(
-        pollSection: PollSection,
-        holder: PollSectionItemViewHolder
-    ) {
+    private fun toggleSection(pollSection: PollSection, holder: PollSectionItemViewHolder) {
         pollSection.expanded =
             toggleLayoutExpand(!pollSection.expanded, holder.btnExpand, holder.lyt_expand)
     }

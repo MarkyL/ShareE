@@ -46,8 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/grey_3"
-        android:orientation="vertical"
-        android:visibility="visible">
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
