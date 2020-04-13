@@ -2,10 +2,7 @@ package com.mark.sharee.data.mock
 
 import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.model.poll.*
-import com.mark.sharee.network.model.responses.GeneralResponse
-import com.mark.sharee.network.model.responses.LoginResponse
-import com.mark.sharee.network.model.responses.GeneralPollResponse
-import com.mark.sharee.network.model.responses.PollSection
+import com.mark.sharee.network.model.responses.*
 import rx.Observable
 
 class ShareeMockDataSource : ShareeDataSource {
@@ -98,5 +95,23 @@ class ShareeMockDataSource : ShareeDataSource {
 
     override suspend fun updateFcmToken(verificationToken: String, fcmToken: String) {
         // STUB!
+    }
+
+    override suspend fun dailyRoutine(): DailyRoutineResponse {
+        val weekdayActivities = mutableListOf(
+            DailyActivity("08:00", "09:00", "Breakfast"),
+            DailyActivity("09:30", "11:00", "Morning visit"),
+            DailyActivity("12:00", "14:00", "Launch"),
+            DailyActivity("14:00", "16:00", "Nap time"),
+            DailyActivity("18:00", "20:00", "Dinner"))
+
+        val weekendActivities = mutableListOf(
+            DailyActivity("08:00", "09:00", "Breakfast"),
+            DailyActivity("09:30", "11:00", "Morning visit"),
+            DailyActivity("12:00", "14:00", "Launch"),
+            DailyActivity("14:00", "16:00", "Nap time"),
+            DailyActivity("18:00", "20:00", "Dinner"))
+
+        return DailyRoutineResponse(weekdayActivities, weekendActivities)
     }
 }

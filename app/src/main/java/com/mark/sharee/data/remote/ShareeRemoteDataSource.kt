@@ -3,6 +3,7 @@ package com.mark.sharee.data.remote
 import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.model.poll.AnsweredQuestion
 import com.mark.sharee.network.endpoint.ShareeEndpoint
+import com.mark.sharee.network.model.responses.DailyRoutineResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
@@ -34,5 +35,9 @@ class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) :
 
     override suspend fun updateFcmToken(verificationToken: String, fcmToken: String) {
         return endpoint.updateFcmToken(verificationToken, fcmToken)
+    }
+
+    override suspend fun dailyRoutine(): DailyRoutineResponse {
+        return endpoint.dailyRoutine()
     }
 }

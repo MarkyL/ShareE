@@ -4,6 +4,7 @@ import com.mark.sharee.network.model.requests.FcmRequest
 import com.mark.sharee.network.model.requests.GeneralRequest
 import com.mark.sharee.network.model.requests.LoginRequest
 import com.mark.sharee.network.model.requests.SubmitPollRequest
+import com.mark.sharee.network.model.responses.DailyRoutineResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
@@ -37,4 +38,7 @@ interface ShareeService {
 
     @POST(value = PATIENT_BASE + "updateFcmToken")
     suspend fun updateFcmToken(@Body fcmRequest: FcmRequest)
+
+    @GET(value = PATIENT_BASE + "dailyRoutine")
+    suspend fun dailyRoutine() : DailyRoutineResponse
 }

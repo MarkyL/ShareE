@@ -6,6 +6,7 @@ import com.mark.sharee.network.model.requests.FcmRequest
 import com.mark.sharee.network.model.requests.GeneralRequest
 import com.mark.sharee.network.model.requests.LoginRequest
 import com.mark.sharee.network.model.requests.SubmitPollRequest
+import com.mark.sharee.network.model.responses.DailyRoutineResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
@@ -46,5 +47,8 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
         shareeService.updateFcmToken(fcmRequest)
     }
 
+    suspend fun dailyRoutine() : DailyRoutineResponse {
+        return shareeService.dailyRoutine()
+    }
 
 }

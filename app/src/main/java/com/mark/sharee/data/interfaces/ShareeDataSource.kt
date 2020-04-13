@@ -1,6 +1,7 @@
 package com.mark.sharee.data.interfaces
 
 import com.mark.sharee.model.poll.AnsweredQuestion
+import com.mark.sharee.network.model.responses.DailyRoutineResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
 import com.mark.sharee.network.model.responses.GeneralPollResponse
@@ -21,4 +22,6 @@ interface ShareeDataSource {
     suspend fun getMedicalPolls(): MutableList<GeneralPollResponse>
 
     suspend fun updateFcmToken(verificationToken: String, fcmToken: String)
+
+    suspend fun dailyRoutine() : DailyRoutineResponse
 }

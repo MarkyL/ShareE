@@ -4,13 +4,13 @@ import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.data.mock.ShareeMockDataSource
 import com.mark.sharee.data.remote.ShareeRemoteDataSource
 import com.mark.sharee.model.poll.AnsweredQuestion
+import com.mark.sharee.network.model.responses.DailyRoutineResponse
+import com.mark.sharee.network.model.responses.GeneralPollResponse
 import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.LoginResponse
-import com.mark.sharee.network.model.responses.GeneralPollResponse
-import rx.Observable
 
 
-class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : ShareeDataSource{
+class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : ShareeDataSource {
     private val mockDataSource = ShareeMockDataSource()
 
     private var activeDataSource: ShareeDataSource = remoteDataSource
@@ -28,8 +28,7 @@ class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : S
         return activeDataSource.poll()
     }
 
-    override suspend fun submitPoll(verificationToken: String,
-                                    pollId: String, answeredQuestions: List<AnsweredQuestion>) {
+    override suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>) {
         activeDataSource.submitPoll(verificationToken, pollId, answeredQuestions)
     }
 
@@ -43,6 +42,10 @@ class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : S
 
     override suspend fun updateFcmToken(verificationToken: String, fcmToken: String) {
         return activeDataSource.updateFcmToken(verificationToken, fcmToken)
+    }
+
+    override suspend fun dailyRoutine(): DailyRoutineResponse {
+        return activeDataSource.dailyRoutine()
     }
 
 }
