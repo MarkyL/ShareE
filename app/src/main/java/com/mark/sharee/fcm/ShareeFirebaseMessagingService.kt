@@ -18,6 +18,17 @@ import timber.log.Timber
 
 class ShareeFirebaseMessagingService : FirebaseMessagingService() {
 
+    /* TODO:
+
+    <meta-data
+    android:name="firebase_messaging_auto_init_enabled"
+    android:value="false" />
+    <meta-data
+    android:name="firebase_analytics_collection_enabled"
+    android:value="false" />
+
+    */
+
     /**
      * Called when message is received.
      *
@@ -42,8 +53,8 @@ class ShareeFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(data: Map<String, String>) {
-        val title = data["title"]
-        val body = data["body"]
+        val title = data[NOTIFICATION_TITLE]
+        val body = data[NOTIFICATION_BODY]
         if (!title.isNullOrEmpty() && !body.isNullOrEmpty()) {
             sendNotification(title, body)
         }
@@ -92,6 +103,8 @@ class ShareeFirebaseMessagingService : FirebaseMessagingService() {
      * @param messageBody FCM message body received.
      */
     private fun sendNotification(messageTitle: String, messageBody: String) {
+        Timber.i("$TAG - sendNotification")
+
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -101,14 +114,13 @@ class ShareeFirebaseMessagingService : FirebaseMessagingService() {
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
         val notificationBuilder = NotificationCompat.Builder(this, Constants.SHAREE_PUSH_CHANNEL)
-//            .setWhen(System.currentTimeMillis())
-//            .setSmallIcon(R.drawable.ic_logo_round)
-            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.material_bg_1))
+            .setSmallIcon(R.drawable.ic_sharee_notification)
             .setContentTitle(messageTitle)
             .setContentText(messageBody)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
+            .setOnlyAlertOnce(true)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -118,14 +130,16 @@ class ShareeFirebaseMessagingService : FirebaseMessagingService() {
                 "Channel human readable title",
                 NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(channel)
+            notificationBuilder.setChannelId(channelId)
         }
 
         notificationManager.notify(Constants.NOTIFICATION_ID, notificationBuilder.build())
     }
 
     companion object {
-
         private const val TAG = "ShareeFirebaseMessagingService"
+        private const val NOTIFICATION_TITLE = "title"
+        private const val NOTIFICATION_BODY = "body"
     }
 
 

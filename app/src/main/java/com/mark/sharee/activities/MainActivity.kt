@@ -12,30 +12,17 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.sharee.R
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
 import com.mark.sharee.core.ShareeActivity
 import com.mark.sharee.core.SupportsOnBackPressed
-import com.mark.sharee.data.ShareeRepository
-import com.mark.sharee.model.User
-import com.mark.sharee.mvvm.State
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.screens.SignInScreen
-import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.FontManager
-import com.mark.sharee.utils.Toaster
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 
 class MainActivity : ShareeActivity() {
-
-    private val shareeRepository: ShareeRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -45,8 +32,6 @@ class MainActivity : ShareeActivity() {
         initializeFonts()
         initializeDrawer()
         navigator.replace(SignInScreen())
-
-        initializeFCM()
     }
 
     override fun onResume() {
@@ -151,53 +136,6 @@ class MainActivity : ShareeActivity() {
             }
         }
         super.onBackPressed()
-    }
-
-    private fun initializeFCM() {
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Timber.i("$TAG - getInstanceId failed", task.exception)
-                    return@OnCompleteListener
-                }
-
-                // Get new Instance ID token
-                val token = task.result?.token
-
-                // Log and toast
-                val msg = getString(R.string.fcm_token)
-                Timber.i("$TAG -  FCM token retrieved: [$token]")
-                Toaster.show(baseContext, msg)
-
-                User.me()?.let {
-                    // if server already has the current token, we shall not bother updating it.
-                    if (it.getFcmToken() == token) {
-                        Timber.i("$TAG - server already has up to date fcm token")
-                        return@let
-                    }
-
-                    if (token.isNullOrEmpty()) {
-                        Timber.i("$TAG - Empty fcm token")
-                    } else {
-                        updateFcmToken(token, it.getToken())
-                    }
-                } ?: Timber.i("$TAG - User is null.")
-            })
-    }
-
-    private fun updateFcmToken(fcmToken: String, verificationToken: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            runCatching {
-                Timber.i("$TAG - updateFcmToken - runCatching, token - $fcmToken")
-                shareeRepository.updateFcmToken(verificationToken, fcmToken)
-            }.onSuccess {
-                Timber.i("$TAG - updateFcmToken - onSuccess, response = $it")
-                User.me()?.setFcmToken(fcmToken)
-
-            }.onFailure {
-                Timber.e("$TAG - updateFcmToken - onFailure $it")
-            }
-        }
     }
 
     companion object {
