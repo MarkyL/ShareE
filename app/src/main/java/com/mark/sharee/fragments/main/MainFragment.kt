@@ -1,10 +1,15 @@
 package com.mark.sharee.fragments.main
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import com.example.sharee.R
 import com.google.android.gms.tasks.OnCompleteListener
@@ -15,6 +20,9 @@ import com.mark.sharee.core.Action
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.core.SupportsOnBackPressed
 import com.mark.sharee.data.ShareeRepository
+import com.mark.sharee.fcm.DailyRoutineWorker.Companion.NOTIFICATION_MESSAGE
+import com.mark.sharee.fcm.DailyRoutineWorker.Companion.NOTIFICATION_TITLE
+import com.mark.sharee.fcm.NotificationBroadcastReceiver
 import com.mark.sharee.fragments.generalPolls.PollDataState
 import com.mark.sharee.model.User
 import com.mark.sharee.mvvm.State
@@ -33,6 +41,8 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnBackPressed {
 
@@ -153,6 +163,46 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     private fun handleScheduledNotificationsSuccess(response: ScheduledNotificationsSuccess) {
         Timber.i("handleScheduledNotificationsSuccess - $response")
+
+        val firstScheduledNotification = response.scheduledNotifications[0]
+
+        val scheduledTime = firstScheduledNotification.time//remoteMessage.data["scheduledTime"]
+        scheduleAlarm(scheduledTime, firstScheduledNotification.title, firstScheduledNotification.body)
+    }
+
+    private fun scheduleAlarm(
+        scheduledTimeString: String?,
+        title: String?,
+        message: String?
+    ) {
+        val alarmMgr = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmIntent =
+            Intent(requireContext(), NotificationBroadcastReceiver::class.java).let { intent ->
+                intent.putExtra(NOTIFICATION_TITLE, title)
+                intent.putExtra(NOTIFICATION_MESSAGE, message)
+                PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
+            }
+
+        //MOCK - scheduled time is the next 1 minute
+        val calendar = Calendar.getInstance()
+        val now = Date()
+        calendar.time = Date()
+        Timber.i("mark - calendar now = ${calendar.time}")
+        calendar.add(Calendar.SECOND, 20)
+        Timber.i("mark - calendar in 20 seconds = ${calendar.time}")
+
+        // Parse Schedule time
+        val scheduledTime = calendar.time
+            //SimpleDateFormat("HH:mm", Locale.getDefault()).parse(scheduledTimeString!!)
+
+        scheduledTime?.let {
+            // With set(), it'll set non repeating one time alarm.
+            alarmMgr.set(
+                AlarmManager.RTC_WAKEUP,
+                it.time,
+                alarmIntent
+            )
+        }
     }
 
     private fun handleError(throwable: Throwable?) {

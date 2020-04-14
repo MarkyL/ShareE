@@ -133,6 +133,9 @@ dependencies {
 
     // Firebase cloud messaging service
     implementation 'com.google.firebase:firebase-messaging:20.1.5'
+
+    // Work manager
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
 }
 
 repositories {

@@ -1,14 +1,13 @@
 package com.mark.sharee.fragments.main
 
+import android.app.AlarmManager
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.sharee.R
 import com.mark.sharee.data.ShareeRepository
 import com.mark.sharee.mvvm.BaseViewModel
 import com.mark.sharee.mvvm.State
-import com.mark.sharee.network.model.responses.GeneralResponse
 import com.mark.sharee.network.model.responses.ScheduledNotification
 import com.mark.sharee.utils.Event
 import kotlinx.coroutines.launch
@@ -35,6 +34,7 @@ class MainViewModel constructor(application: Application, private val shareeRepo
             }.onSuccess {
                 Timber.i("mark - $it")
                 publish(state = State.NEXT, items = Event(ScheduledNotificationsSuccess(it)))
+//                handleScheduledNotificationData(it)
             }.onFailure {
                 Timber.i("mark - onFailure")
                 it.printStackTrace()
@@ -42,6 +42,11 @@ class MainViewModel constructor(application: Application, private val shareeRepo
             }
         }
     }
+
+    private fun handleScheduledNotificationData(scheduledNotifications: MutableList<ScheduledNotification>) {
+//        scheduledNotifications[0].
+    }
+
 }
 
 // Events = actions coming from UI
