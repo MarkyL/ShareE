@@ -59,10 +59,7 @@ class ShareeFirebaseMessagingService : FirebaseMessagingService() {
             sendNotification(title, body)
         }
     }
-    // [END receive_message]
 
-
-    // [START on_new_token]
     /**
      * Called if InstanceID token is updated. This may occur if the security of
      * the previous token had been compromised. Note that this is called when the InstanceID token
@@ -75,13 +72,6 @@ class ShareeFirebaseMessagingService : FirebaseMessagingService() {
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
         sendRegistrationToServer(token)
-    }
-
-    /**
-     * Handle time allotted to BroadcastReceivers.
-     */
-    private fun handleNow() {
-        Timber.i("$TAG - Short lived task is done.")
     }
 
     /**
@@ -103,37 +93,7 @@ class ShareeFirebaseMessagingService : FirebaseMessagingService() {
      * @param messageBody FCM message body received.
      */
     private fun sendNotification(messageTitle: String, messageBody: String) {
-        Timber.i("$TAG - sendNotification")
-
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-            PendingIntent.FLAG_ONE_SHOT)
-
-        val channelId = getString(R.string.default_notification_channel_id)
-        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-
-        val notificationBuilder = NotificationCompat.Builder(this, Constants.SHAREE_PUSH_CHANNEL)
-            .setSmallIcon(R.drawable.ic_sharee_notification)
-            .setContentTitle(messageTitle)
-            .setContentText(messageBody)
-            .setAutoCancel(true)
-            .setSound(defaultSoundUri)
-            .setContentIntent(pendingIntent)
-            .setOnlyAlertOnce(true)
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId,
-                "Channel human readable title",
-                NotificationManager.IMPORTANCE_DEFAULT)
-            notificationManager.createNotificationChannel(channel)
-            notificationBuilder.setChannelId(channelId)
-        }
-
-        notificationManager.notify(Constants.NOTIFICATION_ID, notificationBuilder.build())
+        NotificationUtil(applicationContext).sendNotification(messageTitle, messageBody)
     }
 
     companion object {
