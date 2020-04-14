@@ -7,13 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.sharee.R
 import com.mark.sharee.data.ShareeRepository
 import com.mark.sharee.mvvm.BaseViewModel
+import com.mark.sharee.mvvm.State
 import com.mark.sharee.network.model.responses.GeneralResponse
+import com.mark.sharee.network.model.responses.ScheduledNotification
 import com.mark.sharee.utils.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class MainViewModel constructor(application: Application, private val shareeRepository: ShareeRepository)
-    : BaseViewModel<MainDataState, MainDataEvent>(application = application) {
+    : BaseViewModel<Event<MainDataState>, MainDataEvent>(application = application) {
 
     private val _uiState = MutableLiveData<MainDataState>()
     val uiState: LiveData<MainDataState> get() = _uiState
@@ -21,49 +23,33 @@ class MainViewModel constructor(application: Application, private val shareeRepo
     override fun handleScreenEvents(event: MainDataEvent) {
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
         when(event){
-            is Echo -> {
-                Timber.i("mark - Echo")
-                echo(event.name)
-            }
+            is GetScheduledNotifications -> getScheduledNotifications()
         }
     }
 
-    private fun echo(name: String) {
+    private fun getScheduledNotifications() {
         viewModelScope.launch {
             runCatching {
                 Timber.i("mark - runCatching")
-                emitUiState(showProgress = true)
-                shareeRepository.create(name)
+                shareeRepository.scheduledNotifications()
             }.onSuccess {
                 Timber.i("mark - $it")
-                emitUiState(response = Event(it))
+                publish(state = State.NEXT, items = Event(ScheduledNotificationsSuccess(it)))
             }.onFailure {
                 Timber.i("mark - onFailure")
                 it.printStackTrace()
-                emitUiState(error = Event(R.string.internet_failure_error))
+                publish(state = State.ERROR, items = Event(ScheduledNotificationsFailure), throwable = it)
             }
         }
-    }
-
-    private fun emitUiState(
-        showProgress: Boolean = false,
-        response: Event<GeneralResponse>? = null,
-        error: Event<Int>? = null
-    ) {
-        val dataState = MainDataState(showProgress, response, error)
-        _uiState.value = dataState
     }
 }
 
 // Events = actions coming from UI
 sealed class MainDataEvent
-data class Echo(val name: String) : MainDataEvent()
+object GetScheduledNotifications: MainDataEvent()
 
-// State = change of states by the view model
-data class MainDataState (
-    val showProgress: Boolean,
-    val response: Event<GeneralResponse>?,
-    val error: Event<Int>?
-)
+sealed class MainDataState
+data class ScheduledNotificationsSuccess(val scheduledNotifications: List<ScheduledNotification>): MainDataState()
+object ScheduledNotificationsFailure: MainDataState()
 
 

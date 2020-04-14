@@ -6,18 +6,10 @@ import com.mark.sharee.network.model.requests.FcmRequest
 import com.mark.sharee.network.model.requests.GeneralRequest
 import com.mark.sharee.network.model.requests.LoginRequest
 import com.mark.sharee.network.model.requests.SubmitPollRequest
-import com.mark.sharee.network.model.responses.DailyRoutineResponse
-import com.mark.sharee.network.model.responses.GeneralResponse
-import com.mark.sharee.network.model.responses.LoginResponse
-import com.mark.sharee.network.model.responses.GeneralPollResponse
+import com.mark.sharee.network.model.responses.*
 import timber.log.Timber
 
 class ShareeEndpoint constructor(private val shareeService: ShareeService) {
-
-
-    suspend fun create(name: String): GeneralResponse {
-        return shareeService.create(GeneralRequest(name))
-    }
 
     suspend fun login(phoneNumber: String, uuid: String): LoginResponse {
         return shareeService.login(LoginRequest(phoneNumber = phoneNumber, uuid = uuid))
@@ -49,6 +41,10 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
 
     suspend fun dailyRoutine() : DailyRoutineResponse {
         return shareeService.dailyRoutine()
+    }
+
+    suspend fun scheduledNotifications() : MutableList<ScheduledNotification> {
+        return shareeService.scheduledNotifications()
     }
 
 }

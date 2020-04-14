@@ -1,7 +1,6 @@
 package com.mark.sharee.fragments.main
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +15,17 @@ import com.mark.sharee.core.Action
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.core.SupportsOnBackPressed
 import com.mark.sharee.data.ShareeRepository
+import com.mark.sharee.fragments.generalPolls.PollDataState
 import com.mark.sharee.model.User
+import com.mark.sharee.mvvm.State
+import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
-import com.mark.sharee.screens.GeneralPollsScreen
+import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.Toaster
 import com.mark.sharee.widgets.ShareeToolbar
+import kotlinx.android.synthetic.main.fragment_general_polls.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.progressBar
 import kotlinx.android.synthetic.main.sharee_toolbar.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +46,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
         super.onCreate(savedInstanceState)
 
         initializeFCM()
+
     }
 
     private fun initializeFCM() {
@@ -95,9 +100,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -110,23 +113,51 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
         phoneNumberTv.text = "שלום " + transferInfo.phoneNumber
 
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            val dataState = it ?: return@Observer
-            progressBar.visibility = if (dataState.showProgress) View.VISIBLE else View.GONE
-            if (dataState.response != null && !dataState.response.consumed) {
-                dataState.response.consume()?.let { response ->
-                    Toast.makeText(context, response.name, Toast.LENGTH_LONG).show()
-                }
-            }
-            if (dataState.error != null && !dataState.error.consumed) {
-                dataState.error.consume()?.let { errorResource ->
-                    Toast.makeText(context, resources.getString(errorResource), Toast.LENGTH_SHORT)
-                        .show()
-                    // handle error state
-                }
-            }
+        registerViewModel()
 
-        })
+        viewModel.dispatchInputEvent(GetScheduledNotifications)
+    }
+
+    private fun registerViewModel() {
+        viewModel.dataStream.observe(
+            viewLifecycleOwner,
+            Observer<ViewModelHolder<Event<MainDataState>>> { t ->
+                when (t.state) {
+                    State.INIT -> { }
+                    State.LOADING -> { }
+                    State.NEXT -> {
+                        hideProgressView()
+                        handleNext(t.data)
+                    }
+                    State.ERROR -> {
+                        handleError(t.throwable)
+                    }
+                    State.COMPLETE -> {
+                        hideProgressView()
+                    }
+                }
+            })
+    }
+
+    private fun handleNext(result: Event<MainDataState>?) {
+        result?.let { responseEvent ->
+            if (!responseEvent.consumed) {
+                responseEvent.consume()?.let { response ->
+                    when (response) {
+                        is ScheduledNotificationsSuccess -> handleScheduledNotificationsSuccess(response)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleScheduledNotificationsSuccess(response: ScheduledNotificationsSuccess) {
+        Timber.i("handleScheduledNotificationsSuccess - $response")
+    }
+
+    private fun handleError(throwable: Throwable?) {
+        hideProgressView()
+        Toast.makeText(context, throwable?.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun configureToolbar() {
@@ -151,6 +182,14 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     companion object {
         private const val TAG = "MainFragment"
+    }
+
+    private fun showProgressView() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressView() {
+        progressBar.visibility = View.GONE
     }
 
 }

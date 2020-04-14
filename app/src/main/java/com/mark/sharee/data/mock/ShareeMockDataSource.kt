@@ -7,10 +7,6 @@ import rx.Observable
 
 class ShareeMockDataSource : ShareeDataSource {
 
-    override suspend fun create(name: String): GeneralResponse {
-        return GeneralResponse(name)
-    }
-
     override suspend fun login(phoneNumber: String, uuid: String): LoginResponse {
         return LoginResponse(phoneNumber, uuid)
     }
@@ -113,5 +109,9 @@ class ShareeMockDataSource : ShareeDataSource {
             DailyActivity("18:00", "20:00", "Dinner"))
 
         return DailyRoutineResponse(weekdayActivities, weekendActivities)
+    }
+
+    override suspend fun scheduledNotifications(): MutableList<ScheduledNotification> {
+        TODO("scheduledNotifications not implemented")
     }
 }

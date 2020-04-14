@@ -4,10 +4,7 @@ import com.mark.sharee.network.model.requests.FcmRequest
 import com.mark.sharee.network.model.requests.GeneralRequest
 import com.mark.sharee.network.model.requests.LoginRequest
 import com.mark.sharee.network.model.requests.SubmitPollRequest
-import com.mark.sharee.network.model.responses.DailyRoutineResponse
-import com.mark.sharee.network.model.responses.GeneralPollResponse
-import com.mark.sharee.network.model.responses.GeneralResponse
-import com.mark.sharee.network.model.responses.LoginResponse
+import com.mark.sharee.network.model.responses.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -17,9 +14,6 @@ interface ShareeService {
     companion object {
         const val PATIENT_BASE = "patient/"
     }
-
-    @POST(value = PATIENT_BASE + "create")
-    suspend fun create(@Body generalRequest: GeneralRequest): GeneralResponse
 
     @POST(value = PATIENT_BASE + "login")
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
@@ -41,4 +35,7 @@ interface ShareeService {
 
     @GET(value = PATIENT_BASE + "dailyRoutine")
     suspend fun dailyRoutine() : DailyRoutineResponse
+
+    @GET(value = PATIENT_BASE + "scheduledNotifications")
+    suspend fun scheduledNotifications() : MutableList<ScheduledNotification>
 }

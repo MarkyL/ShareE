@@ -53,19 +53,3 @@ class NotificationUtil (private val context: Context) {
         notificationManager.notify(Constants.NOTIFICATION_ID, notificationBuilder.build())
     }
 }
-
-
-
-/*
-
-data class Json4Kotlin_Base (
-
-	@SerializedName("id") val id : Int,
-	@SerializedName("title") val title : String,
-	@SerializedName("body") val body : String,
-	@SerializedName("time") val time : String,
-	@SerializedName("active") val active : Boolean,
-	@SerializedName("weekdays") val weekdays : Boolean
-)
-
- */

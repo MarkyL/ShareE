@@ -4,10 +4,7 @@ import com.mark.sharee.data.interfaces.ShareeDataSource
 import com.mark.sharee.data.mock.ShareeMockDataSource
 import com.mark.sharee.data.remote.ShareeRemoteDataSource
 import com.mark.sharee.model.poll.AnsweredQuestion
-import com.mark.sharee.network.model.responses.DailyRoutineResponse
-import com.mark.sharee.network.model.responses.GeneralPollResponse
-import com.mark.sharee.network.model.responses.GeneralResponse
-import com.mark.sharee.network.model.responses.LoginResponse
+import com.mark.sharee.network.model.responses.*
 
 
 class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : ShareeDataSource {
@@ -15,10 +12,6 @@ class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : S
 
     private var activeDataSource: ShareeDataSource = remoteDataSource
 //    private var activeDataSource: ShareeDataSource = mockDataSource
-
-    override suspend fun create(name: String): GeneralResponse {
-        return activeDataSource.create(name)
-    }
 
     override suspend fun login(phoneNumber: String, uuid: String): LoginResponse {
         return activeDataSource.login(phoneNumber, uuid)
@@ -46,6 +39,10 @@ class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : S
 
     override suspend fun dailyRoutine(): DailyRoutineResponse {
         return activeDataSource.dailyRoutine()
+    }
+
+    override suspend fun scheduledNotifications(): MutableList<ScheduledNotification> {
+        return activeDataSource.scheduledNotifications()
     }
 
 }

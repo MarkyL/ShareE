@@ -33,7 +33,7 @@ class PollViewModel constructor(application: Application, private val shareeRepo
             return
         }
         viewModelScope.launch {
-            kotlin.runCatching {
+            runCatching {
                 Timber.i("submitPoll - runCatching")
                 publish(state = State.LOADING)
                 Timber.i("answered questions : ${AnsweredQuestion.convertQuestionListToAnsweredQuestionList(filteredAnswers)}")
