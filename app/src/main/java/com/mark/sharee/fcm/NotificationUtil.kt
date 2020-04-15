@@ -16,7 +16,7 @@ import timber.log.Timber
 class NotificationUtil (private val context: Context) {
 
     companion object {
-        private const val TAG = "SNotificationUtilhareeFirebaseMessagingService"
+        private const val TAG = "NotificationUtil"
     }
 
     fun sendNotification(messageTitle: String, messageBody: String) {

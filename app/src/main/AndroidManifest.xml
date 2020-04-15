@@ -36,7 +36,11 @@
             </intent-filter>
         </service>
 
-        <receiver android:name="com.mark.sharee.fcm.NotificationBroadcastReceiver" />
+        <receiver android:name="com.mark.sharee.fcm.NotificationBroadcastReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="sharee.SCHEDULED_NOTIFICATION"/>
+            </intent-filter>
+        </receiver>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

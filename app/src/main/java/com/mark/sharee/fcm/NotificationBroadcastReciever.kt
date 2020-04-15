@@ -6,13 +6,14 @@ import android.content.Intent
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import com.mark.sharee.fcm.DailyRoutineWorker.Companion.NOTIFICATION_MESSAGE
-import com.mark.sharee.fcm.DailyRoutineWorker.Companion.NOTIFICATION_TITLE
+import com.mark.sharee.fcm.NotificationsWorker.Companion.NOTIFICATION_MESSAGE
+import com.mark.sharee.fcm.NotificationsWorker.Companion.NOTIFICATION_TITLE
 import timber.log.Timber
 
 class NotificationBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        Timber.i("NotificationBroadcastReceiver - onReceive")
         intent?.let {
             val title = it.getStringExtra(NOTIFICATION_TITLE)
             val message = it.getStringExtra(NOTIFICATION_MESSAGE)
@@ -24,7 +25,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
                 .build()
 
             // Init Worker
-            val work = OneTimeWorkRequest.Builder(DailyRoutineWorker::class.java)
+            val work = OneTimeWorkRequest.Builder(NotificationsWorker::class.java)
                 .setInputData(notificationData)
                 .build()
 

@@ -10,5 +10,7 @@ class Constants {
 
         const val SHAREE_PUSH_CHANNEL = "sharee"
         const val NOTIFICATION_ID = 1717
+
+        const val NOTIFICATION_INTENT_ACTION = "sharee.SCHEDULED_NOTIFICATION"
     }
 }
