@@ -9,29 +9,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import com.example.sharee.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.mark.sharee.activities.MainActivity
-import com.mark.sharee.core.AbstractAction
-import com.mark.sharee.core.Action
-import com.mark.sharee.core.ShareeFragment
-import com.mark.sharee.core.SupportsOnBackPressed
+import com.mark.sharee.core.*
 import com.mark.sharee.data.ShareeRepository
-import com.mark.sharee.fcm.DailyRoutineWorker.Companion.NOTIFICATION_MESSAGE
-import com.mark.sharee.fcm.DailyRoutineWorker.Companion.NOTIFICATION_TITLE
+import com.mark.sharee.fcm.NotificationsWorker.Companion.NOTIFICATION_MESSAGE
+import com.mark.sharee.fcm.NotificationsWorker.Companion.NOTIFICATION_TITLE
 import com.mark.sharee.fcm.NotificationBroadcastReceiver
-import com.mark.sharee.fragments.generalPolls.PollDataState
 import com.mark.sharee.model.User
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
+import com.mark.sharee.network.model.responses.ScheduledNotification
+import com.mark.sharee.utils.AlarmUtils
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.Toaster
 import com.mark.sharee.widgets.ShareeToolbar
-import kotlinx.android.synthetic.main.fragment_general_polls.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.progressBar
 import kotlinx.android.synthetic.main.sharee_toolbar.view.*
@@ -41,7 +37,6 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
-import java.text.SimpleDateFormat
 import java.util.*
 
 class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnBackPressed {
@@ -164,45 +159,47 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
     private fun handleScheduledNotificationsSuccess(response: ScheduledNotificationsSuccess) {
         Timber.i("handleScheduledNotificationsSuccess - $response")
 
-        val firstScheduledNotification = response.scheduledNotifications[0]
+        AlarmUtils.cancelAllNotificationAlarms(requireContext())
 
-        val scheduledTime = firstScheduledNotification.time//remoteMessage.data["scheduledTime"]
-        scheduleAlarm(scheduledTime, firstScheduledNotification.title, firstScheduledNotification.body)
+        // set the new ones:
+        response.scheduledNotifications.forEach { scheduledNotification ->
+            // weekday meal at 08:00 morning
+            val timeTokens = scheduledNotification.time.split(":")
+            val notificationHour = timeTokens[0].toInt()
+            val notificationMinute = timeTokens[1].toInt()
+
+            val calendar = Calendar.getInstance()
+            calendar.time = Date()
+            calendar.set(Calendar.HOUR_OF_DAY, notificationHour)
+            calendar.set(Calendar.MINUTE, notificationMinute)
+
+            if (scheduledNotification.weekdays) {
+                for (dayOfWeek in 1..5) {
+                    scheduleAlarmForDay(calendar, scheduledNotification, dayOfWeek)
+                }
+            } else {
+                // weekend notification
+                for (dayOfWeek in 6..7) {
+                    scheduleAlarmForDay(calendar, scheduledNotification, dayOfWeek)
+                }
+            }
+        }
     }
 
-    private fun scheduleAlarm(
-        scheduledTimeString: String?,
-        title: String?,
-        message: String?
-    ) {
-        val alarmMgr = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val alarmIntent =
-            Intent(requireContext(), NotificationBroadcastReceiver::class.java).let { intent ->
-                intent.putExtra(NOTIFICATION_TITLE, title)
-                intent.putExtra(NOTIFICATION_MESSAGE, message)
-                PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
-            }
+    private fun generatePendingIntentRequestCode(id: Int, dayOfWeek: Int): Int {
+        return (id.toString() + dayOfWeek.toString()).toInt()
+    }
 
-        //MOCK - scheduled time is the next 1 minute
-        val calendar = Calendar.getInstance()
-        val now = Date()
-        calendar.time = Date()
-        Timber.i("mark - calendar now = ${calendar.time}")
-        calendar.add(Calendar.SECOND, 20)
-        Timber.i("mark - calendar in 20 seconds = ${calendar.time}")
+    private fun scheduleAlarmForDay(calendar: Calendar, scheduledNotification: ScheduledNotification, dayOfWeek: Int) {
+        calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek)
+        val requestCode = generatePendingIntentRequestCode(scheduledNotification.id, dayOfWeek)
+        val pendingIntent =
+            AlarmUtils.getAlarmIntent(requireContext(), scheduledNotification.title, scheduledNotification.body, requestCode)
 
-        // Parse Schedule time
-        val scheduledTime = calendar.time
-            //SimpleDateFormat("HH:mm", Locale.getDefault()).parse(scheduledTimeString!!)
-
-        scheduledTime?.let {
-            // With set(), it'll set non repeating one time alarm.
-            alarmMgr.set(
-                AlarmManager.RTC_WAKEUP,
-                it.time,
-                alarmIntent
-            )
-        }
+        AlarmUtils.addAlarm(context = requireContext(),
+            pendingIntent = pendingIntent,
+            notificationId = requestCode,
+            scheduledTime = calendar.timeInMillis)
     }
 
     private fun handleError(throwable: Throwable?) {
@@ -232,6 +229,9 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     companion object {
         private const val TAG = "MainFragment"
+        // 7Days * 24Hrs * 60Min * 60Sec * 1000Millis
+//        private const val WEEK_IN_MILLIS: Long = 7 * 24 * 60 * 60 * 1000
+//        private const val THREE_MINUTE_IN_MILLIS: Long = 3 * 60 * 1000
     }
 
     private fun showProgressView() {
