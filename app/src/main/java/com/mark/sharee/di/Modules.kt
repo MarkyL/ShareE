@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.sharee.R
 import com.mark.sharee.fcm.TokenManager
+import com.mark.sharee.fragments.dailyRoutines.DailyRoutinesViewModel
 import com.mark.sharee.fragments.generalPolls.GeneralPollsViewModel
 import com.mark.sharee.fragments.main.MainViewModel
 import com.mark.sharee.fragments.poll.PollViewModel
@@ -35,6 +36,7 @@ val viewModelsModule = module {
     viewModel { SignInViewModel(get(), get()) }
     viewModel { PollViewModel(get(), get()) }
     viewModel { GeneralPollsViewModel(get(), get()) }
+    viewModel { DailyRoutinesViewModel(get(), get()) }
 }
 
 val errorModule = module {

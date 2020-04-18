@@ -7,15 +7,15 @@
         <item
             android:id="@+id/navGeneralPolls"
             android:icon="@drawable/ic_assignment_black_24dp"
-            android:title="סקרים כלליים" />
+            android:title="@string/general_polls" />
         <item
             android:id="@+id/navMedicalPolls"
             android:icon="@drawable/ic_local_hospital_black_24dp"
-            android:title="שאלונים רפואיים" />
+            android:title="@string/medical_polls" />
         <item
-            android:id="@+id/navPersonalDetails"
+            android:id="@+id/navDailyRoutines"
             android:icon="@drawable/ic_info_black_24dp"
-            android:title="מידע אישי" />
+            android:title="@string/daily_routines" />
         <item
             android:id="@+id/navPersonalExercises"
             android:icon="@drawable/ic_accessibility_black_24dp"

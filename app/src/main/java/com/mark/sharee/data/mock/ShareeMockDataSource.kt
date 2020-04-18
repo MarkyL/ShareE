@@ -95,18 +95,18 @@ class ShareeMockDataSource : ShareeDataSource {
 
     override suspend fun dailyRoutine(): DailyRoutineResponse {
         val weekdayActivities = mutableListOf(
-            DailyActivity("08:00", "09:00", "Breakfast"),
-            DailyActivity("09:30", "11:00", "Morning visit"),
-            DailyActivity("12:00", "14:00", "Launch"),
-            DailyActivity("14:00", "16:00", "Nap time"),
-            DailyActivity("18:00", "20:00", "Dinner"))
+            DailyActivity(1,"08:00", "09:00", "Breakfast"),
+            DailyActivity(2,"09:30", "11:00", "Morning visit"),
+            DailyActivity(3,"12:00", "14:00", "Launch"),
+            DailyActivity(4,"14:00", "16:00", "Nap time"),
+            DailyActivity(5,"18:00", "20:00", "Dinner"))
 
         val weekendActivities = mutableListOf(
-            DailyActivity("08:00", "09:00", "Breakfast"),
-            DailyActivity("09:30", "11:00", "Morning visit"),
-            DailyActivity("12:00", "14:00", "Launch"),
-            DailyActivity("14:00", "16:00", "Nap time"),
-            DailyActivity("18:00", "20:00", "Dinner"))
+            DailyActivity(6,"08:00", "09:00", "Breakfast"),
+            DailyActivity(7,"09:30", "11:00", "Morning visit"),
+            DailyActivity(8,"12:00", "14:00", "Launch"),
+            DailyActivity(9,"14:00", "16:00", "Nap time"),
+            DailyActivity(10,"18:00", "20:00", "Dinner"))
 
         return DailyRoutineResponse(weekdayActivities, weekendActivities)
     }

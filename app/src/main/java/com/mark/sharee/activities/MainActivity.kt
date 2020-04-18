@@ -15,6 +15,7 @@ import com.example.sharee.R
 import com.mark.sharee.core.ShareeActivity
 import com.mark.sharee.core.SupportsOnBackPressed
 import com.mark.sharee.navigation.arguments.TransferInfo
+import com.mark.sharee.screens.DailyRoutinesTabScreen
 import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.screens.SignInScreen
 import com.mark.sharee.utils.FontManager
@@ -106,6 +107,9 @@ class MainActivity : ShareeActivity() {
                 }
                 R.id.navMedicalPolls -> {
                     navigator.replace(GeneralPollsScreen(TransferInfo(flow = TransferInfo.Flow.MedicalPolls)))
+                }
+                R.id.navDailyRoutines -> {
+                    navigator.replace(DailyRoutinesTabScreen(TransferInfo()))
                 }
 
             }

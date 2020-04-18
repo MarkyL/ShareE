@@ -33,7 +33,7 @@ interface ShareeService {
     @POST(value = PATIENT_BASE + "updateFcmToken")
     suspend fun updateFcmToken(@Body fcmRequest: FcmRequest)
 
-    @GET(value = PATIENT_BASE + "dailyRoutine")
+    @GET(value = PATIENT_BASE + "getActiveDailyRoutine")
     suspend fun dailyRoutine() : DailyRoutineResponse
 
     @GET(value = PATIENT_BASE + "scheduledNotifications")

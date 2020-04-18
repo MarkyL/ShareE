@@ -10,6 +10,10 @@
     <string name="submit_poll_success">הסקר נשלח בהצלחה</string>
     <string name="thanks_for_cooperation">תודה על שיתוף הפעולה</string>
 
+    <!-- Drawer strings -->
+    <string name="general_polls">סקרים כלליים</string>
+    <string name="medical_polls">סקרים רפואיים</string>
+    <string name="daily_routines">לוז שבועי</string>
 
     <!-- OTP sign in -->
     <string name="phone_number">מספר נייד</string>
@@ -44,6 +48,9 @@
     <string name="default_notification_channel_id" translatable="false">defaultChannel</string>
     <string name="fcm_token" translatable="false">FCM token retrieved</string>
 
-
+    <!-- Daily routines screen -->
+    <string name="daily_routine_screen_default_title" translatable="false">לו"ז שבועי</string>
+    <string name="daily_routine_tab_weekday" translatable="false">יום חול</string>
+    <string name="daily_routine_tab_weekend" translatable="false">סוף שבוע</string>
 
 </resources>
