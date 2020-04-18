@@ -106,18 +106,8 @@ class DailyRoutinesTabFragment: ShareeFragment() {
         Timber.i("handleGetDailyRoutinesSuccess - $response")
     }
 
-    private fun test(s: String) {
-        Timber.i("mark - $s")
-    }
-
     private fun handleError(throwable: Throwable?) {
         hideProgressView()
         Toast.makeText(context, throwable?.message, Toast.LENGTH_SHORT).show()
     }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-
 }

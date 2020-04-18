@@ -48,11 +48,11 @@ class DailyRoutinesPagerAdapter(fm: FragmentManager, val resources: Resources,
 
     override fun getPageTitle(position: Int): CharSequence? {
 
-        if (position == 1) {
+        if (position == 0) {
             return resources.getString(R.string.daily_routine_tab_weekday)
         }
 
-        if (position == 0) {
+        if (position == 1) {
             return resources.getString(R.string.daily_routine_tab_weekend)
         }
 

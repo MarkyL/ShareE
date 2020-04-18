@@ -4,13 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sharee.R
+import com.mark.sharee.adapters.DailyRoutineAdapter
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.network.model.responses.DailyActivity
-import timber.log.Timber
+import com.mark.sharee.utils.GridSpacingItemDecoration
+import kotlinx.android.synthetic.main.fragment_poll.*
 
 class DailyRoutineFragment(private val activitiesList: MutableList<DailyActivity>) : ShareeFragment() {
 
+    private var dailyRoutineAdapter = DailyRoutineAdapter()
+
+    init {
+        dailyRoutineAdapter.updateItems(activitiesList)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -23,7 +32,13 @@ class DailyRoutineFragment(private val activitiesList: MutableList<DailyActivity
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Timber.i("DailyRoutineFragment onViewCreated, activitiesList = $activitiesList")
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            addItemDecoration(GridSpacingItemDecoration(1, 30, true))
+            this.adapter = dailyRoutineAdapter
+        }
+
+
     }
 
 
