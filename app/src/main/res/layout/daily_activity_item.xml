@@ -24,8 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/min_margin_top"
+        android:layout_marginBottom="@dimen/min_margin_bottom"
         app:layout_constraintTop_toBottomOf="@id/timeText"
         app:layout_constraintStart_toStartOf="@id/timeText"
+        app:layout_constraintBottom_toBottomOf="parent"
         src:text="ביקור רופאים"
         />
 
