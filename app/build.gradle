@@ -138,6 +138,9 @@ dependencies {
 
     // Work manager
     implementation "androidx.work:work-runtime-ktx:2.3.4"
+
+    // PDF reader
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }
 
 repositories {

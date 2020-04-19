@@ -28,9 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/homeToolbar"
-        tools:text="שלום"
-
-        />
+        tools:text="שלום" />
 
     <ProgressBar
         android:id="@+id/progressBar"

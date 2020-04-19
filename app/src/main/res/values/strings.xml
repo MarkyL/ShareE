@@ -14,6 +14,7 @@
     <string name="general_polls">סקרים כלליים</string>
     <string name="medical_polls">סקרים רפואיים</string>
     <string name="daily_routines">לוז שבועי</string>
+    <string name="department_info">אודות המחלקה</string>
 
     <!-- OTP sign in -->
     <string name="phone_number">מספר נייד</string>
@@ -52,5 +53,8 @@
     <string name="daily_routine_screen_default_title" translatable="false">לו"ז שבועי</string>
     <string name="daily_routine_tab_weekday" translatable="false">יום חול</string>
     <string name="daily_routine_tab_weekend" translatable="false">סוף שבוע</string>
+
+    <!-- Department info screen -->
+    <string name="department_info_title" translatable="false">אודות המחלקה</string>
 
 </resources>

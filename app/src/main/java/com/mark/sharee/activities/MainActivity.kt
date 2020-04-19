@@ -1,8 +1,10 @@
 package com.mark.sharee.activities
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -12,13 +14,16 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.sharee.R
+import com.mark.sharee.core.Constants
 import com.mark.sharee.core.ShareeActivity
 import com.mark.sharee.core.SupportsOnBackPressed
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.DailyRoutinesTabScreen
+import com.mark.sharee.screens.DepartmentInfoScreen
 import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.screens.SignInScreen
 import com.mark.sharee.utils.FontManager
+import com.mark.sharee.utils.Toaster
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
@@ -110,6 +115,9 @@ class MainActivity : ShareeActivity() {
                 }
                 R.id.navDailyRoutines -> {
                     navigator.replace(DailyRoutinesTabScreen(TransferInfo()))
+                }
+                R.id.navDepartmentInfo -> {
+                    navigator.replace(DepartmentInfoScreen())
                 }
 
             }
