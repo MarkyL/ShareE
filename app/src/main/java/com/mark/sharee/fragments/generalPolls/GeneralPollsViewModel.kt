@@ -34,7 +34,7 @@ class GeneralPollsViewModel constructor(application: Application, private val sh
                 publish(state = State.NEXT, items = Event(GetGeneralPollsSuccess(it)))
             }.onFailure {
                 Timber.e("getGeneralPolls - onFailure $it")
-                publish(state = State.ERROR, throwable = it)
+                publish(state = State.ERROR,throwable = it)
             }
         }
     }

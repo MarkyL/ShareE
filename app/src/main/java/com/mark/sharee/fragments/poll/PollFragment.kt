@@ -76,11 +76,8 @@ class PollFragment : ShareeFragment() {
             viewLifecycleOwner,
             Observer<ViewModelHolder<Event<PollDataState>>> { t ->
                 when (t.state) {
-                    State.INIT -> {
-                    }
-                    State.LOADING -> {
-                        showProgressView()
-                    }
+                    State.INIT -> { }
+                    State.LOADING -> { showProgressView() }
                     State.NEXT -> {
                         hideProgressView()
                         handleNext(t.data)
@@ -88,9 +85,7 @@ class PollFragment : ShareeFragment() {
                     State.ERROR -> {
                         handleError(t.data, t.throwable)
                     }
-                    State.COMPLETE -> {
-                        hideProgressView()
-                    }
+                    State.COMPLETE -> { hideProgressView() }
                 }
             })
     }
@@ -142,11 +137,7 @@ class PollFragment : ShareeFragment() {
         hideProgressView()
         result?.let { responseEvent ->
             if (!responseEvent.consumed) {
-                responseEvent.consume()?.let { response ->
-                    when (response) {
-                        is SubmitPollFailure -> Toast.makeText(context, throwable?.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
+                responseEvent.consume()?.let { throwable?.let { errorHandler.handleError(this, it) } }
             }
         }
     }

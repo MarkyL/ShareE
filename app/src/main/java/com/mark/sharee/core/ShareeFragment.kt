@@ -9,8 +9,10 @@ import androidx.annotation.AnimRes
 import androidx.fragment.app.Fragment
 import com.mark.sharee.navigation.ActivityNavigator
 import com.mark.sharee.navigation.Arguments
+import com.mark.sharee.utils.ErrorHandler
 import com.mark.sharee.widgets.ShareeToolbar
 import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 abstract class ShareeFragment : Fragment(), ShareeToolbar.ActionListener, SupportsOnBackPressed {
@@ -20,6 +22,7 @@ abstract class ShareeFragment : Fragment(), ShareeToolbar.ActionListener, Suppor
     @AnimRes private var nextEnterAnimation = -1
 
     val navigator: ActivityNavigator = get()
+    val errorHandler: ErrorHandler by inject()
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
 

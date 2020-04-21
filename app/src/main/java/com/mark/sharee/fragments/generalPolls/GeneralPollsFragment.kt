@@ -87,21 +87,14 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
             viewLifecycleOwner,
             Observer<ViewModelHolder<Event<PollDataState>>> { t ->
                 when (t.state) {
-                    State.INIT -> {
-                    }
-                    State.LOADING -> {
-                        showProgressView()
-                    }
+                    State.INIT -> { }
+                    State.LOADING -> { showProgressView() }
                     State.NEXT -> {
                         hideProgressView()
                         handleNext(t.data)
                     }
-                    State.ERROR -> {
-                        handleError(t.throwable)
-                    }
-                    State.COMPLETE -> {
-                        hideProgressView()
-                    }
+                    State.ERROR -> { t.throwable?.let { handleError(it) } }
+                    State.COMPLETE -> { hideProgressView() }
                 }
             })
     }
@@ -138,9 +131,9 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
         }
     }
 
-    private fun handleError(throwable: Throwable?) {
+    private fun handleError(throwable: Throwable) {
         hideProgressView()
-        Toast.makeText(context, throwable?.message, Toast.LENGTH_SHORT).show()
+        errorHandler.handleError(this, throwable)
     }
 
     override fun onPollClick(poll: GeneralPollResponse) {

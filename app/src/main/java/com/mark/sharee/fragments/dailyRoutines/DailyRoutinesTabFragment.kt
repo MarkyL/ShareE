@@ -75,7 +75,7 @@ class DailyRoutinesTabFragment: ShareeFragment() {
                         hideProgressView()
                         handleNext(t.data)
                     }
-                    State.ERROR -> { handleError(t.throwable) }
+                    State.ERROR -> { t.throwable?.let { handleError(it) } }
                     State.COMPLETE -> { hideProgressView() }
                 }
             })
@@ -106,8 +106,8 @@ class DailyRoutinesTabFragment: ShareeFragment() {
         Timber.i("handleGetDailyRoutinesSuccess - $response")
     }
 
-    private fun handleError(throwable: Throwable?) {
+    private fun handleError(throwable: Throwable) {
         hideProgressView()
-        Toast.makeText(context, throwable?.message, Toast.LENGTH_SHORT).show()
+        errorHandler.handleError(this, throwable)
     }
 }

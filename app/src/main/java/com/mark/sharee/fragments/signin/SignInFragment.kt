@@ -35,7 +35,6 @@ import java.util.concurrent.TimeUnit
 class SignInFragment : ShareeFragment() {
 
     private val viewModel: SignInViewModel by sharedViewModel()
-    private val errorHandler: ErrorHandler by inject()
 
     private val auth = FirebaseAuth.getInstance()
     var credential: PhoneAuthCredential? = null

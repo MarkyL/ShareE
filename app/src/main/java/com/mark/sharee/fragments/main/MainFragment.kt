@@ -134,12 +134,8 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
                         hideProgressView()
                         handleNext(t.data)
                     }
-                    State.ERROR -> {
-                        handleError(t.throwable)
-                    }
-                    State.COMPLETE -> {
-                        hideProgressView()
-                    }
+                    State.ERROR -> { t.throwable?.let { handleError(it) } }
+                    State.COMPLETE -> { hideProgressView() }
                 }
             })
     }
@@ -202,9 +198,9 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
             scheduledTime = calendar.timeInMillis)
     }
 
-    private fun handleError(throwable: Throwable?) {
+    private fun handleError(throwable: Throwable) {
         hideProgressView()
-        Toast.makeText(context, throwable?.message, Toast.LENGTH_SHORT).show()
+        errorHandler.handleError(this, throwable)
     }
 
     private fun configureToolbar() {
