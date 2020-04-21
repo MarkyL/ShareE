@@ -45,13 +45,10 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     private val viewModel: MainViewModel by sharedViewModel()
 
-    private val shareeRepository: ShareeRepository by inject()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initializeFCM()
-
     }
 
     private fun initializeFCM() {
@@ -80,29 +77,11 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
                     if (token.isNullOrEmpty()) {
                         Timber.i("$TAG - Empty fcm token")
                     } else {
-                        updateFcmToken(token, it.getToken())
+                        viewModel.dispatchInputEvent(UpdateFcmToken(token, it.getToken()))
                     }
                 } ?: Timber.i("$TAG - User is null.")
             })
     }
-
-    //TODO - implement in view model rather than here.
-    private fun updateFcmToken(fcmToken: String, verificationToken: String) {
-        Timber.i("$TAG - updateFcmToken - start")
-        CoroutineScope(Dispatchers.IO).launch {
-            runCatching {
-                Timber.i("$TAG - updateFcmToken - runCatching, token - $fcmToken")
-                shareeRepository.updateFcmToken(verificationToken, fcmToken)
-            }.onSuccess {
-                Timber.i("$TAG - updateFcmToken - onSuccess, response = $it")
-                User.me()?.setFcmToken(fcmToken)
-
-            }.onFailure {
-                Timber.e("$TAG - updateFcmToken - onFailure $it")
-            }
-        }
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -129,7 +108,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
             Observer<ViewModelHolder<Event<MainDataState>>> { t ->
                 when (t.state) {
                     State.INIT -> { }
-                    State.LOADING -> { }
+                    State.LOADING -> { showProgressView() }
                     State.NEXT -> {
                         hideProgressView()
                         handleNext(t.data)
@@ -225,9 +204,6 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     companion object {
         private const val TAG = "MainFragment"
-        // 7Days * 24Hrs * 60Min * 60Sec * 1000Millis
-//        private const val WEEK_IN_MILLIS: Long = 7 * 24 * 60 * 60 * 1000
-//        private const val THREE_MINUTE_IN_MILLIS: Long = 3 * 60 * 1000
     }
 
     private fun showProgressView() {

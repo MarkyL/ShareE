@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mark.sharee.data.ShareeRepository
+import com.mark.sharee.model.User
 import com.mark.sharee.mvvm.BaseViewModel
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.network.model.responses.ScheduledNotification
@@ -16,20 +17,18 @@ import timber.log.Timber
 class MainViewModel constructor(application: Application, private val shareeRepository: ShareeRepository)
     : BaseViewModel<Event<MainDataState>, MainDataEvent>(application = application) {
 
-    private val _uiState = MutableLiveData<MainDataState>()
-    val uiState: LiveData<MainDataState> get() = _uiState
-
     override fun handleScreenEvents(event: MainDataEvent) {
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
         when(event){
             is GetScheduledNotifications -> getScheduledNotifications()
+            is UpdateFcmToken -> updateFcmToken(event.fcmToken, event.verificationToken)
         }
     }
 
     private fun getScheduledNotifications() {
         viewModelScope.launch {
             runCatching {
-                Timber.i("mark - runCatching")
+                Timber.i("getScheduledNotifications - run")
                 shareeRepository.scheduledNotifications()
             }.onSuccess {
                 Timber.i("mark - $it")
@@ -43,18 +42,31 @@ class MainViewModel constructor(application: Application, private val shareeRepo
         }
     }
 
-    private fun handleScheduledNotificationData(scheduledNotifications: MutableList<ScheduledNotification>) {
-//        scheduledNotifications[0].
-    }
+    private fun updateFcmToken(fcmToken: String, verificationToken: String) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                Timber.i("updateFcmToken - run")
+                shareeRepository.updateFcmToken(verificationToken, fcmToken)
+            }.onSuccess {
+                Timber.i("updateFcmToken - onSuccess, response = $it")
+                User.me()?.setFcmToken(fcmToken)
 
+            }.onFailure {
+                Timber.e("updateFcmToken - onFailure $it")
+                publish(state = State.ERROR, items = Event(UpdateFcmTokenFailure), throwable = it)
+            }
+        }
+    }
 }
 
 // Events = actions coming from UI
 sealed class MainDataEvent
 object GetScheduledNotifications: MainDataEvent()
+data class UpdateFcmToken(val fcmToken: String, val verificationToken: String): MainDataEvent()
 
 sealed class MainDataState
 data class ScheduledNotificationsSuccess(val scheduledNotifications: List<ScheduledNotification>): MainDataState()
 object ScheduledNotificationsFailure: MainDataState()
+object UpdateFcmTokenFailure: MainDataState()
 
 
