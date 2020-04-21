@@ -17,11 +17,10 @@ import com.example.sharee.R
 import com.mark.sharee.core.Constants
 import com.mark.sharee.core.ShareeActivity
 import com.mark.sharee.core.SupportsOnBackPressed
+import com.mark.sharee.fcm.NotificationUtil
+import com.mark.sharee.model.User
 import com.mark.sharee.navigation.arguments.TransferInfo
-import com.mark.sharee.screens.DailyRoutinesTabScreen
-import com.mark.sharee.screens.DepartmentInfoScreen
-import com.mark.sharee.screens.GeneralPollsScreen
-import com.mark.sharee.screens.SignInScreen
+import com.mark.sharee.screens.*
 import com.mark.sharee.utils.FontManager
 import com.mark.sharee.utils.Toaster
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,7 +36,12 @@ class MainActivity : ShareeActivity() {
 
         initializeFonts()
         initializeDrawer()
-        navigator.replace(SignInScreen())
+
+        if (User.me()?.getToken() != null) {
+            navigator.replace(MainScreen(TransferInfo()), false)
+        } else {
+            navigator.replace(SignInScreen())
+        }
     }
 
     override fun onResume() {
