@@ -1,6 +1,5 @@
 package com.mark.sharee.fcm
 
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -20,6 +19,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
             val title = it.getStringExtra(NOTIFICATION_TITLE)
             val message = it.getStringExtra(NOTIFICATION_MESSAGE)
 
+            Timber.i("onReceive - title = [$title], message = [$message]")
             // Create Notification Data
             val notificationData = Data.Builder()
                 .putString(NOTIFICATION_TITLE, title)

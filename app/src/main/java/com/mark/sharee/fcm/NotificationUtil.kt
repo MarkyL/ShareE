@@ -38,6 +38,8 @@ class NotificationUtil (private val context: Context) {
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
+            .addAction(android.R.drawable.ic_menu_view, "צפה בהודעה", pendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .setOnlyAlertOnce(true)
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
