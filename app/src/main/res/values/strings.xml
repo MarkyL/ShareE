@@ -47,7 +47,6 @@
 
     <!-- Notifications -->
     <string name="default_notification_channel_id" translatable="false">defaultChannel</string>
-    <string name="fcm_token" translatable="false">FCM token retrieved</string>
 
     <!-- Daily routines screen -->
     <string name="daily_routine_screen_default_title" translatable="false">לו"ז שבועי</string>

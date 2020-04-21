@@ -1,24 +1,18 @@
 package com.mark.sharee.fragments.main
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.example.sharee.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.mark.sharee.activities.MainActivity
-import com.mark.sharee.core.*
-import com.mark.sharee.data.ShareeRepository
-import com.mark.sharee.fcm.NotificationsWorker.Companion.NOTIFICATION_MESSAGE
-import com.mark.sharee.fcm.NotificationsWorker.Companion.NOTIFICATION_TITLE
-import com.mark.sharee.fcm.NotificationBroadcastReceiver
+import com.mark.sharee.core.AbstractAction
+import com.mark.sharee.core.Action
+import com.mark.sharee.core.ShareeFragment
+import com.mark.sharee.core.SupportsOnBackPressed
 import com.mark.sharee.model.User
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
@@ -29,12 +23,7 @@ import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.Toaster
 import com.mark.sharee.widgets.ShareeToolbar
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.progressBar
 import kotlinx.android.synthetic.main.sharee_toolbar.view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 import java.util.*
@@ -63,9 +52,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
                 val token = task.result?.token
 
                 // Log and toast
-                val msg = getString(R.string.fcm_token)
                 Timber.i("$TAG -  FCM token retrieved: [$token]")
-                context?.let { Toaster.show(it, msg) }
 
                 User.me()?.let {
                     // if server already has the current token, we shall not bother updating it.
