@@ -3,6 +3,7 @@ package com.mark.sharee.fcm
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.example.sharee.R
 import timber.log.Timber
 
 class NotificationsWorker(appContext: Context, workerParams: WorkerParameters) :
@@ -18,7 +19,8 @@ class NotificationsWorker(appContext: Context, workerParams: WorkerParameters) :
 
         // Show Notification
         // TODO: check if app is not in foreground and only then send, otherwise - do nothing.
-        NotificationUtil(applicationContext).sendNotification(title!!, message!!)
+        NotificationUtil(applicationContext).sendNotification(title!!, message!!,
+            applicationContext.resources.getColor(R.color.leading_color, null))
 
         // TODO Do your other Background Processing
 

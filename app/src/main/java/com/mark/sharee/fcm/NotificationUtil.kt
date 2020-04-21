@@ -19,7 +19,7 @@ class NotificationUtil (private val context: Context) {
         private const val TAG = "NotificationUtil"
     }
 
-    fun sendNotification(messageTitle: String, messageBody: String) {
+    fun sendNotification(messageTitle: String, messageBody: String, color: Int) {
         Timber.i("$TAG - sendNotification")
 
         val intent = Intent(context, MainActivity::class.java)
@@ -32,6 +32,7 @@ class NotificationUtil (private val context: Context) {
 
         val notificationBuilder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_sharee_notification)
+            .setColor(color)
             .setContentTitle(messageTitle)
             .setContentText(messageBody)
             .setAutoCancel(true)
