@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sharee.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.mark.sharee.activities.MainActivity
+import com.mark.sharee.adapters.MessagesAdapter
 import com.mark.sharee.core.AbstractAction
 import com.mark.sharee.core.Action
 import com.mark.sharee.core.ShareeFragment
@@ -17,12 +20,17 @@ import com.mark.sharee.model.User
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
+import com.mark.sharee.network.model.responses.Message
 import com.mark.sharee.network.model.responses.ScheduledNotification
 import com.mark.sharee.utils.AlarmUtils
 import com.mark.sharee.utils.Event
+import com.mark.sharee.utils.GridSpacingItemDecoration
 import com.mark.sharee.utils.Toaster
 import com.mark.sharee.widgets.ShareeToolbar
+import kotlinx.android.synthetic.main.fragment_general_polls.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.progressBar
+import kotlinx.android.synthetic.main.fragment_main.recyclerView
 import kotlinx.android.synthetic.main.sharee_toolbar.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -33,6 +41,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
     lateinit var transferInfo: TransferInfo
 
     private val viewModel: MainViewModel by sharedViewModel()
+    private val messagesAdapter = MessagesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +96,14 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
         registerViewModel()
 
         viewModel.dispatchInputEvent(GetScheduledNotifications)
+        User.me()?.let {
+            viewModel.dispatchInputEvent(GetMessages(it.getToken()))
+        }
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            addItemDecoration(GridSpacingItemDecoration(1, 30, true))
+            this.adapter = messagesAdapter
+        }
     }
 
     private fun registerViewModel() {
@@ -112,10 +129,15 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
                 responseEvent.consume()?.let { response ->
                     when (response) {
                         is ScheduledNotificationsSuccess -> handleScheduledNotificationsSuccess(response)
+                        is GetMessagesSuccess -> handleGetMessagesSuccess(response.messages)
                     }
                 }
             }
         }
+    }
+
+    private fun handleGetMessagesSuccess(messages: MutableList<Message>) {
+        messagesAdapter.submitList(messages)
     }
 
     private fun handleScheduledNotificationsSuccess(response: ScheduledNotificationsSuccess) {

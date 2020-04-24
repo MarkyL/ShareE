@@ -2,10 +2,7 @@ package com.mark.sharee.network.endpoint
 
 import com.google.gson.Gson
 import com.mark.sharee.model.poll.AnsweredQuestion
-import com.mark.sharee.network.model.requests.FcmRequest
-import com.mark.sharee.network.model.requests.GeneralRequest
-import com.mark.sharee.network.model.requests.LoginRequest
-import com.mark.sharee.network.model.requests.SubmitPollRequest
+import com.mark.sharee.network.model.requests.*
 import com.mark.sharee.network.model.responses.*
 import timber.log.Timber
 
@@ -45,6 +42,13 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
 
     suspend fun scheduledNotifications() : MutableList<ScheduledNotification> {
         return shareeService.scheduledNotifications()
+    }
+
+    suspend fun getMessages(verificationToken: String): MutableList<Message> {
+        val basicRequest = BasicRequest(verificationToken)
+        // maybe need to do like in submit poll with :
+        // var requestJson = Gson().toJson(submitPollRequest)
+        return shareeService.getMessages(basicRequest)
     }
 
 }

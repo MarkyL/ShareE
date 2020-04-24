@@ -8,10 +8,11 @@ import com.mark.sharee.network.model.responses.*
 
 
 class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : ShareeDataSource {
+
     private val mockDataSource = ShareeMockDataSource()
 
-    private var activeDataSource: ShareeDataSource = remoteDataSource
-//    private var activeDataSource: ShareeDataSource = mockDataSource
+//    private var activeDataSource: ShareeDataSource = remoteDataSource
+    private var activeDataSource: ShareeDataSource = mockDataSource
 
     override suspend fun login(phoneNumber: String, uuid: String): LoginResponse {
         return activeDataSource.login(phoneNumber, uuid)
@@ -45,4 +46,7 @@ class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : S
         return activeDataSource.scheduledNotifications()
     }
 
+    override suspend fun getMessages(verificationToken: String): MutableList<Message> {
+        return activeDataSource.getMessages(verificationToken)
+    }
 }

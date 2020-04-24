@@ -30,6 +30,15 @@
         app:layout_constraintTop_toBottomOf="@id/homeToolbar"
         tools:text="שלום" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/phoneNumberTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

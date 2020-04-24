@@ -112,6 +112,16 @@ class ShareeMockDataSource : ShareeDataSource {
     }
 
     override suspend fun scheduledNotifications(): MutableList<ScheduledNotification> {
-        TODO("scheduledNotifications not implemented")
+        return mutableListOf()
+    }
+
+    override suspend fun getMessages(verificationToken: String): MutableList<Message> {
+        return mutableListOf(
+            Message("24.04.2020 20:15", "הודעה אחת"),
+            Message("25.04.2020 21:15", "הודעה שתיים"),
+            Message("26.04.2020 22:15", "מסר שלישי"),
+            Message("27.04.2020 23:15", "מסר רביעי"),
+            Message("28.04.2020 23:15", "מסר חמישי - ארוך מאוד בודק מה קורה כשיש פה טקסט ארוך מאוד בוא נראה אותו"),
+            Message("28.04.2020 23:15", "מסר חמישי - ארוך מאוד בודק מה קורה כשיש פה טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו"))
     }
 }

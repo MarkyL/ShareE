@@ -1,9 +1,6 @@
 package com.mark.sharee.network.endpoint
 
-import com.mark.sharee.network.model.requests.FcmRequest
-import com.mark.sharee.network.model.requests.GeneralRequest
-import com.mark.sharee.network.model.requests.LoginRequest
-import com.mark.sharee.network.model.requests.SubmitPollRequest
+import com.mark.sharee.network.model.requests.*
 import com.mark.sharee.network.model.responses.*
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -38,4 +35,7 @@ interface ShareeService {
 
     @GET(value = PATIENT_BASE + "scheduledNotifications")
     suspend fun scheduledNotifications() : MutableList<ScheduledNotification>
+
+    @GET(value = PATIENT_BASE + "getMessages")
+    suspend fun getMessages(@Body basicRequest: BasicRequest) : MutableList<Message>
 }

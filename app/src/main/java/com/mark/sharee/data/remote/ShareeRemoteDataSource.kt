@@ -6,7 +6,6 @@ import com.mark.sharee.network.endpoint.ShareeEndpoint
 import com.mark.sharee.network.model.responses.*
 
 class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) : ShareeDataSource {
-
     override suspend fun login(phoneNumber: String, uuid: String): LoginResponse {
         return endpoint.login(phoneNumber, uuid)
     }
@@ -37,5 +36,9 @@ class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) :
 
     override suspend fun scheduledNotifications(): MutableList<ScheduledNotification> {
         return endpoint.scheduledNotifications()
+    }
+
+    override suspend fun getMessages(verificationToken: String): MutableList<Message> {
+        return endpoint.getMessages(verificationToken)
     }
 }
