@@ -1,4 +1,9 @@
 package com.mark.sharee.network.model.responses
 
-data class Message(val date: String, val message: String)
+import com.google.gson.annotations.SerializedName
+
+data class Message(
+    @SerializedName("notificationBody") val body: String = "",
+    @SerializedName("notificationTitle") val title: String = "",
+    val timeStamp: Long = 0)
 

@@ -8,6 +8,11 @@ import com.example.sharee.R
 import com.mark.sharee.network.model.responses.Message
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.message_item.*
+import timber.log.Timber
+import java.text.SimpleDateFormat
+import android.text.format.DateFormat
+import com.mark.sharee.utils.DateTimeHelper
+import java.util.*
 
 class MessagesAdapter : RecyclerView.Adapter<MessageViewHolder>() {
 
@@ -45,8 +50,8 @@ class MessageViewHolder constructor(override val containerView: View) :
     RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(view: View, message: Message) {
-        messageDate.text = message.date
-        messageText.text = message.message
+        messageDate.text = DateTimeHelper.getDate(message.timeStamp)
+        messageText.text = message.body
     }
 
     companion object {
