@@ -9,18 +9,24 @@ import com.mark.sharee.utils.ItemAnimation
 
 abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    var listItems: List<T>
+    var items: List<T>
+    var listener: AdapterListener<T>? = null
 
     constructor(listItems: List<T>) {
-        this.listItems = listItems
+        this.items = listItems
+    }
+
+    constructor(listener: AdapterListener<T>) {
+        items = emptyList()
+        this.listener = listener
     }
 
     constructor() {
-        listItems = emptyList()
+        items = emptyList()
     }
 
     fun submitList(listItems: List<T>) {
-        this.listItems = listItems
+        this.items = listItems
         notifyDataSetChanged()
     }
 
@@ -30,19 +36,20 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        if (holder is Binder<*>) {
-//            (holder as Binder<T>)
-//        }
-        (holder as Binder<T>).bind(listItems[position])
+        (holder as Binder<T>).bind(items[position])
+
+        listener?.let { listener ->
+            holder.itemView.setOnClickListener { listener.onItemClick(items[position]) } }
+
         setAnimation(holder.itemView, position)
     }
 
     override fun getItemCount(): Int {
-        return listItems.size
+        return items.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return getLayoutId(position, listItems[position])
+        return getLayoutId(position, items[position])
     }
 
     protected abstract fun getLayoutId(position: Int, obj: T): Int
@@ -51,6 +58,10 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     internal interface Binder<T> {
         fun bind(data: T)
+    }
+
+    interface AdapterListener<T> {
+        fun onItemClick(data: T)
     }
 
     var lastPosition = -1

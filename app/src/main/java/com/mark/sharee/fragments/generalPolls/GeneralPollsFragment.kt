@@ -9,8 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sharee.R
+import com.mark.sharee.adapters.BaseAdapter
 import com.mark.sharee.adapters.PollsAdapter
-import com.mark.sharee.adapters.PollsAdapterListener
 import com.mark.sharee.core.Action
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.mvvm.State
@@ -25,7 +25,9 @@ import kotlinx.android.synthetic.main.fragment_general_polls.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
-class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
+class GeneralPollsFragment : ShareeFragment(),
+    BaseAdapter.AdapterListener<GeneralPollResponse> {
+
     // This fragment holds all the general polls that are active and available for the
     // patient to view
 
@@ -136,8 +138,8 @@ class GeneralPollsFragment : ShareeFragment(), PollsAdapterListener {
         errorHandler.handleError(this, throwable)
     }
 
-    override fun onPollClick(poll: GeneralPollResponse) {
-        transferInfo.poll = poll
+    override fun onItemClick(data: GeneralPollResponse) {
+        transferInfo.poll = data
         navigator.replace(PollScreen(transferInfo))
     }
 
