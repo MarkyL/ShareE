@@ -160,7 +160,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     private fun handleGetMessagesSuccess(messages: MutableList<Message>) {
         this.messages = messages
-        messagesAdapter.submitList(messages.take(3) as MutableList<Message>)
+        messagesAdapter.submitList(messages.take(3))
     }
 
     private fun handleScheduledNotificationsSuccess(response: ScheduledNotificationsSuccess) {
