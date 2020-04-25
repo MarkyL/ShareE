@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mark.sharee.network.model.responses.Message
 import com.mark.sharee.utils.ItemAnimation
 
 abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     var items: List<T>
     var listener: AdapterListener<T>? = null
+    var lastPosition = -1
+    private var onAttach = true
+    private var animationType = ItemAnimation.FADE_IN
 
     constructor(listItems: List<T>) {
         this.items = listItems
@@ -64,13 +66,25 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         fun onItemClick(data: T)
     }
 
-    var lastPosition = -1
-
     private fun setAnimation(view: View, position: Int) {
         if (position > lastPosition) {
-            ItemAnimation.animate(view, position, ItemAnimation.FADE_IN)
+            ItemAnimation.animate(view, if (onAttach) position else -1, animationType)
             lastPosition = position
         }
+    }
+
+    fun setAnimationType(type: Int) {
+        this.animationType = type
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                onAttach = false
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
+        super.onAttachedToRecyclerView(recyclerView)
     }
 
 }

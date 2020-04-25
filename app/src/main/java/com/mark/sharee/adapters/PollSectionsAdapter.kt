@@ -16,6 +16,11 @@ import kotlinx.android.synthetic.main.poll_section_item.*
 
 
 class PollSectionsAdapter : BaseAdapter<PollSection>() {
+
+    init {
+        setAnimationType(0)
+    }
+
     override fun getLayoutId(position: Int, obj: PollSection): Int {
         return R.layout.poll_section_item
     }
