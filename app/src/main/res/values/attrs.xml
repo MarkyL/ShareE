@@ -17,4 +17,9 @@
     <declare-styleable name="ShareeTextView">
         <attr name="sharee_font" />
     </declare-styleable>
+
+    <declare-styleable name="ShareeImageButton">
+        <attr name="image_src" format="reference"/>
+        <attr name="text" format="reference" />
+    </declare-styleable>
 </resources>

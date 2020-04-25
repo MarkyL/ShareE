@@ -23,7 +23,7 @@
         <item
             android:id="@+id/navPersonalExercises"
             android:icon="@drawable/ic_accessibility_black_24dp"
-            android:title="תרגילים אישיים" />
+            android:title="@string/personal_exercises" />
     </group>
     <group
         android:id="@+id/grp_2"

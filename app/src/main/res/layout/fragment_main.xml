@@ -16,6 +16,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <GridLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/homeToolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/global_margin"
+        android:columnCount="2"
+        android:useDefaultMargins="true">
+
+        <com.mark.sharee.widgets.ShareeImageButton
+            android:id="@+id/dailyRoutineBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:image_src="@drawable/poll8"
+            app:text="@string/general_polls"
+            />
+
+        <com.mark.sharee.widgets.ShareeImageButton
+            android:id="@+id/exercisesBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:image_src="@drawable/poll11"
+            app:text="@string/medical_polls"
+            />
+
+        <com.mark.sharee.widgets.ShareeImageButton
+            android:id="@+id/generalPollsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:image_src="@drawable/time2"
+            app:text="@string/daily_routines"
+            />
+
+        <com.mark.sharee.widgets.ShareeImageButton
+            android:id="@+id/medicalPollsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:image_src="@drawable/training"
+            app:text="@string/personal_exercises"
+            />
+
+    </GridLayout>
+
+
     <TextView
         android:id="@+id/phoneNumberTv"
         android:layout_width="0dp"
@@ -24,6 +77,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="@dimen/min_margin_end"
         android:gravity="start"
+        android:visibility="gone"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +88,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/phoneNumberTv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
