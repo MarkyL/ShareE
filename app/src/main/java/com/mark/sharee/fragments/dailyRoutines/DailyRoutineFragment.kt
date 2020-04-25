@@ -18,7 +18,7 @@ class DailyRoutineFragment(private val activitiesList: MutableList<DailyActivity
     private var dailyRoutineAdapter = DailyRoutineAdapter()
 
     init {
-        dailyRoutineAdapter.updateItems(activitiesList)
+        dailyRoutineAdapter.submitList(activitiesList)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
