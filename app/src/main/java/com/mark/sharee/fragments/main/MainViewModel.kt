@@ -62,13 +62,13 @@ class MainViewModel constructor(application: Application, private val shareeRepo
     private fun getMessages(verificationToken: String) {
         viewModelScope.launch {
             kotlin.runCatching {
-                Timber.i("updateFcmToken - run")
+                Timber.i("getMessages - run")
                 shareeRepository.getMessages(verificationToken)
             }.onSuccess {
-                Timber.i("updateFcmToken - onSuccess, response = $it")
+                Timber.i("getMessages - onSuccess, response = $it")
                 publish(state = State.NEXT, items = Event(GetMessagesSuccess(it)))
             }.onFailure {
-                Timber.e("updateFcmToken - onFailure $it")
+                Timber.e("getMessages - onFailure $it")
                 publish(state = State.ERROR, items = Event(GetMessagesFailure), throwable = it)
             }
         }

@@ -1,33 +1,26 @@
 package com.mark.sharee.fragments.signin
 
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import com.example.sharee.R
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
-import com.google.gson.Gson
 import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.model.User
 import com.mark.sharee.navigation.arguments.TransferInfo
-import com.mark.sharee.network.adapter.ServerException
 import com.mark.sharee.screens.MainScreen
-import com.mark.sharee.utils.*
+import com.mark.sharee.utils.BaseTextWatcher
+import com.mark.sharee.utils.OnKeyboardActionListener
+import com.mark.sharee.utils.PhoneNumber
+import com.mark.sharee.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_sign_in.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import retrofit2.HttpException
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 

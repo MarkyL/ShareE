@@ -25,6 +25,7 @@
     <string name="enter_phone_number_check_prefix_error" translatable="false">בדוק שוב את הקידומת</string>
 
     <!-- Actions -->
+    <string name="action_notifications" translatable="false">הודעות</string>
     <string name="action_help" translatable="false">עזרה</string>
     <string name="action_cancel" translatable="false">סגור</string>
     <string name="action_back" translatable="false">חזרה</string>
@@ -57,5 +58,10 @@
     <!-- Department info screen -->
     <string name="department_info_title" translatable="false">אודות המחלקה</string>
 
+    <!-- Main screen -->
+    <string name="last_messages">הודעות אחרונות</string>
+
+    <!-- Messages screen -->
+    <string name="messages_screen_title">הודעות מהצוות הרפואי</string>
 
 </resources>

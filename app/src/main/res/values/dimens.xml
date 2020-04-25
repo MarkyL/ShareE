@@ -7,6 +7,7 @@
     <dimen name="global_margin_end">24dp</dimen>
     <dimen name="global_margin">24dp</dimen>
 
+    <dimen name="min_margin">8dp</dimen>
     <dimen name="min_margin_top">8dp</dimen>
     <dimen name="min_margin_bottom">8dp</dimen>
     <dimen name="min_margin_start">8dp</dimen>

@@ -5,6 +5,7 @@ import com.mark.sharee.network.model.responses.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ShareeService {
 
@@ -36,6 +37,6 @@ interface ShareeService {
     @GET(value = PATIENT_BASE + "scheduledNotifications")
     suspend fun scheduledNotifications() : MutableList<ScheduledNotification>
 
-    @GET(value = PATIENT_BASE + "getMessages")
-    suspend fun getMessages(@Body basicRequest: BasicRequest) : MutableList<Message>
+    @GET(value = PATIENT_BASE + "getNotifications/verificationToken/{verificationToken}")
+    suspend fun getMessages(@Path("verificationToken") verificationToken: String) : MutableList<Message>
 }

@@ -45,10 +45,7 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
     }
 
     suspend fun getMessages(verificationToken: String): MutableList<Message> {
-        val basicRequest = BasicRequest(verificationToken)
-        // maybe need to do like in submit poll with :
-        // var requestJson = Gson().toJson(submitPollRequest)
-        return shareeService.getMessages(basicRequest)
+        return shareeService.getMessages(verificationToken)
     }
 
 }

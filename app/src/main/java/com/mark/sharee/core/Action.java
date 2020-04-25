@@ -5,6 +5,23 @@ import com.example.sharee.R;
 
 public enum Action implements AbstractAction {
 
+    Notification {
+        @Override
+        public int getIconResId() {
+            return R.drawable.ic_notifications;
+        }
+
+        @Override
+        public int getTitleResId() {
+            return R.string.action_notifications;
+        }
+
+        @Override
+        public boolean isNavigation() {
+            return false;
+        }
+    },
+
     Drawer {
         @Override
         public int getIconResId() {

@@ -24,6 +24,7 @@ import com.mark.sharee.network.model.responses.Message
 import com.mark.sharee.network.model.responses.ScheduledNotification
 import com.mark.sharee.screens.DailyRoutinesTabScreen
 import com.mark.sharee.screens.GeneralPollsScreen
+import com.mark.sharee.screens.MessagesScreen
 import com.mark.sharee.utils.AlarmUtils
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
@@ -41,9 +42,10 @@ import java.util.*
 class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnBackPressed {
 
     lateinit var transferInfo: TransferInfo
-
     private val viewModel: MainViewModel by sharedViewModel()
+
     private val messagesAdapter = MessagesAdapter()
+    private var messages: MutableList<Message> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,8 +94,6 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
         transferInfo = castArguments(TransferInfo::class.java)
 
         configureToolbar()
-
-        phoneNumberTv.text = "שלום " + transferInfo.phoneNumber
 
         registerViewModel()
 
@@ -159,7 +159,8 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
     }
 
     private fun handleGetMessagesSuccess(messages: MutableList<Message>) {
-        messagesAdapter.submitList(messages)
+        this.messages = messages
+        messagesAdapter.submitList(messages.take(3) as MutableList<Message>)
     }
 
     private fun handleScheduledNotificationsSuccess(response: ScheduledNotificationsSuccess) {
@@ -215,7 +216,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     private fun configureToolbar() {
         homeToolbar.titleTextView.text = resources.getString(R.string.app_name)
-        homeToolbar.addActions(arrayOf(Action.Drawer, Action.Logo), this)
+        homeToolbar.addActions(arrayOf(Action.Drawer, Action.Notification), this)
     }
 
     override fun onActionSelected(action: AbstractAction): Boolean {
@@ -223,6 +224,10 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
             Timber.i("onActionSelected - Drawer")
             (activity as MainActivity).openDrawer()
             return true
+        } else if (action == Action.Notification) {
+            val transferInfo = TransferInfo()
+            transferInfo.messages = this.messages
+            navigator.replace(MessagesScreen(transferInfo))
         }
 
 
