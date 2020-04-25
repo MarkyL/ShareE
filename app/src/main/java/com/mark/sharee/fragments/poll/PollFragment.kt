@@ -68,7 +68,7 @@ class PollFragment : ShareeFragment() {
         poll.pollSections.forEach {
             it.expanded = true
         }
-        pollSectionsAdapter.updateItems(poll.pollSections)
+        pollSectionsAdapter.submitList(poll.pollSections)
     }
 
     private fun registerViewModel() {

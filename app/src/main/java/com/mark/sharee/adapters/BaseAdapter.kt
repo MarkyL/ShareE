@@ -25,7 +25,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         items = emptyList()
     }
 
-    fun submitList(listItems: List<T>) {
+    open fun submitList(listItems: List<T>) {
         this.items = listItems
         notifyDataSetChanged()
     }

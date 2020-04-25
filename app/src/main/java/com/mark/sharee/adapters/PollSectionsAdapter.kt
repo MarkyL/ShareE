@@ -1,68 +1,61 @@
 package com.mark.sharee.adapters
 
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sharee.R
 import com.mark.sharee.fragments.poll.PollSectionDiffCallback
 import com.mark.sharee.model.poll.Question
-import com.mark.sharee.network.model.responses.GeneralPollResponse
 import com.mark.sharee.network.model.responses.PollSection
 import com.mark.sharee.utils.GridSpacingItemDecoration
 import com.mark.sharee.utils.Tools
 import com.mark.sharee.utils.ViewAnimation
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.poll_section_item.*
-import timber.log.Timber
 
 
-class PollSectionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    var items = mutableListOf<PollSection>()
-        private set
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val vh: RecyclerView.ViewHolder
-        val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.poll_section_item, parent, false)
-        vh = PollSectionItemViewHolder(v)
-        return vh
+class PollSectionsAdapter : BaseAdapter<PollSection>() {
+    override fun getLayoutId(position: Int, obj: PollSection): Int {
+        return R.layout.poll_section_item
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder !is PollSectionItemViewHolder) {
-            Timber.e("PollSectionsAdapter - wrong holder type"); return
-        }
+    override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
+        return PollSectionItemViewHolder(view)
+    }
 
-        val pollSection = items[position]
-        holder.sectionName.text = pollSection.name
+    override fun submitList(listItems: List<PollSection>) {
+        val diffResult =
+            DiffUtil.calculateDiff(PollSectionDiffCallback(this.items, listItems))
+        this.items = listItems
+        diffResult.dispatchUpdatesTo(this)
+    }
+}
 
-        holder.headerLyt.setOnClickListener { toggleSection(pollSection, holder) }
-        holder.btnExpand.setOnClickListener { toggleSection(pollSection, holder) }
+class PollSectionItemViewHolder constructor(override val containerView: View) :
+    RecyclerView.ViewHolder(containerView), LayoutContainer, BaseAdapter.Binder<PollSection> {
 
-        if (pollSection.expanded) {
-            holder.lyt_expand.visibility = View.VISIBLE
+    override fun bind(data: PollSection) {
+        sectionName.text = data.name
+
+        headerLyt.setOnClickListener { toggleSection(data, this) }
+        btnExpand.setOnClickListener { toggleSection(data, this) }
+
+        if (data.expanded) {
+            lyt_expand.visibility = View.VISIBLE
         } else {
-            holder.lyt_expand.visibility = View.GONE
+            lyt_expand.visibility = View.GONE
         }
-        Tools.toggleArrow(pollSection.expanded, holder.btnExpand, false)
+        Tools.toggleArrow(data.expanded, btnExpand, false)
 
         val questionsAdapter = PollAdapter()
-        holder.recyclerView.apply {
+        recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(GridSpacingItemDecoration(1, 30, true))
             this.adapter = questionsAdapter
         }
 
-        questionsAdapter.submitList(generatePollDisplayItems(pollSection))
-    }
-
-    private fun toggleSection(pollSection: PollSection, holder: PollSectionItemViewHolder) {
-        pollSection.expanded =
-            toggleLayoutExpand(!pollSection.expanded, holder.btnExpand, holder.lyt_expand)
+        questionsAdapter.submitList(generatePollDisplayItems(data))
     }
 
     private fun generatePollDisplayItems(pollSection: PollSection): MutableList<PollAbstractDisplayItem>  {
@@ -78,17 +71,9 @@ class PollSectionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return pollDisplayItems
     }
 
-    fun updateItems(newItems: List<PollSection>) {
-        Timber.i("updateItems: items update size ${newItems.size}")
-        val diffResult: DiffUtil.DiffResult =
-            DiffUtil.calculateDiff(PollSectionDiffCallback(this.items, newItems))
-        items.clear()
-        items.addAll(newItems)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    override fun getItemCount(): Int {
-        return items.size
+    private fun toggleSection(pollSection: PollSection, holder: PollSectionItemViewHolder) {
+        pollSection.expanded =
+            toggleLayoutExpand(!pollSection.expanded, holder.btnExpand, holder.lyt_expand)
     }
 
     private fun toggleLayoutExpand(show: Boolean, view: View, lyt_expand: View): Boolean {
@@ -100,7 +85,5 @@ class PollSectionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
         return show
     }
-}
 
-class PollSectionItemViewHolder constructor(override val containerView: View) :
-    RecyclerView.ViewHolder(containerView), LayoutContainer
+}
