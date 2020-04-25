@@ -27,7 +27,27 @@
         android:useDefaultMargins="true">
 
         <com.mark.sharee.widgets.ShareeImageButton
+            android:id="@+id/medicalPollsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:image_src="@drawable/poll11"
+            app:text="@string/medical_polls"
+            />
+
+        <com.mark.sharee.widgets.ShareeImageButton
             android:id="@+id/dailyRoutineBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:image_src="@drawable/time2"
+            app:text="@string/daily_routines"
+            />
+
+        <com.mark.sharee.widgets.ShareeImageButton
+            android:id="@+id/generalPollsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -38,26 +58,6 @@
 
         <com.mark.sharee.widgets.ShareeImageButton
             android:id="@+id/exercisesBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            app:image_src="@drawable/poll11"
-            app:text="@string/medical_polls"
-            />
-
-        <com.mark.sharee.widgets.ShareeImageButton
-            android:id="@+id/generalPollsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            app:image_src="@drawable/time2"
-            app:text="@string/daily_routines"
-            />
-
-        <com.mark.sharee.widgets.ShareeImageButton
-            android:id="@+id/medicalPollsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"

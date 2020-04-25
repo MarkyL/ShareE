@@ -12,8 +12,8 @@
 
     <!-- Drawer strings -->
     <string name="general_polls">סקרים כלליים</string>
-    <string name="medical_polls">סקרים רפואיים</string>
-    <string name="daily_routines">לוז שבועי</string>
+    <string name="medical_polls">שאלונים רפואיים</string>
+    <string name="daily_routines">לו\"ז שבועי</string>
     <string name="department_info">אודות המחלקה</string>
     <string name="personal_exercises">תרגילים אישיים</string>
 

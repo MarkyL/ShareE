@@ -111,19 +111,9 @@ class MainActivity : ShareeActivity() {
                 .show()
 
             when (item.itemId) {
-                R.id.navGeneralPolls -> {
-                    navigator.replace(GeneralPollsScreen(TransferInfo(flow = TransferInfo.Flow.GeneralPolls)))
-                }
-                R.id.navMedicalPolls -> {
-                    navigator.replace(GeneralPollsScreen(TransferInfo(flow = TransferInfo.Flow.MedicalPolls)))
-                }
-                R.id.navDailyRoutines -> {
-                    navigator.replace(DailyRoutinesTabScreen(TransferInfo()))
-                }
                 R.id.navDepartmentInfo -> {
                     navigator.replace(DepartmentInfoScreen())
                 }
-
             }
             drawerLayout.closeDrawers()
 

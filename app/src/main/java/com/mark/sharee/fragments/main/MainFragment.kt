@@ -22,6 +22,8 @@ import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.network.model.responses.Message
 import com.mark.sharee.network.model.responses.ScheduledNotification
+import com.mark.sharee.screens.DailyRoutinesTabScreen
+import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.utils.AlarmUtils
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
@@ -103,6 +105,26 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(GridSpacingItemDecoration(1, 30, true))
             this.adapter = messagesAdapter
+        }
+
+        setNavigationListeners()
+    }
+
+    private fun setNavigationListeners() {
+        dailyRoutineBtn.setOnClickListener {
+            navigator.replace(DailyRoutinesTabScreen(TransferInfo()))
+        }
+
+        generalPollsBtn.setOnClickListener {
+            navigator.replace(GeneralPollsScreen(TransferInfo(flow = TransferInfo.Flow.GeneralPolls)))
+        }
+
+        medicalPollsBtn.setOnClickListener {
+            navigator.replace(GeneralPollsScreen(TransferInfo(flow = TransferInfo.Flow.MedicalPolls)))
+        }
+
+        exercisesBtn.setOnClickListener {
+            Toaster.show(this, "exercisesBtn Clicked", true)
         }
     }
 
