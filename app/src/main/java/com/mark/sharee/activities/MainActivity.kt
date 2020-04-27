@@ -24,6 +24,8 @@ import com.mark.sharee.screens.*
 import com.mark.sharee.utils.FontManager
 import com.mark.sharee.utils.Toaster
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.drawer_header.view.*
+import kotlinx.android.synthetic.main.poll_section_item.view.*
 import timber.log.Timber
 
 
@@ -119,8 +121,6 @@ class MainActivity : ShareeActivity() {
 
             true
         }
-
-
     }
 
     fun openDrawer() {
@@ -129,6 +129,10 @@ class MainActivity : ShareeActivity() {
 
     fun closeDrawer() {
         drawerLayout.closeDrawer(GravityCompat.START)
+    }
+
+    fun setDrawerTitle(title: String) {
+        navigationView.getHeaderView(0).drawerTitle.text = title
     }
 
     //endregion

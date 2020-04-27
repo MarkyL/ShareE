@@ -103,7 +103,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
         }
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            addItemDecoration(GridSpacingItemDecoration(1, 30, true))
+            addItemDecoration(GridSpacingItemDecoration(1, 0, true))
             this.adapter = messagesAdapter
         }
 
@@ -217,6 +217,9 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
     private fun configureToolbar() {
         homeToolbar.titleTextView.text = resources.getString(R.string.app_name)
         homeToolbar.addActions(arrayOf(Action.Drawer, Action.Notification), this)
+        User.me()?.let {
+            (activity as MainActivity).setDrawerTitle(it.getPhone())
+        }
     }
 
     override fun onActionSelected(action: AbstractAction): Boolean {
