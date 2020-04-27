@@ -22,4 +22,10 @@
         <attr name="image_src" format="reference"/>
         <attr name="text" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="ProfileImageView">
+        <attr name="profile_image" format="reference"/>
+        <attr name="profile_name" format="string" />
+        <attr name="profile_role" format="string" />
+    </declare-styleable>
 </resources>

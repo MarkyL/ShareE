@@ -9,13 +9,8 @@
             android:icon="@drawable/ic_web_black_24dp"
             android:title="@string/department_info" />
         <item
-            android:id="@+id/navSettings"
-            android:icon="@drawable/ic_settings_black_24dp"
-
-            android:title="הגדרות" />
-        <item
             android:id="@+id/navHelp"
             android:icon="@drawable/ic_help_black_24dp"
-            android:title="עזרה" />
+            android:title="@string/about_us" />
     </group>
 </menu>

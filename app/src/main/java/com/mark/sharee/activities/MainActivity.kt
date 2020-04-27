@@ -116,6 +116,9 @@ class MainActivity : ShareeActivity() {
                 R.id.navDepartmentInfo -> {
                     navigator.replace(DepartmentInfoScreen())
                 }
+                R.id.navHelp -> {
+                    navigator.replace(AboutScreen())
+                }
             }
             drawerLayout.closeDrawers()
 

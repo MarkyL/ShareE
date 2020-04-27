@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.mark.sharee.widgets.ShareeToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/secondary_color" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fadingEdgeLength="40dp"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:requiresFadingEdge="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/min_margin">
+
+            <ImageView
+                android:id="@+id/imageHeader"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/meir_hospital_banner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.mark.sharee.widgets.ShareeTextView
+                android:id="@+id/ourTeamTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/min_margin_top"
+                android:text="@string/our_team"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageHeader"
+                app:sharee_font="orionBold" />
+
+            <GridLayout
+                android:id="@+id/profilesLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/min_margin_top"
+                android:alignmentMode="alignMargins"
+                android:columnCount="2"
+                android:columnOrderPreserved="false"
+                android:useDefaultMargins="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ourTeamTitle">
+
+                <com.mark.sharee.widgets.ProfileImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    app:profile_image="@drawable/profile_mark_lurie"
+                    app:profile_name="Mark Lurie"
+                    app:profile_role="Mobile developer" />
+
+                <com.mark.sharee.widgets.ProfileImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    app:profile_image="@drawable/profile_omri_ohayon"
+                    app:profile_name="Omri Ohayon"
+                    app:profile_role="Backend developer" />
+
+                <com.mark.sharee.widgets.ProfileImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    app:profile_image="@drawable/photo_male_5"
+                    app:profile_name="Dr. Guy Topaz"
+                    app:profile_role="Head of department" />
+
+                <com.mark.sharee.widgets.ProfileImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    app:profile_image="@drawable/photo_female_3"
+                    app:profile_name="Dr. Shoshan"
+                    app:profile_role="Medical intern" />
+            </GridLayout>
+
+            <com.mark.sharee.widgets.ShareeTextView
+                android:id="@+id/ourMission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/min_margin_top"
+                android:text="@string/our_mission"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profilesLayout"
+                app:sharee_font="orionBold" />
+
+            <com.mark.sharee.widgets.ShareeTextView
+                android:id="@+id/ourMissionInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/min_margin"
+                android:text="@string/our_mission_info"
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ourMission"
+                app:sharee_font="orionRegular" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>

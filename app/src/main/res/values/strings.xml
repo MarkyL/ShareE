@@ -14,8 +14,9 @@
     <string name="general_polls">סקרים כלליים</string>
     <string name="medical_polls">שאלונים רפואיים</string>
     <string name="daily_routines">לו\"ז שבועי</string>
-    <string name="department_info">אודות המחלקה</string>
+    <string name="department_info">פרטי המחלקה</string>
     <string name="personal_exercises">תרגילים אישיים</string>
+    <string name="about_us">אודות</string>
 
     <!-- OTP sign in -->
     <string name="phone_number">מספר נייד</string>
@@ -63,5 +64,13 @@
 
     <!-- Messages screen -->
     <string name="messages_screen_title">הודעות מהצוות הרפואי</string>
+
+    <!-- About us screen -->
+    <string name="our_team">הצוות שלנו</string>
+    <string name="our_mission">המשימה שלנו</string>
+    <string name="our_mission_info">מטרת העל של הפרויקט היא צמצום חוסר הוודאות של המטופל באשפוז על ידי הנגשת
+מידע הנוגע לטיפול הרפואי בו, וזאת באמצעות תקשורת בין אפליקציה סלולרית לבין מערכות המידע הרפואי של בית החולים, אשר מעדכנות באופן שוטף על החלטות טיפוליות רפואיות, תוצאות בדיקות, צפי למשך אשפוז והן מידע כללי אודות המחלקה, בית החולים ועוד.
+בנוסף, האפליקציה תאפשר תקשורת דו כיוונית מהמטופל לצוות המטפל בנושאים מוגדרים מראש – וזאת על מנת גם לאפשר למטופל לבוא לידי ביטוי.
+</string>
 
 </resources>

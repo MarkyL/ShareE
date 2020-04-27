@@ -20,52 +20,49 @@
         android:id="@+id/mainButtonsLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/homeToolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/global_margin"
         android:columnCount="2"
-        android:useDefaultMargins="true">
+        android:columnOrderPreserved="false"
+        android:useDefaultMargins="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/homeToolbar">
 
         <com.mark.sharee.widgets.ShareeImageButton
             android:id="@+id/medicalPollsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             app:image_src="@drawable/poll11"
-            app:text="@string/medical_polls"
-            />
+            app:text="@string/medical_polls" />
 
         <com.mark.sharee.widgets.ShareeImageButton
             android:id="@+id/dailyRoutineBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             app:image_src="@drawable/time2"
-            app:text="@string/daily_routines"
-            />
+            app:text="@string/daily_routines" />
 
         <com.mark.sharee.widgets.ShareeImageButton
             android:id="@+id/generalPollsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             app:image_src="@drawable/poll8"
-            app:text="@string/general_polls"
-            />
+            app:text="@string/general_polls" />
 
         <com.mark.sharee.widgets.ShareeImageButton
             android:id="@+id/exercisesBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             app:image_src="@drawable/training"
-            app:text="@string/personal_exercises"
-            />
+            app:text="@string/personal_exercises" />
 
     </GridLayout>
 
@@ -73,12 +70,12 @@
         android:id="@+id/lastMessagesTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/last_messages"
-        app:layout_constraintTop_toBottomOf="@id/mainButtonsLayout"
-        app:layout_constraintStart_toStartOf="@id/mainButtonsLayout"
         android:layout_marginTop="@dimen/min_margin_top"
+        android:text="@string/last_messages"
         android:textSize="20sp"
-        app:sharee_font="orionBold"/>
+        app:layout_constraintStart_toStartOf="@id/mainButtonsLayout"
+        app:layout_constraintTop_toBottomOf="@id/mainButtonsLayout"
+        app:sharee_font="orionBold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -86,10 +83,10 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/min_margin_top"
         android:layout_marginBottom="@dimen/global_margin_bottom"
-        app:layout_constraintTop_toBottomOf="@id/lastMessagesTitle"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/mainButtonsLayout"
         app:layout_constraintStart_toStartOf="@id/mainButtonsLayout"
-        app:layout_constraintEnd_toEndOf="@id/mainButtonsLayout"/>
+        app:layout_constraintTop_toBottomOf="@id/lastMessagesTitle" />
 
     <ProgressBar
         android:id="@+id/progressBar"
