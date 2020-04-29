@@ -82,9 +82,7 @@ class PollFragment : ShareeFragment() {
                         hideProgressView()
                         handleNext(t.data)
                     }
-                    State.ERROR -> {
-                        handleError(t.data, t.throwable)
-                    }
+                    State.ERROR -> { handleError(t.data, t.throwable) }
                     State.COMPLETE -> { hideProgressView() }
                 }
             })
@@ -120,7 +118,7 @@ class PollFragment : ShareeFragment() {
         val successDialog = ShareeDialog(
             title = resources.getString(R.string.submit_poll_success),
             subtitle = resources.getString(R.string.thanks_for_cooperation),
-            iconDrawable = R.drawable.ic_warning_black,
+            iconDrawable = R.drawable.ic_check,
             positiveButtonText = R.string.dialog_positive_ok,
             callback = object : AbstractDialog.Callback {
                 override fun onDialogPositiveAction(requestCode: Int) {

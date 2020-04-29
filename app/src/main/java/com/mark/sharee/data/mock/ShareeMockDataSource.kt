@@ -16,7 +16,7 @@ class ShareeMockDataSource : ShareeDataSource {
     }
 
     override suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override suspend fun getGeneralPolls(): MutableList<GeneralPollResponse> {
@@ -42,7 +42,7 @@ class ShareeMockDataSource : ShareeDataSource {
             PollSection("1", "חלק ראשון", questionsList),
             PollSection("2", "חלק שני", questionsList))
 
-        return GeneralPollResponse("12345", "סקר מוק 1", pollSections, "general")
+        return GeneralPollResponse("12345", "סקר מוק 1", true, pollSections, "general")
     }
 
     private fun createGeneralPollResponse2(): GeneralPollResponse {
@@ -59,7 +59,7 @@ class ShareeMockDataSource : ShareeDataSource {
             PollSection("1", "סקשן 1", questionsList),
             PollSection("2", "סקשן 2", questionsList))
 
-        return GeneralPollResponse("123456", "סקר מוק 2", pollSections, "general")
+        return GeneralPollResponse("123456", "סקר מוק 2", true, pollSections, "general")
     }
 
     private fun createGeneralPollResponse3(): GeneralPollResponse {
@@ -78,7 +78,7 @@ class ShareeMockDataSource : ShareeDataSource {
             PollSection("3", "שאלות נוספות", questionsList),
             PollSection("4", "חלק אחרון", questionsList))
 
-        return GeneralPollResponse("1234567", "סקר מוק 3", pollSections, "general")
+        return GeneralPollResponse("1234567", "סקר מוק 3", true, pollSections, "general")
     }
 
     //endregion
