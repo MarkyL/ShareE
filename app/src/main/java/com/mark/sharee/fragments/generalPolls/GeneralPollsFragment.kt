@@ -34,7 +34,7 @@ class GeneralPollsFragment : ShareeFragment(),
     lateinit var transferInfo: TransferInfo
 
     private val viewModel: GeneralPollsViewModel by sharedViewModel()
-    private val pollsAdapter: PollsAdapter = PollsAdapter(listener = this)
+    private val pollsAdapter = PollsAdapter(listener = this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

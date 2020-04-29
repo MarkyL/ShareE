@@ -30,7 +30,7 @@ import timber.log.Timber
 class PollFragment : ShareeFragment() {
 
     private val viewModel: PollViewModel by sharedViewModel()
-    private val pollSectionsAdapter: PollSectionsAdapter = PollSectionsAdapter()
+    private val pollSectionsAdapter = PollSectionsAdapter()
 
     companion object {
         private const val TAG = "PollFragment"

@@ -9,6 +9,7 @@ import com.mark.sharee.fragments.poll.PollSectionDiffCallback
 import com.mark.sharee.model.poll.Question
 import com.mark.sharee.network.model.responses.PollSection
 import com.mark.sharee.utils.GridSpacingItemDecoration
+import com.mark.sharee.utils.StringUtils
 import com.mark.sharee.utils.Tools
 import com.mark.sharee.utils.ViewAnimation
 import kotlinx.android.extensions.LayoutContainer
@@ -41,9 +42,14 @@ class PollSectionItemViewHolder constructor(override val containerView: View) :
     RecyclerView.ViewHolder(containerView), LayoutContainer, BaseAdapter.Binder<PollSection> {
 
     override fun bind(data: PollSection) {
-        sectionName.text = data.name
 
-        headerLyt.setOnClickListener { toggleSection(data, this) }
+        if(data.name.isNullOrEmpty()) {
+            headerLyt.visibility = View.GONE
+        } else {
+            sectionName.text = data.name
+            headerLyt.setOnClickListener { toggleSection(data, this) }
+        }
+        
         btnExpand.setOnClickListener { toggleSection(data, this) }
 
         if (data.expanded) {
