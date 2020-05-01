@@ -36,8 +36,7 @@ class SignInFragment : ShareeFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_in, container, false)
     }
 
@@ -110,8 +109,7 @@ class SignInFragment : ShareeFragment() {
             60, // Timeout duration
             TimeUnit.SECONDS, // Unit of timeout
             requireActivity(), // Activity (for callback binding)
-            verificationStateCallback
-        ) // OnVerificationStateChangedCallbacks
+            verificationStateCallback) // OnVerificationStateChangedCallbacks
     }
 
     fun toggleBtn(isEnabled: Boolean) {

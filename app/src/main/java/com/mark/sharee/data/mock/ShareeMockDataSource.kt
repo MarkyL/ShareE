@@ -39,8 +39,7 @@ class ShareeMockDataSource : ShareeDataSource {
         )
 
         val pollSections = mutableListOf(
-            PollSection("1", "חלק ראשון", questionsList),
-            PollSection("2", "חלק שני", questionsList))
+            PollSection("1", "", questionsList))
 
         return GeneralPollResponse("12345", "סקר מוק 1", true, pollSections, "general")
     }
@@ -56,8 +55,7 @@ class ShareeMockDataSource : ShareeDataSource {
         )
 
         val pollSections = mutableListOf(
-            PollSection("1", "סקשן 1", questionsList),
-            PollSection("2", "סקשן 2", questionsList))
+            PollSection("1", "", questionsList))
 
         return GeneralPollResponse("123456", "סקר מוק 2", true, pollSections, "general")
     }

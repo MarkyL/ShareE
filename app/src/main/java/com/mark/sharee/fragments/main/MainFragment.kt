@@ -124,7 +124,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
         }
 
         exercisesBtn.setOnClickListener {
-            Toaster.show(this, "exercisesBtn Clicked", true)
+            Toaster.show(this, "בתהליך פיתוח", true)
         }
     }
 
