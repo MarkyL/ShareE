@@ -93,18 +93,18 @@ class ShareeMockDataSource : ShareeDataSource {
 
     override suspend fun dailyRoutine(): DailyRoutineResponse {
         val weekdayActivities = mutableListOf(
-            DailyActivity(1,"08:00", "09:00", "Breakfast"),
-            DailyActivity(2,"09:30", "11:00", "Morning visit"),
-            DailyActivity(3,"12:00", "14:00", "Launch"),
-            DailyActivity(4,"14:00", "16:00", "Nap time"),
-            DailyActivity(5,"18:00", "20:00", "Dinner"))
+            DailyActivity(1,"08:00", "09:00", "ארוחת בוקר"),
+            DailyActivity(2,"09:30", "11:00", "ביקור לקראת צהריים"),
+            DailyActivity(3,"12:00", "14:00", "ארוחת צהריים"),
+            DailyActivity(4,"14:00", "16:00", "זמן מנוחה"),
+            DailyActivity(5,"18:00", "20:00", "ארוחת ערב וסוף יום"))
 
         val weekendActivities = mutableListOf(
-            DailyActivity(6,"08:00", "09:00", "Breakfast"),
-            DailyActivity(7,"09:30", "11:00", "Morning visit"),
-            DailyActivity(8,"12:00", "14:00", "Launch"),
-            DailyActivity(9,"14:00", "16:00", "Nap time"),
-            DailyActivity(10,"18:00", "20:00", "Dinner"))
+            DailyActivity(6,"08:00", "09:00", "ארוחת בוקר"),
+            DailyActivity(7,"09:30", "11:00", "ביקור לקראת צהריים"),
+            DailyActivity(8,"12:00", "14:00", "ביקורי משפחות"),
+            DailyActivity(9,"14:00", "16:00", "ביקורת דגימות"),
+            DailyActivity(10,"18:00", "20:00", "פעילות העשרה בחדר אוכל"))
 
         return DailyRoutineResponse(weekdayActivities, weekendActivities)
     }
@@ -116,13 +116,13 @@ class ShareeMockDataSource : ShareeDataSource {
     override suspend fun getMessages(verificationToken: String): MutableList<Message> {
         return mutableListOf(
             Message(body = "הודעה אחת", timeStamp = 1587124800),
-            Message(body = "הודעה שתיים", timeStamp = 1589716800),
+            Message(body = "הודעה שתיים", timeStamp = 1589816800),
             Message(body = "מסר שלישי", timeStamp = 1592395200),
             Message(body = "מסר רביעי", timeStamp = 1594987200),
-            Message(body =  "מסר חמישי - ארוך מאוד בודק מה קורה כשיש פה טקסט ארוך מאוד בוא נראה אותו", timeStamp = 1587124800),
+            Message(body =  "מסר חמישי - ארוך מאוד בודק מה קורה כשיש פה טקסט ארוך מאוד בוא נראה אותו", timeStamp = 1596124800),
             Message(body =  "מסר חמישי - ארוך מאוד בודק מה קורה כשיש" +
                     " פה טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו כשיש פה" +
                     " טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו כשיש פה" +
-                    " טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו", timeStamp = 1587124800))
+                    " טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו", timeStamp = 1588124800))
     }
 }

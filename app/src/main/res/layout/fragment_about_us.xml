@@ -53,7 +53,7 @@
                 android:id="@+id/profilesLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/min_margin_top"
+                android:layout_margin="@dimen/min_margin_top"
                 android:alignmentMode="alignMargins"
                 android:columnCount="2"
                 android:columnOrderPreserved="false"

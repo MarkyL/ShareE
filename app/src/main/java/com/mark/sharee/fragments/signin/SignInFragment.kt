@@ -52,7 +52,8 @@ class SignInFragment : ShareeFragment() {
         })
 
         //TEST DATA for work phone//
-        phoneNumberET.setText("0529426921") // test phone
+//        phoneNumberET.setText("0529426921") // test phone
+//        phoneNumberET.setText("0545525248") // Mom's phone
 //        phoneNumberET.setText("0549409575") // mark's phone
 
         //TEST DATA for work phone//

@@ -66,6 +66,7 @@ class MainViewModel constructor(application: Application, private val shareeRepo
                 shareeRepository.getMessages(verificationToken)
             }.onSuccess {
                 Timber.i("getMessages - onSuccess, response = $it")
+                it.sortByDescending { message -> message.timeStamp }
                 publish(state = State.NEXT, items = Event(GetMessagesSuccess(it)))
             }.onFailure {
                 Timber.e("getMessages - onFailure $it")
