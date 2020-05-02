@@ -201,8 +201,6 @@ class PollItemViewHolder constructor(override val containerView: View) :
 
                     question.answer = position - 1
                 }
-
-
             }
         }
     }

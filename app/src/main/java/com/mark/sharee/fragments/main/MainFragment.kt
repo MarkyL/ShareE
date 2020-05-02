@@ -103,7 +103,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
         }
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            addItemDecoration(GridSpacingItemDecoration(1, 0, true))
+            addItemDecoration(GridSpacingItemDecoration(1, 30, true))
             this.adapter = messagesAdapter
         }
 

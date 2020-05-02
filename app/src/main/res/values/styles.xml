@@ -20,10 +20,22 @@
     <style name="ShareeTextViewStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textColorHint">@android:color/holo_red_dark</item>
-        <item name="android:textSize">16sp</item>
         <item name="android:gravity">start</item>
+        <item name="android:textSize">?attr/font_medium</item>
         <item name="android:layout_marginStart">@dimen/min_margin_start</item>
         <item name="android:textDirection">rtl</item>
+    </style>
+
+    <style name="ShareeTextViewStyle.Small" parent="ShareeTextViewStyle">
+        <item name="android:textSize">?attr/font_small</item>
+    </style>
+
+    <style name="ShareeTextViewStyle.Large" parent="ShareeTextViewStyle">
+        <item name="android:textSize">?attr/font_large</item>
+    </style>
+
+    <style name="ShareeTextViewStyle.XLarge" parent="ShareeTextViewStyle">
+        <item name="android:textSize">?attr/font_xlarge</item>
     </style>
 
     <style name="MyEditTextViewStyle" parent="android:Widget.TextView">
@@ -41,7 +53,7 @@
     <style name="ShareeButtonStyle" parent="android:Widget.Button">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorHint">@android:color/white</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">?attr/font_medium</item>
         <item name="android:background">@drawable/sharee_button_bg</item>
     </style>
 
@@ -57,6 +69,30 @@
         <item name="android:textColor">@color/grey_10</item>
         <item name="android:textStyle">bold</item>
         <item name="textAllCaps">true</item>
+    </style>
+
+    <!-- Font size styling -->
+    <style name="FontStyle"/>
+
+    <style name="FontStyle.Small">
+        <item name="font_small">14sp</item>
+        <item name="font_medium">16sp</item>
+        <item name="font_large">18sp</item>
+        <item name="font_xlarge">20sp</item>
+    </style>
+
+    <style name="FontStyle.Medium">
+        <item name="font_small">18sp</item>
+        <item name="font_medium">20sp</item>
+        <item name="font_large">22sp</item>
+        <item name="font_xlarge">24sp</item>
+    </style>
+
+    <style name="FontStyle.Large">
+        <item name="font_small">26sp</item>
+        <item name="font_medium">28sp</item>
+        <item name="font_large">30sp</item>
+        <item name="font_xlarge">32sp</item>
     </style>
 
 </resources>

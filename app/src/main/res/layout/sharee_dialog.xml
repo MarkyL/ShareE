@@ -30,7 +30,7 @@
             android:layout_marginRight="33dp"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            style="@style/ShareeTextViewStyle.Small"
             custom:sharee_font="orionBold"
             tools:text="כותרת שגיאה ראשית"
             android:layout_marginTop="20dp"
@@ -45,7 +45,7 @@
             android:layout_marginLeft="20dp"
             android:textColor="@color/black"
             android:layout_marginBottom="20dp"
-            android:textSize="14sp"
+            style="@style/ShareeTextViewStyle.Small"
             android:textDirection="anyRtl"
             custom:sharee_font="orionRegular"
             tools:text="תת כותרת עם הצגת השגיאה"
@@ -58,7 +58,7 @@
             android:gravity="center"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:textSize="14sp"
+            style="@style/ShareeTextViewStyle.Small"
             custom:sharee_font="orionBold"
             tools:visibility="gone"
             tools:text="לכל תנאי הפרטיות"
@@ -79,7 +79,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="14sp"
+            style="@style/ShareeTextViewStyle.Small"
             tools:text="positive"
             />
 
@@ -97,7 +97,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="14sp"
+            style="@style/ShareeTextViewStyle.Small"
             tools:text="negative"/>
     </LinearLayout>
 </RelativeLayout>

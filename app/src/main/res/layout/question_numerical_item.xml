@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:textDirection="rtl"
         android:orientation="horizontal"
-        android:layout_marginStart="@dimen/global_margin_start"
+        android:layout_marginStart="@dimen/min_margin_start"
         android:layout_marginBottom="@dimen/global_margin_bottom"
         app:layout_constraintTop_toBottomOf="@id/questionLayout"
         app:layout_constraintBottom_toBottomOf="parent"

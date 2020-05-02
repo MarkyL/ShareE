@@ -18,6 +18,7 @@ data class User(var verificationToken: String, val phoneNumber: String) {
         private const val PHONE_PREFERENCE = "phone"
         private const val FIRE_BASE_AUTH_TOKEN = "fb_token"
         private const val FCM_TOKEN = "fcm_token"
+        private const val FONT_STYLE = "font_style"
 
         fun create(verificationToken: String, phoneNumber: String, fireBaseAuthToken: String): User {
             me = User(verificationToken, phoneNumber)

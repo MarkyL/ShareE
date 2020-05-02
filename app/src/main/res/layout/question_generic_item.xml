@@ -19,15 +19,15 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginStart="@dimen/global_margin_start"
             android:layout_marginTop="@dimen/min_margin_top"
             android:layout_marginEnd="@dimen/global_margin_end"
             android:layout_marginBottom="@dimen/min_margin_bottom"
+            android:layout_marginStart="@dimen/min_margin_start"
             android:background="@drawable/background_gray"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/questionLayout"
             app:layout_constraintTop_toBottomOf="@id/questionLayout">
 
             <Spinner

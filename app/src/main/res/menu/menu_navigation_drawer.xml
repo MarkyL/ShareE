@@ -8,6 +8,11 @@
             android:id="@+id/navDepartmentInfo"
             android:icon="@drawable/ic_web_black_24dp"
             android:title="@string/department_info" />
+
+        <item
+            android:id="@+id/navSettings"
+            android:icon="@drawable/ic_setting"
+            android:title="@string/settings" />
         <item
             android:id="@+id/navHelp"
             android:icon="@drawable/ic_help_black_24dp"

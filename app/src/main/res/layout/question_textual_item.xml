@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginStart="@dimen/global_margin_start"
             android:layout_marginEnd="@dimen/global_margin_end"
             android:layout_marginBottom="@dimen/global_margin_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +43,8 @@
                 android:inputType="text"
                 android:imeOptions="actionDone"
                 android:focusableInTouchMode="true"
-                android:textSize="14sp"/>
+                style="@style/ShareeTextViewStyle"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 

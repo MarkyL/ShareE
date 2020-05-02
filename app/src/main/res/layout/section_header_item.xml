@@ -17,7 +17,6 @@
             android:id="@+id/sectionText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:gravity="start"
             android:textColor="@color/white"
             tools:text="האם אתה מרגיש טוב יותר?"

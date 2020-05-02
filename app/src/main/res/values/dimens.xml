@@ -31,4 +31,14 @@
 
     <dimen name="sharee_button_radius" format="float">8dp</dimen>
 
+    <!-- Text sizes -->
+    <dimen name="small_text_size" format="float">14sp</dimen>
+    <dimen name="regular_text_size" format="float">16sp</dimen>
+    <dimen name="large_text_size" format="float">20sp</dimen>
+
+    <dimen name="small_text_size_fixed" format="float">14dp</dimen>
+    <dimen name="regular_text_size_fixed" format="float">16dp</dimen>
+    <dimen name="large_text_size_fixed" format="float">20dp</dimen>
+
+
 </resources>

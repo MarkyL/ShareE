@@ -4,34 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/min_margin_top"
     android:background="@drawable/background_gray"
-    app:cardCornerRadius="8dp"
-    android:elevation="8dp">
+    android:elevation="8dp"
+    app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/min_margin">
 
         <com.mark.sharee.widgets.ShareeTextView
             android:id="@+id/messageDate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="24.04.2020 19:30"
             android:layout_margin="@dimen/min_margin"
+            android:gravity="start"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="24.04.2020 19:30" />
 
         <com.mark.sharee.widgets.ShareeTextView
             android:id="@+id/messageText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/min_margin"
+            android:gravity="start"
             android:textDirection="rtl"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/messageDate"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="הודעת טקסט למטופל"/>
+            tools:text="הודעת טקסט למטופל" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.mark.sharee.widgets.ShareeToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/secondary_color"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/fontText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="גודל טקסט מועדף:"
+        android:textSize="@dimen/large_text_size_fixed"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="24dp"/>
+
+    <Spinner
+        android:id="@+id/fontsSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:spinnerMode="dropdown"
+        android:stateListAnimator="@drawable/spinner_sla"
+        app:layout_constraintBaseline_toBaselineOf="@id/fontText"
+        app:layout_constraintStart_toEndOf="@id/fontText"
+        app:layout_constraintBottom_toBottomOf="@id/fontText"
+        tools:text="testing picker text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

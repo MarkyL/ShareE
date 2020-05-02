@@ -17,6 +17,7 @@
     <string name="department_info">פרטי המחלקה</string>
     <string name="personal_exercises">תרגילים אישיים</string>
     <string name="about_us">אודות</string>
+    <string name="settings">הגדרות</string>
 
     <!-- OTP sign in -->
     <string name="phone_number">מספר נייד</string>
