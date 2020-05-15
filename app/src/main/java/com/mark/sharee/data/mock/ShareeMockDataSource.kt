@@ -128,14 +128,14 @@ class ShareeMockDataSource : ShareeDataSource {
 
     override suspend fun getExercises(verificationToken: String): MutableList<ExerciseCategory> {
         val exercisesSetOne = mutableListOf(
-            Exercise("1", "תעשה שכיבות שמיכה"),
-            Exercise("2", "תעשה כפיפות בטן"),
+            Exercise("1", "תעשה שכיבות שמיכה", "https://www.youtube.com/watch?v=oHg5SJYRHA0"),
+            Exercise("2", "תעשה כפיפות בטן", "https://i.kym-cdn.com/photos/images/original/000/494/606/e6f.jpg"),
             Exercise("3", "תעשה קקי"),
             Exercise("4", "תעשה פיפי"))
         val exercisesSetTwo = mutableListOf(
-            Exercise("1", "תחשוב על המחר"),
+            Exercise("1", "תחשוב על המחר", "https://en.wikipedia.org/wiki/Owned"),
             Exercise("2", "תדמיין את עצמך יוצא מכאן"),
-            Exercise("3", "תדמיין משהו טוב"),
+            Exercise("3", "תדמיין משהו טוב", "https://hospitals.clalit.co.il/meir/he/Pages/default.aspx"),
             Exercise("4", "תחשוב על משהו נחמד"))
         val exercisesSetThree = mutableListOf(
             Exercise("1", "אל תשתולל"),
