@@ -20,9 +20,11 @@ import com.mark.sharee.model.User
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
+import com.mark.sharee.network.model.responses.ExerciseCategory
 import com.mark.sharee.network.model.responses.Message
 import com.mark.sharee.network.model.responses.ScheduledNotification
 import com.mark.sharee.screens.DailyRoutinesTabScreen
+import com.mark.sharee.screens.ExerciseCategoriesScreen
 import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.screens.MessagesScreen
 import com.mark.sharee.utils.AlarmUtils
@@ -124,7 +126,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 //        }
 
         exercisesBtn.setOnClickListener {
-            Toaster.show(this, "בתהליך פיתוח", true)
+            navigator.replace(ExerciseCategoriesScreen())
         }
     }
 

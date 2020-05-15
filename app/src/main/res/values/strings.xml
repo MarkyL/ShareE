@@ -74,4 +74,7 @@
 בנוסף, האפליקציה תאפשר תקשורת דו כיוונית מהמטופל לצוות המטפל בנושאים מוגדרים מראש – וזאת על מנת גם לאפשר למטופל לבוא לידי ביטוי.
 </string>
 
+    <!-- Exercise categories screen -->
+    <string name="exercise_categories_screen_title">תרגילים אישיים</string>
+
 </resources>

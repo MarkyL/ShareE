@@ -3,8 +3,10 @@ package com.mark.sharee.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.sharee.R
+import com.mark.sharee.adapters.ExerciseCategoriesAdapter
 import com.mark.sharee.fcm.TokenManager
 import com.mark.sharee.fragments.dailyRoutines.DailyRoutinesViewModel
+import com.mark.sharee.fragments.exercises.ExerciseCategoriesViewModel
 import com.mark.sharee.fragments.generalPolls.GeneralPollsViewModel
 import com.mark.sharee.fragments.main.MainViewModel
 import com.mark.sharee.fragments.poll.PollViewModel
@@ -37,6 +39,7 @@ val viewModelsModule = module {
     viewModel { PollViewModel(get(), get()) }
     viewModel { GeneralPollsViewModel(get(), get()) }
     viewModel { DailyRoutinesViewModel(get(), get()) }
+    viewModel { ExerciseCategoriesViewModel(get(), get()) }
 }
 
 val errorModule = module {

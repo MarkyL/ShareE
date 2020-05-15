@@ -13,6 +13,7 @@ import com.mark.sharee.fcm.TokenManager
 import com.mark.sharee.model.User
 import com.mark.sharee.navigation.Arguments
 import com.mark.sharee.navigation.Screen
+import com.mark.sharee.navigation.arguments.ExercisesInfo
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.screens.SignInScreen
@@ -53,6 +54,7 @@ class ShareeApplication : MultiDexApplication() {
 
     private fun registerFragmentArguments() {
         Arguments.registerSubclass(TransferInfo::class.java)
+        Arguments.registerSubclass(ExercisesInfo::class.java)
     }
 
     private fun registerScreens() {
