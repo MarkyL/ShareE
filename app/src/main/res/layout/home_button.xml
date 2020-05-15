@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="120dp"
+    android:layout_height="180dp"
     android:layout_gravity="center"
     android:elevation="8dp"
     app:cardCornerRadius="8dp">
@@ -16,13 +16,13 @@
 
         <ImageView
             android:id="@+id/imageBtn"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/poll8" />
+            tools:src="@drawable/time2" />
 
         <TextView
             android:id="@+id/textView"
@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/min_margin_top"
             android:textSize="@dimen/regular_text_size_fixed"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageBtn"

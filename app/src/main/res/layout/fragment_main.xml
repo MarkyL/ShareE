@@ -16,33 +16,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <GridLayout
+    <LinearLayout
         android:id="@+id/mainButtonsLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/global_margin"
-        android:columnCount="2"
-        android:columnOrderPreserved="false"
+        android:orientation="horizontal"
         android:useDefaultMargins="true"
+        android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/homeToolbar">
 
-        <com.mark.sharee.widgets.ShareeImageButton
-            android:id="@+id/medicalPollsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            app:image_src="@drawable/poll11"
-            app:text="@string/medical_polls" />
+        <!--        <com.mark.sharee.widgets.ShareeImageButton-->
+        <!--            android:id="@+id/medicalPollsBtn"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_rowWeight="1"-->
+        <!--            android:layout_columnWeight="1"-->
+        <!--            app:image_src="@drawable/poll11"-->
+        <!--            app:text="@string/medical_polls" />-->
 
         <com.mark.sharee.widgets.ShareeImageButton
             android:id="@+id/dailyRoutineBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
             app:image_src="@drawable/time2"
             app:text="@string/daily_routines" />
 
@@ -50,8 +50,8 @@
             android:id="@+id/generalPollsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
             app:image_src="@drawable/poll8"
             app:text="@string/general_polls" />
 
@@ -59,12 +59,12 @@
             android:id="@+id/exercisesBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
             app:image_src="@drawable/training"
             app:text="@string/personal_exercises" />
 
-    </GridLayout>
+    </LinearLayout>
 
     <com.mark.sharee.widgets.ShareeTextView
         android:id="@+id/lastMessagesTitle"
