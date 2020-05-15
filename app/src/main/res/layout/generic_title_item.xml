@@ -8,7 +8,7 @@
     android:background="@drawable/round_rect_shape">
 
     <com.mark.sharee.widgets.ShareeTextView
-        android:id="@+id/pollName"
+        android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="start"
