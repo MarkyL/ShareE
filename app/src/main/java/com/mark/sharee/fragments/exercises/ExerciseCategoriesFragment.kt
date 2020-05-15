@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,13 +12,11 @@ import com.mark.sharee.adapters.BaseAdapter
 import com.mark.sharee.adapters.ExerciseCategoriesAdapter
 import com.mark.sharee.core.Action
 import com.mark.sharee.core.ShareeFragment
-import com.mark.sharee.fragments.generalPolls.GetGeneralPollsSuccess
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.ExercisesInfo
 import com.mark.sharee.network.model.responses.ExerciseCategory
 import com.mark.sharee.screens.ExercisesScreen
-import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
 import com.mark.sharee.utils.Toaster
@@ -111,7 +108,6 @@ class ExerciseCategoriesFragment: ShareeFragment(), BaseAdapter.AdapterListener<
     }
 
     override fun onItemClick(data: ExerciseCategory) {
-        Toaster.show(this, "on category click")
         navigator.replace(ExercisesScreen(ExercisesInfo(data)))
     }
 
