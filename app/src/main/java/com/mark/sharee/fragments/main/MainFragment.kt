@@ -160,7 +160,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     private fun handleGetMessagesSuccess(messages: MutableList<Message>) {
         this.messages = messages
-        messagesAdapter.submitList(messages.take(3))
+        messagesAdapter.submitList(messages.take(MESSAGES_TO_SHOW))
     }
 
     private fun handleScheduledNotificationsSuccess(response: ScheduledNotificationsSuccess) {
@@ -243,6 +243,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     companion object {
         private const val TAG = "MainFragment"
+        private const val MESSAGES_TO_SHOW = 8
     }
 
     private fun showProgressView() {
