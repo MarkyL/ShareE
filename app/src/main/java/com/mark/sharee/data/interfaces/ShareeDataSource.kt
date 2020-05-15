@@ -23,4 +23,7 @@ interface ShareeDataSource {
     suspend fun scheduledNotifications() : MutableList<ScheduledNotification>
 
     suspend fun getMessages(verificationToken: String): MutableList<Message>
+
+    suspend fun getExercises(verificationToken: String): MutableList<ExerciseCategory>
+
 }

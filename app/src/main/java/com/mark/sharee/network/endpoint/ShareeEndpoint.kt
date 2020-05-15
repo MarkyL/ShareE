@@ -48,4 +48,8 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
         return shareeService.getMessages(verificationToken)
     }
 
+    suspend fun getExercises(verificationToken: String): MutableList<ExerciseCategory> {
+        return shareeService.getExercises(verificationToken)
+    }
+
 }

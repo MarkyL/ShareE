@@ -41,4 +41,8 @@ class ShareeRemoteDataSource constructor(private val endpoint: ShareeEndpoint) :
     override suspend fun getMessages(verificationToken: String): MutableList<Message> {
         return endpoint.getMessages(verificationToken)
     }
+
+    override suspend fun getExercises(verificationToken: String): MutableList<ExerciseCategory> {
+        return endpoint.getExercises(verificationToken)
+    }
 }

@@ -49,4 +49,8 @@ class ShareeRepository constructor(remoteDataSource: ShareeRemoteDataSource) : S
     override suspend fun getMessages(verificationToken: String): MutableList<Message> {
         return activeDataSource.getMessages(verificationToken)
     }
+
+    override suspend fun getExercises(verificationToken: String): MutableList<ExerciseCategory> {
+        return activeDataSource.getExercises(verificationToken)
+    }
 }

@@ -39,4 +39,7 @@ interface ShareeService {
 
     @GET(value = PATIENT_BASE + "getNotifications/verificationToken/{verificationToken}")
     suspend fun getMessages(@Path("verificationToken") verificationToken: String) : MutableList<Message>
+
+    @GET(value = PATIENT_BASE + "exercises/verificationToken/{verificationToken}")
+    suspend fun getExercises(@Path("verificationToken") verificationToken: String) : MutableList<ExerciseCategory>
 }

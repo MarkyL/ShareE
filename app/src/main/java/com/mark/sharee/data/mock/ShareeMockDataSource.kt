@@ -125,4 +125,26 @@ class ShareeMockDataSource : ShareeDataSource {
                     " טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו כשיש פה" +
                     " טקסט ארוך מאוד בוא נראה אותו כשיש פה טקסט ארוך מאוד בוא נראה אותו", timeStamp = 1588124800))
     }
+
+    override suspend fun getExercises(verificationToken: String): MutableList<ExerciseCategory> {
+        val exercisesSetOne = mutableListOf(
+            Exercise("1", "תעשה שכיבות שמיכה"),
+            Exercise("2", "תעשה כפיפות בטן"),
+            Exercise("3", "תעשה קקי"),
+            Exercise("4", "תעשה פיפי"))
+        val exercisesSetTwo = mutableListOf(
+            Exercise("1", "תחשוב על המחר"),
+            Exercise("2", "תדמיין את עצמך יוצא מכאן"),
+            Exercise("3", "תדמיין משהו טוב"),
+            Exercise("4", "תחשוב על משהו נחמד"))
+        val exercisesSetThree = mutableListOf(
+            Exercise("1", "אל תשתולל"),
+            Exercise("2", "תיקח את הכדורים"),
+            Exercise("3", "תסתכל במראה"),
+            Exercise("4", "תתלבש יפה"))
+        return mutableListOf(
+            ExerciseCategory("1","פיזיוטרפיסט", exercisesSetOne),
+            ExerciseCategory("2","פסיכולוג", exercisesSetTwo),
+            ExerciseCategory("3","פסיכיאטר", exercisesSetThree))
+    }
 }
