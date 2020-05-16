@@ -65,7 +65,6 @@ class SignInFragment : ShareeFragment() {
     }
 
     private fun attemptAutoLogin() {
-//        val phone = User.me()?.phoneNumber
         var isSplashNeeded = false
         User.me()?.getPhone()?.let {
             if (it.isNotEmpty()) {
