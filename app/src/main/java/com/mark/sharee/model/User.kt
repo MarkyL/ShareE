@@ -70,4 +70,19 @@ data class User(var verificationToken: String, val phoneNumber: String) {
         return preferences.getString(FCM_TOKEN, StringUtils.EMPTY_STRING).toString()
     }
 
+    fun saveBooleanParam(key: String, state: Boolean) {
+        preferences.edit().putBoolean(key, state).apply()
+    }
+
+    fun getBooleanParam(key: String): Boolean {
+        return preferences.getBoolean(key, false)
+    }
+
+    fun saveLongParam(key: String, value: Long) {
+        preferences.edit().putLong(key, value).apply()
+    }
+
+    fun getLongParam(key: String): Long {
+        return preferences.getLong(key, 0)
+    }
 }

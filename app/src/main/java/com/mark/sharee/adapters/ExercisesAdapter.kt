@@ -27,11 +27,19 @@ class ExerciseViewHolder constructor(override val containerView: View, val liste
     RecyclerView.ViewHolder(containerView), LayoutContainer, BaseAdapter.Binder<Exercise> {
 
     override fun bind(data: Exercise) {
-        checkedTextView.text = data.description
+        exerciseDescriptionTv.text = data.description
+        checkbox.isChecked = data.isChecked
 
         if (!data.url.isNullOrEmpty()) {
             linkImage.visibility = View.VISIBLE
             linkImage.setOnClickListener { listener.onOpenUrlClick(data.url) }
+        }
+
+        checkbox.setOnCheckedChangeListener { _, isChecked -> listener.onCheckStateChange(data, isChecked) }
+        exerciseDescriptionTv.setOnClickListener {
+            checkbox.isChecked = !checkbox.isChecked
+            listener.onCheckStateChange(data, checkbox.isChecked)
+            listener.onItemClick(data)
         }
     }
 
@@ -39,4 +47,5 @@ class ExerciseViewHolder constructor(override val containerView: View, val liste
 
 interface ExercisesAdapterListener : BaseAdapter.AdapterListener<Exercise> {
     fun onOpenUrlClick(url: String)
+    fun onCheckStateChange(exercise: Exercise, isChecked: Boolean)
 }

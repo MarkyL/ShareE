@@ -8,4 +8,5 @@ data class ExerciseCategory (
 data class Exercise (
     val id: String,
     val description: String,
-    val url: String? = null)
+    val url: String? = null,
+    var isChecked: Boolean = false)
