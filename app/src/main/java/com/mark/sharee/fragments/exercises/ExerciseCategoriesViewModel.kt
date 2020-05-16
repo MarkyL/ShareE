@@ -29,7 +29,7 @@ class ExerciseCategoriesViewModel constructor(
                 runCatching {
                     Timber.i("getExercises - runCatching")
                     publish(state = State.LOADING)
-                    shareeRepository.getExercises(it.getToken())
+                    shareeRepository.getExercises(it.verificationToken)
                 }.onSuccess {
                     Timber.i("getExercises - onSuccess, response = $it")
                     publish(state = State.NEXT, items = Event(GetExercisesSuccess(it)))

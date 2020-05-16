@@ -15,10 +15,7 @@ import com.mark.sharee.core.ShareeFragment
 import com.mark.sharee.model.User
 import com.mark.sharee.navigation.arguments.TransferInfo
 import com.mark.sharee.screens.MainScreen
-import com.mark.sharee.utils.BaseTextWatcher
-import com.mark.sharee.utils.OnKeyboardActionListener
-import com.mark.sharee.utils.PhoneNumber
-import com.mark.sharee.utils.StringUtils
+import com.mark.sharee.utils.*
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -52,8 +49,8 @@ class SignInFragment : ShareeFragment() {
         })
 
         //TEST DATA for work phone//
-//        phoneNumberET.setText("0529426921") // test phone
-//        phoneNumberET.setText("0545525248") // Mom's phone
+        phoneNumberET.setText("0529426921") // test phone
+//        phoneNumberET.settText("0545525248") // Mom's phone
 //        phoneNumberET.setText("0549409575") // mark's phone
 
         //TEST DATA for work phone//
@@ -123,7 +120,7 @@ class SignInFragment : ShareeFragment() {
             progressBar.visibility = if (dataState.showProgress) View.VISIBLE else View.GONE
             if (dataState.response != null && !dataState.response.consumed) {
                 dataState.response.consume()?.let { response ->
-                    Toast.makeText(context, response.verificationToken, Toast.LENGTH_LONG).show()
+                    Toaster.show(this, response.verificationToken)
                     Timber.i("login success, verificationToken = ${response.verificationToken}")
 
                     val transferInfo = TransferInfo()
@@ -174,7 +171,9 @@ class SignInFragment : ShareeFragment() {
                     // ...
                 }
 
-                Toast.makeText(context, "onVerificationFailed", Toast.LENGTH_LONG).show()
+                val context = context ?: return
+
+                Toaster.show(context, "onVerificationFailed")
                 splashView.visibility = View.GONE
                 // Show a message and update the UI
                 // ...

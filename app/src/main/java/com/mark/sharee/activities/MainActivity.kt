@@ -39,11 +39,7 @@ class MainActivity : ShareeActivity() {
         initializeFonts()
         initializeDrawer()
 
-        if (User.me()?.getToken() != null) {
-            navigator.replace(MainScreen(TransferInfo()), false)
-        } else {
-            navigator.replace(SignInScreen())
-        }
+        navigator.replace(SignInScreen())
     }
 
     override fun onResume() {

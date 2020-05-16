@@ -87,7 +87,7 @@ fun provideOkhttp(cache: Cache) = OkHttpClient.Builder()
     .addInterceptor { chain ->
         val request = chain.request()
         User.me()?.let {
-            request.newBuilder().addHeader("verificationToken", it.getToken()).build()
+            request.newBuilder().addHeader("verificationToken", it.verificationToken).build()
         }
         chain.proceed(request)
     }

@@ -33,7 +33,8 @@ class PollSectionsAdapter : BaseAdapter<PollSection>() {
     override fun submitList(listItems: List<PollSection>) {
         val diffResult =
             DiffUtil.calculateDiff(PollSectionDiffCallback(this.items, listItems))
-        this.items = listItems
+        this.items.clear()
+        this.items.addAll(listItems)
         diffResult.dispatchUpdatesTo(this)
     }
 }

@@ -27,7 +27,7 @@ class PollViewModel constructor(application: Application, private val shareeRepo
 
     private fun submitPoll(pollId: String, answeredQuestions: List<Question>) {
         val filteredAnswers = answeredQuestions.filter { item -> item.answer != null }
-        val verificationToken = User.me()?.getToken()
+        val verificationToken = User.me()?.verificationToken
         if (verificationToken == null) {
             handleNoToken()
             return

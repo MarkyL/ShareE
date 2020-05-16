@@ -20,7 +20,6 @@ import com.mark.sharee.model.User
 import com.mark.sharee.mvvm.State
 import com.mark.sharee.mvvm.ViewModelHolder
 import com.mark.sharee.navigation.arguments.TransferInfo
-import com.mark.sharee.network.model.responses.ExerciseCategory
 import com.mark.sharee.network.model.responses.Message
 import com.mark.sharee.network.model.responses.ScheduledNotification
 import com.mark.sharee.screens.DailyRoutinesTabScreen
@@ -30,12 +29,8 @@ import com.mark.sharee.screens.MessagesScreen
 import com.mark.sharee.utils.AlarmUtils
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
-import com.mark.sharee.utils.Toaster
 import com.mark.sharee.widgets.ShareeToolbar
-import kotlinx.android.synthetic.main.fragment_general_polls.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.progressBar
-import kotlinx.android.synthetic.main.fragment_main.recyclerView
 import kotlinx.android.synthetic.main.sharee_toolbar.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -79,7 +74,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
                     if (token.isNullOrEmpty()) {
                         Timber.i("$TAG - Empty fcm token")
                     } else {
-                        viewModel.dispatchInputEvent(UpdateFcmToken(token, it.getToken()))
+                        viewModel.dispatchInputEvent(UpdateFcmToken(token, it.verificationToken))
                     }
                 } ?: Timber.i("$TAG - User is null.")
             })
@@ -101,7 +96,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
         viewModel.dispatchInputEvent(GetScheduledNotifications)
         User.me()?.let {
-            viewModel.dispatchInputEvent(GetMessages(it.getToken()))
+            viewModel.dispatchInputEvent(GetMessages(it.verificationToken))
         }
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)

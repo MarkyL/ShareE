@@ -5,30 +5,32 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mark.sharee.utils.ItemAnimation
+import timber.log.Timber
 
 abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    var items: List<T>
+    var items: ArrayList<T>
     var listener: AdapterListener<T>? = null
     var lastPosition = -1
     private var onAttach = true
     private var animationType = ItemAnimation.FADE_IN
 
-    constructor(listItems: List<T>) {
+    constructor(listItems: ArrayList<T>) {
         this.items = listItems
     }
 
     constructor(listener: AdapterListener<T>) {
-        items = emptyList()
+        items = arrayListOf()
         this.listener = listener
     }
 
     constructor() {
-        items = emptyList()
+        items = arrayListOf()
     }
 
     open fun submitList(listItems: List<T>) {
-        this.items = listItems
+        this.items.clear()
+        this.items.addAll(listItems)
         notifyDataSetChanged()
     }
 

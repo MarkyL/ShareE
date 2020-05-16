@@ -14,7 +14,6 @@ data class User(var verificationToken: String, val phoneNumber: String) {
         private var me: User? = null
         private lateinit var preferences: SharedPreferences
         const val CURRENT_USER_FILE_NAME = "current_user"
-        private const val VERIFICATION_TOKEN_PREFERENCE = "verification_token"
         private const val PHONE_PREFERENCE = "phone"
         private const val FIRE_BASE_AUTH_TOKEN = "fb_token"
         private const val FCM_TOKEN = "fcm_token"
@@ -24,11 +23,9 @@ data class User(var verificationToken: String, val phoneNumber: String) {
             me = User(verificationToken, phoneNumber)
 
             me?.let {
-                with (it) {
-                    setPhonePreference(phoneNumber)
-                    updateToken(verificationToken)
-                    setFireBaseAuthToken(fireBaseAuthToken)
-                }
+                it.setPhonePreference(phoneNumber)
+                it.setFireBaseAuthToken(fireBaseAuthToken)
+                return it
             }
 
             return User()
@@ -40,21 +37,13 @@ data class User(var verificationToken: String, val phoneNumber: String) {
         }
 
         fun me(): User? {
-            if (me == null && preferences.getString(VERIFICATION_TOKEN_PREFERENCE, null) != null) {
+            if (me == null && preferences.getString(PHONE_PREFERENCE, null) != null) {
                 me = User()
                 Timber.i("User object is null ! created new User")
             }
             return me
         }
 
-    }
-
-    fun updateToken(token: String) {
-        preferences.edit().putString(VERIFICATION_TOKEN_PREFERENCE, token).apply()
-    }
-
-    fun getToken(): String {
-        return preferences.getString(VERIFICATION_TOKEN_PREFERENCE, StringUtils.EMPTY_STRING).toString()
     }
 
     fun setPhonePreference(phoneNumber: String) {

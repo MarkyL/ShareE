@@ -1,7 +1,10 @@
 package com.mark.sharee.mvvm
 
 import android.app.Application
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.*
+import com.mark.sharee.utils.Event
 import rx.Subscription
 import rx.subjects.BehaviorSubject
 import rx.subscriptions.CompositeSubscription
@@ -36,10 +39,11 @@ abstract class BaseViewModel<T, R>(application: Application) : ViewModel(),
 
     protected fun publish(items: T? = null, state: State? = null, throwable: Throwable? = null) {
         data.value?.update(items, state, throwable)
-        data.postValue(data.value)
+        data.value = data.value
     }
 
     protected fun publish(nextState: LiveState<T>){
+        //TODO - change this to set value with handler in the future.
         state.postValue(nextState)
     }
 
