@@ -69,7 +69,7 @@ class MainViewModel constructor(application: Application, private val shareeRepo
                 it.sortByDescending { message -> message.timeStamp }
                 publish(state = State.NEXT, items = Event(GetMessagesSuccess(it)))
             }.onFailure {
-                Timber.e("getMessages - onFailure $it")
+                Timber.e("getMessages - onFailure $it, cause: ${it.cause}")
                 publish(state = State.ERROR, items = Event(GetMessagesFailure), throwable = it)
             }
         }

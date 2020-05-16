@@ -29,9 +29,9 @@ class ExerciseViewHolder constructor(override val containerView: View, val liste
     override fun bind(data: Exercise) {
         checkedTextView.text = data.description
 
-        data.url?.let { link ->
+        if (!data.url.isNullOrEmpty()) {
             linkImage.visibility = View.VISIBLE
-            linkImage.setOnClickListener { listener.onOpenUrlClick(link) }
+            linkImage.setOnClickListener { listener.onOpenUrlClick(data.url) }
         }
     }
 
