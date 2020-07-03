@@ -25,7 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/min_margin">
+            android:paddingBottom="@dimen/global_margin_bottom">
 
             <ImageView
                 android:id="@+id/imageHeader"
@@ -43,11 +43,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/min_margin_top"
                 android:text="@string/our_team"
-                style="@style/ShareeTextViewStyle.Large"
+                style="@style/ShareeTextViewStyle.XLarge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageHeader"
-                app:sharee_font="orionBold" />
+                app:sharee_font="orionExtraBold" />
 
             <GridLayout
                 android:id="@+id/profilesLayout"
@@ -109,17 +109,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/min_margin_top"
                 android:text="@string/our_mission"
-                style="@style/ShareeTextViewStyle.Large"
+                style="@style/ShareeTextViewStyle.XLarge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profilesLayout"
-                app:sharee_font="orionBold" />
+                app:sharee_font="orionExtraBold" />
 
             <com.mark.sharee.widgets.ShareeTextView
                 android:id="@+id/ourMissionInfo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/min_margin"
+                android:layout_marginTop="@dimen/min_margin_top"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:lineSpacingExtra="6dp"
                 android:text="@string/our_mission_info"
                 android:textAlignment="textStart"
                 app:layout_constraintEnd_toEndOf="parent"
