@@ -115,9 +115,9 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
             navigator.replace(GeneralPollsScreen(TransferInfo(flow = TransferInfo.Flow.GeneralPolls)))
         }
 
-//        medicalPollsBtn.setOnClickListener {
-//            navigator.replace(GeneralPollsScreen(TransferInfo(flow = TransferInfo.Flow.MedicalPolls)))
-//        }
+        medicalPollsBtn.setOnClickListener {
+            navigator.replace(GeneralPollsScreen(TransferInfo(flow = TransferInfo.Flow.MedicalPolls)))
+        }
 
         exercisesBtn.setOnClickListener {
             navigator.replace(ExerciseCategoriesScreen())
