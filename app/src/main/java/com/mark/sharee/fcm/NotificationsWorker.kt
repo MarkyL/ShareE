@@ -11,8 +11,6 @@ class NotificationsWorker(appContext: Context, workerParams: WorkerParameters) :
 
     override fun doWork(): Result {
 
-        Timber.i("$TAG - Work START")
-
         // Get Notification Data
         val title = inputData.getString(NOTIFICATION_TITLE)
         val message = inputData.getString(NOTIFICATION_MESSAGE)
@@ -24,7 +22,6 @@ class NotificationsWorker(appContext: Context, workerParams: WorkerParameters) :
 
         // TODO Do your other Background Processing
 
-        Timber.i( "$TAG - Work DONE")
         // Return result
 
         return Result.success()

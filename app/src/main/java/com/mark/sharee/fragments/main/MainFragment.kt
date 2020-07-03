@@ -54,7 +54,6 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    Timber.i("$TAG - getInstanceId failed", task.exception)
                     return@OnCompleteListener
                 }
 
