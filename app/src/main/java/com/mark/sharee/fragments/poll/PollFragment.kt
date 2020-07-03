@@ -23,6 +23,7 @@ import com.mark.sharee.network.model.responses.PollSection
 import com.mark.sharee.screens.GeneralPollsScreen
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
+import com.mark.sharee.utils.Toaster
 import kotlinx.android.synthetic.main.fragment_poll.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -110,7 +111,6 @@ class PollFragment : ShareeFragment() {
 
     private fun handleSubmitPollSuccess(response: SubmitPollSuccess) {
         Timber.i("handleSubmitPollSuccess generalPollsResponse = $response")
-        Toast.makeText(context, resources.getString(R.string.submit_poll_success), Toast.LENGTH_SHORT).show()
         showSuccessDialog()
     }
 

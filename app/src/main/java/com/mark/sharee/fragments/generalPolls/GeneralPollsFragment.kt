@@ -21,6 +21,7 @@ import com.mark.sharee.screens.MainScreen
 import com.mark.sharee.screens.PollScreen
 import com.mark.sharee.utils.Event
 import com.mark.sharee.utils.GridSpacingItemDecoration
+import com.mark.sharee.utils.Toaster
 import kotlinx.android.synthetic.main.fragment_general_polls.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -126,7 +127,9 @@ class GeneralPollsFragment : ShareeFragment(),
         val generalPolls = response.polls
         //TODO: handle empty generalPolls list (show some view for it)...
         if (generalPolls.isNullOrEmpty()) {
-            Toast.makeText(context, "There are no active polls", Toast.LENGTH_LONG).show()
+            context?.let {
+                Toaster.show(it, "אין סקרים פעילים זמינים", false)
+            }
             navigator.goBackTo(MainScreen::class.java)
         } else {
             pollsAdapter.submitList(generalPolls)

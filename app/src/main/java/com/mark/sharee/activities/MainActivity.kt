@@ -105,8 +105,6 @@ class MainActivity : ShareeActivity() {
 
         navigationView.setNavigationItemSelectedListener { item ->
             Timber.i("$TAG -  onNavigationItemSelected - ${item.title}")
-            Toast.makeText(applicationContext, "בחרת " + item.title.toString(), Toast.LENGTH_SHORT)
-                .show()
 
             when (item.itemId) {
                 R.id.navDepartmentInfo -> {

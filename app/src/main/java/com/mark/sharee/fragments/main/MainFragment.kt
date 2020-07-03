@@ -43,6 +43,7 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
     private val messagesAdapter = MessagesAdapter()
     private var messages: MutableList<Message> = mutableListOf()
+    private var isShowMessageScreenRequired = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,9 +95,8 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
         registerViewModel()
 
         viewModel.dispatchInputEvent(GetScheduledNotifications)
-        User.me()?.let {
-            viewModel.dispatchInputEvent(GetMessages(it.verificationToken))
-        }
+        getMessages()
+
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(GridSpacingItemDecoration(1, 30, true))
@@ -104,6 +104,12 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
         }
 
         setNavigationListeners()
+    }
+
+    private fun getMessages() {
+        User.me()?.let {
+            viewModel.dispatchInputEvent(GetMessages(it.verificationToken))
+        }
     }
 
     private fun setNavigationListeners() {
@@ -157,6 +163,11 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
     private fun handleGetMessagesSuccess(messages: MutableList<Message>) {
         this.messages = messages
         messagesAdapter.submitList(messages.take(MESSAGES_TO_SHOW))
+
+        if (isShowMessageScreenRequired) {
+            isShowMessageScreenRequired = false
+            navigateToMessagesScreen()
+        }
     }
 
     private fun handleScheduledNotificationsSuccess(response: ScheduledNotificationsSuccess) {
@@ -166,7 +177,6 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
 
         // set the new ones:
         response.scheduledNotifications.forEach { scheduledNotification ->
-            // weekday meal at 08:00 morning
             val timeTokens = scheduledNotification.time.split(":")
             val notificationHour = timeTokens[0].toInt()
             val notificationMinute = timeTokens[1].toInt()
@@ -224,13 +234,18 @@ class MainFragment : ShareeFragment(), ShareeToolbar.ActionListener, SupportsOnB
             (activity as MainActivity).openDrawer()
             return true
         } else if (action == Action.Notification) {
-            val transferInfo = TransferInfo()
-            transferInfo.messages = this.messages
-            navigator.replace(MessagesScreen(transferInfo))
+            isShowMessageScreenRequired = true
+            getMessages()
         }
 
 
         return false
+    }
+
+    private fun navigateToMessagesScreen() {
+        val transferInfo = TransferInfo()
+        transferInfo.messages = this.messages
+        navigator.replace(MessagesScreen(transferInfo))
     }
 
     override fun onBackPressed(): Boolean {
