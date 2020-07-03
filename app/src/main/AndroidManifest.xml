@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name="com.mark.sharee.activities.MainActivity"
-
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher"
             android:windowSoftInputMode="adjustPan">
 
