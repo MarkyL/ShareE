@@ -19,8 +19,8 @@ interface ShareeService {
     @GET(value = PATIENT_BASE + "poll")
     suspend fun poll(): GeneralPollResponse
 
-    @POST(value = PATIENT_BASE + "submitPoll")
-    suspend fun submitPoll(@Body submitPollRequest: SubmitPollRequest)
+    @POST(value = PATIENT_BASE + "submitPoll/verificationToken/{verificationToken}")
+    suspend fun submitPoll(@Path("verificationToken") verificationToken: String, @Body submitPollRequest: SubmitPollRequest)
 
     @GET(value = PATIENT_BASE + "generalPolls")
     suspend fun getGeneralPolls() : MutableList<GeneralPollResponse>

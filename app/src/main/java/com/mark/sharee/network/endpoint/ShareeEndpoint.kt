@@ -17,10 +17,10 @@ class ShareeEndpoint constructor(private val shareeService: ShareeService) {
     }
 
     suspend fun submitPoll(verificationToken: String, pollId: String, answeredQuestions: List<AnsweredQuestion>) {
-        val submitPollRequest = SubmitPollRequest(verificationToken, pollId, answeredQuestions)
+        val submitPollRequest = SubmitPollRequest(pollId, answeredQuestions)
         var requestJson = Gson().toJson(submitPollRequest)
         Timber.i("submitPoll: request: $requestJson")
-        shareeService.submitPoll(submitPollRequest)
+        shareeService.submitPoll(verificationToken, submitPollRequest)
     }
 
     suspend fun getGeneralPolls(): MutableList<GeneralPollResponse> {
